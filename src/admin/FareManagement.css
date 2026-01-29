@@ -1,0 +1,163 @@
+/* src/admin/FareManagement.css */
+
+.fare-page-container {
+    padding: 20px;
+}
+
+.fare-header-section {
+    margin-bottom: 25px;
+}
+
+.fare-header-section h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 20px;
+}
+
+.fare-subtitle {
+    background-color: #e7f1ff; /* Light blue bar */
+    color: #0d6efd;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    border: 1px solid #cce5ff;
+}
+
+/* --- TABLE STYLES --- */
+.fare-table-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden; /* For rounded corners */
+    margin-bottom: 30px;
+}
+
+.fare-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.fare-table th {
+    background-color: #f8f9fa;
+    text-align: left;
+    padding: 15px;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 1px solid #ddd;
+}
+
+.fare-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+    color: #333;
+}
+
+.class-name { font-weight: 500; }
+
+/* Edit Inputs */
+.fare-input {
+    width: 80px;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Buttons */
+.fare-btn-primary {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.fare-btn-primary:hover { background-color: #0b5ed7; }
+
+.fare-action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+}
+.fare-action-btn.save { color: #198754; }
+.fare-action-btn.cancel { color: #dc3545; }
+
+/* --- INFO SECTIONS --- */
+.fare-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.fare-info-card {
+    background: white;
+    border: 1px solid #eee; /* Very subtle border */
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.fare-info-card h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #222;
+}
+
+/* Formula Box */
+.formula-box {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #eee;
+}
+
+.formula-label { margin: 0 0 5px 0; color: #666; font-size: 14px; }
+
+.formula-text {
+    display: block;
+    color: #0d6efd;
+    font-family: monospace;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+
+.example-text {
+    margin: 0;
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+}
+
+/* Rules List */
+.rules-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.rules-list > li {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    position: relative;
+    font-size: 14px;
+    color: #555;
+}
+
+.rules-list > li::before {
+    content: "•";
+    color: #0d6efd; /* Blue bullets */
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.rules-list ul {
+    margin-top: 5px;
+    padding-left: 20px;
+    list-style-type: disc;
+    color: #666;
+}

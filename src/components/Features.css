@@ -1,0 +1,15 @@
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin: 60px 40px;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  width: 260px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}

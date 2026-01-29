@@ -1,0 +1,135 @@
+.pnr-page {
+  background-color: #f5f7fa;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.pnr-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- THE MAIN CARD --- */
+.pnr-card {
+  background: white;
+  width: 100%; /* Full Width as requested */
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border: 1px solid #eee;
+}
+
+.pnr-title {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.pnr-label {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.input-row {
+  display: flex;
+  gap: 15px;
+}
+
+/* Input Field */
+.input-row input {
+  flex: 1; /* Takes remaining space */
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.input-row input:focus {
+  border-color: #0d6efd;
+}
+
+/* Button */
+.check-btn {
+  background-color: #0d6efd; /* Official Blue */
+  color: white;
+  border: none;
+  padding: 0 30px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.check-btn:hover {
+  background-color: #0b5ed7;
+}
+
+/* --- RESULT SECTION --- */
+.status-result {
+  margin-top: 30px;
+  background: white;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  overflow: hidden;
+  animation: slideDown 0.4s ease;
+}
+
+.result-header {
+  background: #e7f1ff;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #0d6efd;
+  font-weight: bold;
+}
+
+.passenger-table {
+  padding: 20px;
+}
+
+.passenger-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.status-badge {
+  background: #d1e7dd;
+  color: #0f5132;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .input-row {
+    flex-direction: column;
+  }
+  .check-btn {
+    justify-content: center;
+    padding: 12px;
+  }
+}

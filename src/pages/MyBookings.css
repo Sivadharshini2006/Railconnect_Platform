@@ -1,0 +1,156 @@
+/* Layout */
+.page-wrapper {
+  background-color: #f1f3f6;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  padding-bottom: 40px;
+}
+
+.bookings-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 0 15px;
+}
+
+.page-title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  background: white;
+  border-radius: 8px;
+  padding: 5px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: none;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.tab-btn.active {
+  background: #e3f2fd;
+  color: #0d6efd;
+}
+
+/* Ticket Card */
+.ticket-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.ticket-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* Card Header */
+.ticket-header {
+  background: #f8f9fa;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.pnr-text {
+  font-size: 14px;
+  color: #555;
+}
+
+.status-badge {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+.status-badge.green { background: #e8f5e9; color: #2e7d32; }
+.status-badge.orange { background: #fff3e0; color: #ef6c00; }
+.status-badge.red { background: #ffebee; color: #c62828; }
+.status-badge.gray { background: #eee; color: #555; }
+
+/* Card Body */
+.ticket-body {
+  padding: 20px;
+}
+
+.train-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.t-icon { color: #0d6efd; font-size: 18px; }
+.t-name { font-weight: bold; font-size: 16px; color: #333; }
+.t-class { background: #eee; font-size: 11px; padding: 2px 6px; border-radius: 4px; color: #555; }
+
+.route-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.route-time { display: flex; flex-direction: column; }
+.route-time.right { align-items: flex-end; }
+
+.time-big { font-size: 20px; font-weight: 700; color: #333; }
+.stn-small { font-size: 13px; color: #777; margin-top: 2px; }
+
+.route-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  color: #aaa;
+}
+.duration { margin-bottom: 5px; font-size: 11px; }
+
+/* Card Footer */
+.ticket-footer {
+  padding: 12px 20px;
+  border-top: 1px dashed #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pax-info { font-size: 13px; color: #666; display: flex; align-items: center; gap: 6px; }
+
+.action-btn {
+  background: #fff;
+  border: 1px solid #0d6efd;
+  color: #0d6efd;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 5px;
+}
+.action-btn:hover { background: #e3f2fd; }
+
+.text-btn { background: none; border: none; color: #0d6efd; cursor: pointer; font-size: 13px; font-weight: 600; }
+
+.no-bookings {
+  text-align: center;
+  padding: 50px;
+  color: #999;
+}

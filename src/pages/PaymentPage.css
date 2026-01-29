@@ -1,0 +1,132 @@
+/* Page Wrapper */
+.payment-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+/* Header */
+.payment-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+.back-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: #555; }
+.payment-header h2 { margin: 0; font-size: 24px; }
+.payment-header p { margin: 0; color: #777; font-size: 14px; }
+
+/* Grid Layout */
+.payment-grid {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.payment-left { flex: 2; background: #fff; padding: 0; border-radius: 8px; }
+.payment-right { flex: 1; }
+
+/* Methods Tabs */
+.method-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.method-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  background: white;
+  transition: all 0.2s;
+}
+
+.method-box:hover { background: #f9f9f9; }
+
+.method-box.active {
+  border: 2px solid #0d6efd;
+  background: #e3f2fd;
+  color: #0d6efd;
+}
+.m-icon { font-size: 24px; margin-bottom: 8px; }
+
+/* Form Styles */
+.payment-form {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.payment-form label { display: block; font-size: 13px; font-weight: 600; color: #555; margin-bottom: 6px; }
+.pay-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  outline: none;
+}
+.pay-input:focus { border-color: #0d6efd; }
+
+.pay-confirm-btn {
+  width: 100%;
+  background: #0d6efd;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.pay-confirm-btn:hover { background: #0b5ed7; }
+
+/* Summary Right Panel */
+.summary-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.summary-card h3 { margin-top: 0; font-size: 16px; color: #555; margin-bottom: 20px; }
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #666;
+}
+
+.summ-divider { border-top: 1px dashed #ddd; margin: 15px 0; }
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+.blue-text { color: #0d6efd; }
+
+/* Secure Badge */
+.secure-badge {
+  background: #e8f5e9;
+  border: 1px solid #c8e6c9;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.secure-icon { color: #2e7d32; margin-top: 3px; }
+.secure-badge strong { display: block; color: #2e7d32; font-size: 13px; margin-bottom: 2px; }
+.secure-badge p { margin: 0; color: #4caf50; font-size: 11px; line-height: 1.4; }

@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  font-family:'Inter', sans-serif;
+  background: #f4f6f8;
+}
+
+.navbar {
+  background: #0a2a66;
+  color: white;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logout {
+  background: red;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.search {
+  background: white;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+.search-row {
+  display: flex;
+  gap: 10px;
+}
+
+.search-row input {
+  padding: 8px;
+  flex: 1;
+}
+
+.search-row button {
+  background: #0a2a66;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+}
+
+.results {
+  margin: 20px;
+}
+
+.train-card {
+  background: white;
+  padding: 15px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status span {
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.avl { color: green; }
+.rac { color: orange; }
+.wl { color: red; }
+
+.book {
+  background: #0a2a66;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+}

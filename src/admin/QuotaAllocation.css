@@ -1,0 +1,194 @@
+.quota-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+
+/* Header */
+.quota-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.quota-header-row h3 {
+    margin: 0;
+    color: #333;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+.total-badge {
+    background-color: #d1fae5;
+    color: #065f46;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Common Card Style */
+.section-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+.card-title {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Progress Bar */
+.quota-progress-bar {
+    display: flex;
+    height: 35px;
+    width: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+.q-bar-segment {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+.q-bar-segment:hover { opacity: 0.9; }
+
+/* Table */
+.quota-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.quota-table th {
+    text-align: left;
+    padding: 12px 15px;
+    background: #f9fafb;
+    border-bottom: 2px solid #eee;
+    color: #555;
+    font-weight: 600;
+    font-size: 14px;
+}
+.quota-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+.quota-table tr:last-child td { border-bottom: none; }
+
+.q-label-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    color: #333;
+}
+.dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    display: inline-block;
+}
+.desc-text { color: #555; font-size: 14px; }
+.pct-text { font-weight: 500; color: #333; }
+
+.q-edit-btn {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+.q-edit-btn:hover { background-color: #1d4ed8; }
+
+/* Rules Grid */
+.rules-section { margin-top: 10px; }
+.rules-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.rule-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.rule-card h5 { margin: 0 0 8px 0; font-size: 15px; color: #111; }
+.rule-card p { margin: 0; font-size: 13px; color: #666; line-height: 1.5; }
+
+/* Responsive Grid adjustment */
+@media (max-width: 768px) {
+    .rules-grid { grid-template-columns: 1fr; }
+}
+/* --- EDIT MODE STYLES --- */
+
+/* Input fields inside the table */
+.edit-input-quota {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #d1d5db; /* Light gray border */
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    background-color: #ffffff;
+}
+
+/* Focus state for inputs */
+.edit-input-quota:focus {
+    border-color: #3b82f6; /* Blue border on focus */
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+/* Smaller width for the Percentage input */
+.edit-input-quota.small {
+    width: 70px;
+    text-align: center;
+}
+
+/* --- ACTION BUTTONS (Save / Cancel) --- */
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 6px;
+    margin-right: 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Save Button (Green) */
+.icon-btn.save {
+    color: #16a34a; /* Green */
+    background-color: #dcfce7;
+}
+
+.icon-btn.save:hover {
+    background-color: #16a34a;
+    color: white;
+}
+
+/* Cancel Button (Red) */
+.icon-btn.cancel {
+    color: #dc2626; /* Red */
+    background-color: #fee2e2;
+}
+
+.icon-btn.cancel:hover {
+    background-color: #dc2626;
+    color: white;
+}
