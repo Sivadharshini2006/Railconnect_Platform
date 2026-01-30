@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FaTrain, FaPlus, FaTrash, FaUser, FaTimes, FaPhoneAlt, FaEnvelope, FaCheckCircle } from 'react-icons/fa'; // Added Icons
-import './BookingPage.css';
+import './BookingPage.scss';
 
 const BookingPage = () => {
   const navigate = useNavigate();

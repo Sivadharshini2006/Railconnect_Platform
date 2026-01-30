@@ -16,7 +16,7 @@
   width: 85%;
   margin: 30px auto;
   border-radius: 14px;
-  border: 1px solid #e0e0e0;     /* ✅ border added */
+  border: 1px solid #e0e0e0;    
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
    
   overflow: hidden;
@@ -60,7 +60,7 @@
 }
 
 
-/* FROM / TO PANEL */
+
 .station-panel {
   position: absolute;
   top: 260px;
@@ -85,7 +85,7 @@
   margin: 10px 0 5px;
 }
 
-/* CALENDAR */
+
 .calendar-overlay {
   position: fixed;
   inset: 0;
@@ -121,7 +121,7 @@
   border-radius: 8px;
 }
 .search-btn:hover {
-  background: #003ecb;   /* darker blue */
+  background: #003ecb;   
 }
 
 .swap-btn {
@@ -152,9 +152,9 @@
 }
 
 .from-to-wrapper {
-  display: flex;                /* takes space of From + To */
+  display: flex;                
   position: relative;    
-   flex: 2;   /* 🔑 anchor for swap */
+   flex: 2;   
 }
 
 

@@ -1,0 +1,318 @@
+/* ===============================
+   search-results.scss
+   =============================== */
+
+/* ---------- IMPORTS ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ---------- VARIABLES ---------- */
+$search-font-primary: 'Poppins', sans-serif;
+$search-font-secondary: 'Segoe UI', sans-serif;
+
+$search-bg-page: #f2f4f7;
+$search-bg-alt: #f5f5f5;
+$search-bg-white: #ffffff;
+$search-bg-light: #fafafa;
+$search-bg-hover: #f9f9f9;
+$search-bg-blue-light: #eef5ff;
+$search-bg-blue-soft: #e3f2fd;
+
+$search-primary: #1a5cff;
+$search-primary-dark: #0047cc;
+$search-primary-alt: #2196f3;
+
+$search-text-dark: #333;
+$search-text-muted: #555;
+$search-text-light: #777;
+$search-text-grey: #888;
+
+$search-border-light: #eee;
+$search-border-default: #ddd;
+
+$search-success: #2e7d32;
+$search-warning: #f57c00;
+$search-danger: #d32f2f;
+
+$search-radius-sm: 4px;
+$search-radius-md: 6px;
+$search-radius-lg: 8px;
+$search-radius-pill: 20px;
+
+$search-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+$search-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.04);
+$search-shadow-lg: 0 5px 15px rgba(0, 0, 0, 0.08);
+
+/* ---------- MIXINS ---------- */
+@mixin flex-center($gap: 0) {
+  display: flex;
+  align-items: center;
+  gap: $gap;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin card-base($padding) {
+  background: $search-bg-white;
+  border-radius: $search-radius-lg;
+  padding: $padding;
+  border: 1px solid $search-border-light;
+}
+
+@mixin hover-color($color) {
+  &:hover {
+    color: $color;
+  }
+}
+
+/* ---------- GLOBAL ---------- */
+* {
+  box-sizing: border-box;
+}
+
+.page-wrapper {
+  background-color: $search-bg-page;
+  min-height: 100vh;
+  font-family: $search-font-primary;
+  color: $search-text-dark;
+  padding-bottom: 40px;
+}
+
+.main-container {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 0 10px 40px;
+}
+
+/* ---------- NAV ---------- */
+.nav-item {
+  &.active {
+    color: $search-primary;
+    font-weight: 600;
+  }
+
+  @include hover-color($search-primary);
+}
+
+/* ---------- ROUTE HEADER ---------- */
+.route-header {
+  margin: 20px 0 15px;
+
+  h1 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+    @include flex-center;
+  }
+}
+
+.route-meta {
+  font-size: 12px;
+  color: $search-text-light;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ---------- DATE CAROUSEL ---------- */
+.date-carousel {
+  @include flex-center;
+  background: $search-bg-white;
+  padding: 10px;
+  border-radius: $search-radius-lg $search-radius-lg 0 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cal-btn {
+  border: none;
+  background: none;
+  font-size: 18px;
+  color: $search-text-muted;
+  padding: 0 15px;
+  border-right: 1px solid $search-border-light;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.dates-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  flex: 1;
+  scrollbar-width: none;
+}
+
+.date-card {
+  min-width: 85px;
+  text-align: center;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: $search-radius-sm;
+  position: relative;
+  transition: 0.2s;
+
+  &:hover {
+    background: $search-bg-hover;
+  }
+
+  &.active {
+    background: $search-bg-blue-light;
+  }
+}
+
+.d-day {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 3px;
+}
+
+.d-label {
+  font-size: 10px;
+  font-weight: 500;
+
+  &.orange {
+    color: #ff5722;
+  }
+
+  &.yellow {
+    color: #fbc02d;
+  }
+
+  &.green {
+    color: $search-success;
+  }
+}
+
+.active-bar {
+  height: 3px;
+  width: 100%;
+  background: $search-primary;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 2px 2px 0 0;
+}
+
+/* ---------- FILTERS ---------- */
+.quick-filters {
+  background: $search-bg-white;
+  padding: 12px 20px;
+  border-radius: 0 0 $search-radius-lg $search-radius-lg;
+  margin-bottom: 15px;
+  box-shadow: $search-shadow-sm;
+}
+
+.toggles {
+  display: flex;
+  gap: 20px;
+}
+
+.toggle-container {
+  @include flex-center(8px);
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+  color: $search-text-muted;
+
+  input {
+    display: none;
+
+    &:checked ~ .checkmark {
+      background-color: $search-primary;
+      border-color: $search-primary;
+
+      &:after {
+        content: "✓";
+        color: white;
+        position: absolute;
+        font-size: 11px;
+        top: -2px;
+        left: 3px;
+      }
+    }
+  }
+}
+
+.checkmark {
+  height: 16px;
+  width: 16px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  position: relative;
+}
+
+/* ---------- TRAIN CARD ---------- */
+.train-card-wrapper {
+  margin-bottom: 15px;
+}
+
+.train-card-row {
+  @include card-base(18px);
+  box-shadow: $search-shadow-md;
+  transition: 0.2s;
+
+  &:hover {
+    box-shadow: $search-shadow-lg;
+  }
+}
+
+.train-header {
+  @include flex-between;
+  margin-bottom: 12px;
+}
+
+.t-name {
+  font-weight: 600;
+  color: #222;
+  font-size: 15px;
+  @include flex-center;
+}
+
+.number {
+  background: $search-bg-blue-light;
+  color: $search-primary;
+  padding: 2px 6px;
+  font-size: 11px;
+  border-radius: $search-radius-sm;
+  margin-right: 8px;
+  font-weight: 500;
+}
+
+.t-rating {
+  @include flex-center(15px);
+}
+
+.star-box {
+  background: #f0f0f0;
+  padding: 2px 6px;
+  border-radius: $search-radius-sm;
+  font-size: 11px;
+  font-weight: 600;
+  @include flex-center(3px);
+}
+
+.schedule-link {
+  color: $search-primary;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+  @include flex-center(4px);
+}
+
+/* ---------- ANIMATION ---------- */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

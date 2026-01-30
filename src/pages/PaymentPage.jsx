@@ -1,59 +1,57 @@
 import React, { useState, useEffect,useContext } from 'react';
 import Navbar from '../components/Navbar';
 import { useLocation, useNavigate } from 'react-router-dom';
-// Add useContext
-import { AuthContext } from '../context/AuthContext'; // Add this import
-// ... keep other imports the same
+
+import { AuthContext } from '../context/AuthContext'; 
+
 import { FaCreditCard, FaMobileAlt, FaWallet, FaUniversity, FaArrowLeft, FaShieldAlt } from 'react-icons/fa';
-import './PaymentPage.css'; // Uses the CSS you provided
+import './PaymentPage.scss'; 
 
 const PaymentPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 const { user } = useContext(AuthContext);
-  // 1. RECEIVE DATA FROM BOOKING PAGE
-  // We default to empty objects to prevent crashes if accessed directly
+  
   const { train, passengers, totalAmount } = location.state || {};
 
   const [activeTab, setActiveTab] = useState('upi');
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // Security Redirect: If no booking data exists, send back to home
+  
  useEffect(() => {
-    // We only check if 'train' is missing. 
-    // We removed '!totalAmount' because 0 triggered the alert.
+    
     if (!train) {
       alert("No active booking session found. Please search for a train first.");
       navigate('/');
     }
   }, [train, navigate]);
-  // 2. HANDLE PAYMENT LOGIC
+  
   const handlePayment = (e) => {
     e.preventDefault();
     setIsProcessing(true);
 
     setTimeout(() => {
-      // 1. Create the Ticket Object
+      
       const newTicket = {
        pnr: Math.floor(1000000000 + Math.random() * 9000000000).toString(),
-      train: location.state.train, // Train Details
-      passengers: location.state.passengers, // Passenger List
+      train: location.state.train, 
+      passengers: location.state.passengers, 
       totalAmount: location.state.totalAmount,
       date: new Date().toLocaleDateString(),
       
-      // IMPORTANT: Save User Email so we can filter later!
+   
       email: user.email, 
-      userId: user.email // Or user.id
+      userId: user.email 
     };
 
-      // 2. Save to LocalStorage (The "Database")
+  
      const existingBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
     existingBookings.push(newTicket);
     localStorage.setItem("bookings", JSON.stringify(existingBookings));
 
       alert(`Payment Successful via ${activeTab.toUpperCase()}! PNR: ${newTicket.pnr}`);
       
-      // 3. Redirect to My Bookings Page
+      
       navigate('/my-bookings'); 
     }, 2000);
   };
@@ -66,7 +64,7 @@ const { user } = useContext(AuthContext);
       
       <div className="payment-wrapper">
         
-        {/* HEADER */}
+     
         <div className="payment-header">
           <button className="back-btn" onClick={() => navigate(-1)}><FaArrowLeft /></button>
           <div>
@@ -76,11 +74,10 @@ const { user } = useContext(AuthContext);
         </div>
 
         <div className="payment-grid">
-          
-          {/* --- LEFT SIDE: PAYMENT METHODS & FORMS --- */}
+
           <div className="payment-left">
             
-            {/* 1. SELECTION TABS (Matches your grid-template-columns: repeat(2, 1fr)) */}
+         
             <div className="method-tabs">
               <div 
                 className={`method-box ${activeTab === 'upi' ? 'active' : ''}`} 
@@ -115,10 +112,9 @@ const { user } = useContext(AuthContext);
               </div>
             </div>
 
-            {/* 2. DYNAMIC FORM AREA */}
+           
             <div className="payment-form">
-              
-              {/* UPI FORM */}
+   
               {activeTab === 'upi' && (
                 <form onSubmit={handlePayment}>
                   <label>Virtual Payment Address (VPA)</label>
@@ -129,7 +125,7 @@ const { user } = useContext(AuthContext);
                 </form>
               )}
 
-              {/* CARD FORM */}
+              
               {activeTab === 'card' && (
                 <form onSubmit={handlePayment}>
                   <label>Card Number</label>
@@ -155,7 +151,7 @@ const { user } = useContext(AuthContext);
                 </form>
               )}
 
-              {/* WALLET FORM (New logic added here) */}
+            
               {activeTab === 'wallet' && (
                 <form onSubmit={handlePayment}>
                   <label>Select Digital Wallet</label>
@@ -176,7 +172,6 @@ const { user } = useContext(AuthContext);
                 </form>
               )}
 
-              {/* NET BANKING FORM (New logic added here) */}
               {activeTab === 'netbanking' && (
                 <form onSubmit={handlePayment}>
                   <label>Select Bank</label>
@@ -202,7 +197,6 @@ const { user } = useContext(AuthContext);
             </div>
           </div>
 
-          {/* --- RIGHT SIDE: ORDER SUMMARY --- */}
           <div className="payment-right">
             <div className="summary-card">
               <h3>Order Summary</h3>
@@ -229,7 +223,7 @@ const { user } = useContext(AuthContext);
                 <span className="blue-text">₹{totalAmount}</span>
               </div>
 
-              {/* Secure Badge from your CSS */}
+            
               <div className="secure-badge">
                 <div className="secure-icon"><FaShieldAlt size={20} /></div>
                 <div>

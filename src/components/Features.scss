@@ -1,0 +1,42 @@
+/* ===============================
+   features.scss
+   =============================== */
+
+/* ---------- VARIABLES ---------- */
+$features-bg-white: #ffffff;
+
+$features-gap: 25px;
+$features-margin-y: 60px;
+$features-margin-x: 40px;
+
+$features-card-padding: 30px;
+$features-card-width: 260px;
+$features-radius: 15px;
+
+$features-shadow-card: 0 6px 15px rgba(0, 0, 0, 0.1);
+
+/* ---------- MIXINS ---------- */
+@mixin flex-center($gap) {
+  display: flex;
+  justify-content: center;
+  gap: $gap;
+}
+
+@mixin card-base {
+  background: $features-bg-white;
+  padding: $features-card-padding;
+  width: $features-card-width;
+  border-radius: $features-radius;
+  text-align: center;
+  box-shadow: $features-shadow-card;
+}
+
+/* ---------- STYLES ---------- */
+.features {
+  @include flex-center($features-gap);
+  margin: $features-margin-y $features-margin-x;
+}
+
+.card {
+  @include card-base;
+}

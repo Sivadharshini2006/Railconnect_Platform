@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { FaTimes, FaSave } from 'react-icons/fa';
-import './Admin.css';
+import './Admin.scss';
 
 const AddTrain = () => {
   const navigate = useNavigate();
   
-  // Form State
+ 
   const [formData, setFormData] = useState({
     number: '', name: '', from: '', to: '',
     depTime: '', arrTime: '', duration: '', frequency: 'Daily', routeStns: ''
@@ -22,23 +22,23 @@ const AddTrain = () => {
   const handleSubmit = (e) => {
       e.preventDefault();
       
-      // 1. Create new train object
+      
       const newTrain = {
-          id: Date.now(), // Use timestamp for unique ID
+          id: Date.now(), 
           number: formData.number,
           name: formData.name,
           route: `${formData.from} → ${formData.to}`,
           timing: `${formData.depTime} - ${formData.arrTime}`,
           frequency: formData.frequency
-          // In a real app, you'd save duration and intermediate stations too
+         
       };
 
-      // 2. Get existing trains, add new one, save back to LS
+      
       const existingTrains = JSON.parse(localStorage.getItem('adminTrains') || "[]");
       const updatedTrains = [...existingTrains, newTrain];
       localStorage.setItem('adminTrains', JSON.stringify(updatedTrains));
 
-      // 3. Redirect back to dashboard
+      
       navigate('/admin/dashboard');
   };
 

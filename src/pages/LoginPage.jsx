@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import "./LoginPage.css";
+import "./LoginPage.scss";
 import { FaUser, FaLock } from "react-icons/fa"; 
 import { useAuth } from "../context/AuthContext"; 
 

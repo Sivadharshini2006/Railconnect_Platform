@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import "./SignupPage.css"; // We will create this in Step 2
+import "./SignupPage.scss"; // We will create this in Step 2
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 

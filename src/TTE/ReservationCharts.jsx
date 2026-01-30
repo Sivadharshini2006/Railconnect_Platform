@@ -9,11 +9,10 @@ const ReservationCharts = () => {
   const [journeyDate, setJourneyDate] = useState("");
   const [chartData, setChartData] = useState(null);
   const [loading, setLoading] = useState(false);
-  
-  // Stats state
+ 
   const [stats, setStats] = useState({ total: 0, confirmed: 0, rac: 0, waitlist: 0 });
 
-  // 4 Static Trains (Must match what you saved in Local Storage)
+  
   const trains = [
     { id: "12904", name: "12904 - Golden Temple M" },
     { id: "12138", name: "12138 - Punjab Mail" },
@@ -30,32 +29,29 @@ const ReservationCharts = () => {
     setChartData(null);
 
     setTimeout(() => {
-        // 1. Get All Bookings
+      
         const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
         
-        // 2. FILTER LOGIC (Fixed)
-        // We only keep bookings that match the selected Train Name AND Date
+     
         const filtered = allBookings.filter(b => {
              return b.trainName === selectedTrain && b.date === journeyDate;
         });
 
-        // 3. Calculate Stats for THIS Train/Date only
+      
         let total = 0;
         let cnf = 0;
         
         filtered.forEach(b => {
             total += b.passengers.length;
-            // For now, assuming all booked are confirmed. 
-            // In a real app, you would check p.status === 'Confirmed'
+            
             cnf += b.passengers.length; 
         });
 
         setStats({
             total: total,
             confirmed: cnf,
-            rac: 0,       // You can add logic for RAC later
-            waitlist: 0   // You can add logic for WL later
-        });
+            rac: 0,       
+            waitlist: 0    });
 
         setChartData(filtered);
         setLoading(false);
@@ -67,8 +63,7 @@ const ReservationCharts = () => {
       <Navbartte />
       
       <div className="chart-container-full">
-        
-        {/* --- INPUT CARD --- */}
+      
         <div className="chart-card">
           <h3 className="section-title">Reservation Chart Preparation</h3>
           
@@ -115,7 +110,7 @@ const ReservationCharts = () => {
                         <h2 className="train-title">{selectedTrain}</h2>
                         <div className="train-subtitle">Train #{selectedTrain.split(' ')[0]} • {journeyDate}</div>
                     </div>
-                    {/* Only show download button if data exists */}
+                   
                     {chartData.length > 0 && (
                         <button className="download-btn" onClick={() => window.print()}>
                             <FaDownload /> Download Chart
@@ -123,7 +118,7 @@ const ReservationCharts = () => {
                     )}
                 </div>
 
-                {/* SHOW STATS only if data exists */}
+                
                 {chartData.length > 0 && (
                     <div className="stats-row">
                         <div className="stat-card blue">
@@ -168,8 +163,7 @@ const ReservationCharts = () => {
                             </thead>
                             <tbody>
                                 {chartData.map((booking, bIndex) => {
-                                    // Calculate running seat number based on previous bookings if needed
-                                    // For now, using simple logic:
+                                    
                                     return booking.passengers.map((p, pIndex) => (
                                         <tr key={`${bIndex}-${pIndex}`}>
                                             <td>{bIndex + 1}</td>
@@ -177,7 +171,7 @@ const ReservationCharts = () => {
                                             <td>{p.name}</td>
                                             <td>{p.age} / {p.gender}</td>
                                             <td>S5</td>
-                                            {/* Logic to create unique seat numbers for demo */}
+                                            
                                             <td>{parseInt(booking.pnr.slice(-2)) + pIndex}</td>
                                             <td><span className="cnf-badge">CNF</span></td>
                                         </tr>

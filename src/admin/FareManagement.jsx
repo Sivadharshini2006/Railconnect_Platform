@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaEdit, FaSave, FaTimes } from 'react-icons/fa';
-import './FareManagement.css';
+import './FareManagement.scss';
 
 const initialFares = [
   { id: 1, className: "1A (First AC)", baseRate: 500, perKm: 6.5, tatkal: 400, reservation: 50 },
@@ -15,7 +15,7 @@ const FareManagement = () => {
   const [editId, setEditId] = useState(null);
   const [editFormData, setEditFormData] = useState({});
 
-  // --- EDIT HANDLERS ---
+  
   const handleEditClick = (fare) => {
     setEditId(fare.id);
     setEditFormData(fare);
@@ -32,7 +32,7 @@ const FareManagement = () => {
   const handleSaveClick = () => {
     const updatedFares = fares.map((fare) => 
       fare.id === editId ? { ...editFormData, 
-          // Ensure numbers are stored as numbers
+          
           baseRate: Number(editFormData.baseRate),
           perKm: Number(editFormData.perKm),
           tatkal: Number(editFormData.tatkal),
@@ -46,13 +46,13 @@ const FareManagement = () => {
   return (
     <div className="fare-page-container">
       
-      {/* HEADER */}
+     
       <div className="fare-header-section">
         <h3>Fare Management</h3>
         <p className="fare-subtitle">Configure base rates, per-kilometer charges, and additional fees for different classes.</p>
       </div>
 
-      {/* TABLE SECTION */}
+     
       <div className="fare-table-card">
         <table className="fare-table">
           <thead>
@@ -69,11 +69,11 @@ const FareManagement = () => {
             {fares.map((fare) => (
               <tr key={fare.id} className={editId === fare.id ? "fare-edit-row" : ""}>
                 
-                {/* CLASS NAME (Read-only usually) */}
+                
                 <td className="class-name">{fare.className}</td>
 
                 {editId === fare.id ? (
-                  /* EDIT MODE */
+                 
                   <>
                     <td><input type="number" name="baseRate" value={editFormData.baseRate} onChange={handleChange} className="fare-input" /></td>
                     <td><input type="number" name="perKm" value={editFormData.perKm} onChange={handleChange} className="fare-input" step="0.1" /></td>
@@ -85,7 +85,7 @@ const FareManagement = () => {
                     </td>
                   </>
                 ) : (
-                  /* VIEW MODE */
+                 
                   <>
                     <td>₹{fare.baseRate}</td>
                     <td>₹{fare.perKm}</td>
@@ -102,10 +102,10 @@ const FareManagement = () => {
         </table>
       </div>
 
-      {/* INFO SECTIONS (From your 2nd image) */}
+      
       <div className="fare-info-container">
         
-        {/* CALCULATOR EXAMPLE */}
+      
         <div className="fare-info-card">
           <h4>Fare Calculator (Example)</h4>
           <div className="formula-box">
@@ -120,7 +120,7 @@ const FareManagement = () => {
           </div>
         </div>
 
-        {/* DYNAMIC RULES */}
+        
         <div className="fare-info-card">
           <h4>Dynamic Pricing Rules</h4>
           <ul className="rules-list">

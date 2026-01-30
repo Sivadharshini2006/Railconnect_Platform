@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaMapMarkerAlt, FaPlus, FaPen, FaTrash, FaTimes } from 'react-icons/fa';
-import './StationManagement.css';
+import './StationManagement.scss';
 
 const initialStations = [
   { id: 1, code: "NDLS", name: "New Delhi", city: "Delhi", state: "Delhi", zone: "Northern Railway" },
@@ -10,25 +10,25 @@ const initialStations = [
 ];
 
 const StationManagement = () => {
-  // State for Stations Data
+
   const [stations, setStations] = useState(() => {
     const saved = localStorage.getItem('adminStations');
     return saved ? JSON.parse(saved) : initialStations;
   });
 
-  // State for View Control ('list' or 'form')
+ 
   const [view, setView] = useState('list');
   
-  // State for Form Handling
+  
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({ id: '', code: '', name: '', city: '', state: '', zone: '' });
 
-  // Save to LocalStorage whenever stations change
+ 
   useEffect(() => {
     localStorage.setItem('adminStations', JSON.stringify(stations));
   }, [stations]);
 
-  // --- ACTIONS ---
+  
 
   const handleAddNew = () => {
     setFormData({ id: '', code: '', name: '', city: '', state: '', zone: '' });
@@ -57,10 +57,10 @@ const StationManagement = () => {
     e.preventDefault();
     
     if (isEditing) {
-      // UPDATE Logic
+      
       setStations(stations.map(s => (s.id === formData.id ? formData : s)));
     } else {
-      // ADD Logic
+      
       const newStation = { ...formData, id: Date.now() };
       setStations([...stations, newStation]);
     }
@@ -75,7 +75,7 @@ const StationManagement = () => {
   return (
     <div className="station-container">
       
-      {/* HEADER SECTION */}
+    
       <div className="station-header">
         <h3>Station Management</h3>
         {view === 'list' && (
@@ -90,7 +90,7 @@ const StationManagement = () => {
         )}
       </div>
 
-      {/* --- VIEW 1: STATION LIST (GRID) --- */}
+      
       {view === 'list' && (
         <div className="station-grid">
           {stations.map((station) => (
@@ -119,7 +119,7 @@ const StationManagement = () => {
         </div>
       )}
 
-      {/* --- VIEW 2 & 3: ADD / EDIT FORM --- */}
+      
       {view === 'form' && (
         <div className="form-wrapper">
           <div className="form-card">

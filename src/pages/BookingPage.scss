@@ -1,0 +1,319 @@
+$booking-color-primary:       #0d6efd;
+$booking-color-primary-light: #e3f2fd;
+$booking-color-primary-hover: #f0f8ff;
+
+$booking-color-cta:           #ff5722; 
+$booking-color-danger:        #ff4444;
+
+$booking-bg-page:             #f5f7fa;
+$booking-bg-white:            #ffffff;
+$booking-bg-light:            #fafafa;
+$booking-bg-concession:       #f8f9fa;
+
+$booking-border-light:        #eee;
+$booking-border-medium:       #ddd;
+$booking-border-dark:         #ccc;
+
+$booking-text-main:           #333;
+$booking-text-medium:         #555;
+$booking-text-light:          #666;
+$booking-text-muted:          #999;
+
+// Dimensions
+$booking-radius:              8px;
+$booking-radius-sm:           6px;
+$booking-radius-lg:           12px;
+
+// ==========================================
+// 2. MIXINS
+// ==========================================
+
+@mixin booking-flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin booking-card-style {
+  background: $booking-bg-white;
+  border-radius: $booking-radius;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  border: 1px solid $booking-border-light;
+}
+
+// ==========================================
+// 3. PAGE LAYOUT
+// ==========================================
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $booking-bg-page;
+}
+
+.navbar-wrapper {
+  flex-shrink: 0;
+}
+
+.booking-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  padding: 20px 15px;
+  flex: 1;
+
+  // Left Column
+  .left-section {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .card {
+      width: 100%; /* 🔥 key line */
+    }
+  }
+
+  // Right Column
+  .right-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
+// ==========================================
+// 4. CARDS & SECTIONS
+// ==========================================
+
+.card {
+  @include booking-card-style;
+}
+
+// Specific Card Flex Rules
+.train-summary,
+.passenger-section {
+  flex: 1;
+}
+
+.fare-card {
+  width: 100%;
+  flex-grow: 1; /* 🔥 fills vertical space */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+// --- Train Info Styles ---
+.ts-header {
+  @include booking-flex-between;
+  margin-bottom: 15px;
+}
+
+.badge-ac {
+  background: $booking-color-primary-light;
+  color: $booking-color-primary;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.ts-route {
+  display: flex;
+  justify-content: space-between;
+  color: $booking-text-medium;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.line-sep {
+  color: $booking-border-dark;
+  font-size: 12px;
+}
+
+// --- Passenger Section Styles ---
+.sec-head {
+  @include booking-flex-between;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 10px;
+}
+
+.add-pax-btn {
+  width: 100%;
+  padding: 12px;
+  background: $booking-bg-white;
+  border: 1px dashed $booking-color-primary;
+  color: $booking-color-primary;
+  border-radius: $booking-radius-sm;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+
+  &:hover {
+    background: $booking-color-primary-hover;
+  }
+}
+
+.added-pax-row {
+  @include booking-flex-between;
+  background: $booking-bg-light;
+  padding: 10px;
+  border-radius: $booking-radius-sm;
+  margin-bottom: 10px;
+  border: 1px solid $booking-border-light;
+
+  .trash-btn {
+    color: $booking-color-danger;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+// --- Fare Card Styles ---
+.fare-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: $booking-text-medium;
+}
+
+.fare-total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed $booking-border-dark;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.pay-btn-main {
+  background: $booking-color-cta;
+  color: $booking-bg-white;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: $booking-radius-sm;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+// ==========================================
+// 5. MODALS
+// ==========================================
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  .modal-content {
+    background: $booking-bg-white;
+    width: 500px;
+    border-radius: $booking-radius-lg;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+
+    .modal-header {
+      padding: 15px 20px;
+      border-bottom: 1px solid $booking-border-light;
+      @include booking-flex-between;
+
+      .close-icon {
+        background: none;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        color: $booking-text-muted;
+      }
+    }
+
+    .modal-body {
+      padding: 20px;
+
+      // Form Styles inside Modal
+      .form-group {
+        margin-bottom: 15px;
+
+        label {
+          display: block;
+          font-size: 13px;
+          color: $booking-text-medium;
+          margin-bottom: 6px;
+        }
+
+        input,
+        select {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid $booking-border-medium;
+          border-radius: $booking-radius-sm;
+          font-size: 15px;
+        }
+      }
+
+      .radio-group {
+        display: flex;
+        gap: 15px;
+
+        .radio-btn {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          cursor: pointer;
+          font-size: 14px;
+
+          input {
+            width: auto;
+          }
+        }
+      }
+
+      .concession-box {
+        background: $booking-bg-concession;
+        padding: 10px;
+        font-size: 13px;
+        color: $booking-text-light;
+        border-radius: $booking-radius-sm;
+      }
+    }
+
+    .modal-footer {
+      padding: 15px 20px;
+      border-top: 1px solid $booking-border-light;
+
+      .save-btn {
+        width: 100%;
+        background: $booking-color-primary;
+        color: $booking-bg-white;
+        border: none;
+        padding: 12px;
+        border-radius: $booking-radius-sm;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
+  }
+}

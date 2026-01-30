@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './QuotaAllocation.css';
+import './QuotaAllocation.scss';
 import { FaEdit, FaCog, FaSave, FaTimes } from 'react-icons/fa';
 
 const QuotaAllocation = () => {
-  // --- STATE MANAGEMENT ---
+ 
   const [quotas, setQuotas] = useState([
     { id: 1, label: 'General Quota', desc: 'Available to all passengers for regular booking', pct: 50, color: '#3b82f6' },
     { id: 2, label: 'Tatkal Quota', desc: 'Opens 24 hours before departure for urgent bookings', pct: 10, color: '#f97316' },
@@ -18,7 +18,7 @@ const QuotaAllocation = () => {
   const [editId, setEditId] = useState(null);
   const [editFormData, setEditFormData] = useState({});
 
-  // --- HANDLERS ---
+  
   const handleEditClick = (item) => {
     setEditId(item.id);
     setEditFormData(item);
@@ -33,7 +33,7 @@ const QuotaAllocation = () => {
     const { name, value } = e.target;
     setEditFormData({
       ...editFormData,
-      [name]: name === 'pct' ? Number(value) : value // Ensure percentage is a number
+      [name]: name === 'pct' ? Number(value) : value 
     });
   };
 
@@ -43,10 +43,10 @@ const QuotaAllocation = () => {
     setEditId(null);
   };
 
-  // Calculate Total Percentage Dynamically
+  
   const totalPercentage = quotas.reduce((acc, curr) => acc + curr.pct, 0);
 
-  // --- STATIC RULES DATA ---
+  
   const rules = [
     { title: 'General Quota', rule: 'Opens 120 days before journey date' },
     { title: 'Tatkal Quota', rule: 'Opens 1 day before journey (10:00 AM for AC, 11:00 AM for non-AC)' },
@@ -57,7 +57,7 @@ const QuotaAllocation = () => {
   return (
     <div className="quota-container">
       
-      {/* 1. HEADER */}
+     
       <div className="quota-header-row">
         <h3><FaCog style={{marginRight: '10px'}}/> Quota Allocation Management</h3>
         <div 
@@ -68,7 +68,7 @@ const QuotaAllocation = () => {
         </div>
       </div>
 
-      {/* 2. VISUAL DISTRIBUTION BAR (Updates Automatically) */}
+     
       <div className="section-card">
         <h4 className="card-title">Quota Distribution</h4>
         <div className="quota-progress-bar">
@@ -85,7 +85,7 @@ const QuotaAllocation = () => {
         </div>
       </div>
 
-      {/* 3. DETAILED TABLE WITH EDITING */}
+      
       <div className="section-card">
         <table className="quota-table">
           <thead>
@@ -100,7 +100,7 @@ const QuotaAllocation = () => {
             {quotas.map((item) => (
               <tr key={item.id}>
                 {editId === item.id ? (
-                  /* EDIT MODE ROW */
+                  
                   <>
                     <td>
                       <div className="q-label-cell">
@@ -132,7 +132,7 @@ const QuotaAllocation = () => {
                     </td>
                   </>
                 ) : (
-                  /* VIEW MODE ROW */
+                
                   <>
                     <td>
                       <div className="q-label-cell">
@@ -153,7 +153,7 @@ const QuotaAllocation = () => {
         </table>
       </div>
 
-      {/* 4. RULES GRID */}
+      
       <div className="rules-section">
         <h4 style={{marginBottom: '15px', color: '#333'}}>Quota Opening Times</h4>
         <div className="rules-grid">

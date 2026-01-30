@@ -19,13 +19,13 @@ const TicketVerification = () => {
         return;
     }
 
-    // 1. Get existing bookings from Local Storage
+    
     const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
     
-    // 2. Find the booking with this PNR
+ 
     const foundBooking = allBookings.find(b => b.pnr === pnr);
 
-    // 3. Update State
+   
     if (foundBooking) {
       setResult(foundBooking);
     } else {
@@ -37,14 +37,14 @@ const TicketVerification = () => {
     <div className="chart-page-wrapper">
       <Navbartte />
       
-      {/* Increased max-width and centered the container */}
+      
       <div className="chart-container-full" style={{ maxWidth: '1000px', margin: '0 auto' }}>
         
         <h2 className="page-title" style={{ fontSize: '26px', marginBottom: '25px' }}>
           Ticket Verification
         </h2>
 
-        {/* --- BIG SEARCH CARD --- */}
+        
         <div className="chart-card" style={{ padding: '40px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
               <FaIdCard size={24} color="#0d6efd"/>
@@ -53,7 +53,7 @@ const TicketVerification = () => {
           
           <form onSubmit={handleVerify} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
              
-             {/* WIDE INPUT BAR */}
+             
              <div style={{ display: 'flex', gap: '15px', alignItems: 'stretch' }}>
                 <input 
                   type="text" 
@@ -61,7 +61,7 @@ const TicketVerification = () => {
                   value={pnr}
                   onChange={(e) => setPnr(e.target.value)}
                   style={{
-                      flex: 1, // Takes up all available space
+                      flex: 1, 
                       padding: '12px 20px',
                       fontSize: '11px', 
                       border: '2px solid #ddd',
@@ -88,7 +88,6 @@ const TicketVerification = () => {
           </form>
         </div>
 
-        {/* --- RESULT SECTION --- */}
         {result && (
            <div className="chart-results fade-in" style={{ marginTop: '30px', padding: '30px' }}>
               <div className="result-top-bar" style={{ justifyContent:'flex-start', gap:'20px', borderBottom: '2px solid #eee', paddingBottom: '20px' }}>
@@ -140,7 +139,7 @@ const TicketVerification = () => {
            </div>
         )}
 
-        {/* --- ERROR MESSAGE --- */}
+       
         {error && (
             <div style={{
                 marginTop: '25px', 

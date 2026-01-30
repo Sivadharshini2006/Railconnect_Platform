@@ -1,0 +1,127 @@
+/* ===============================
+   signup.scss
+   =============================== */
+
+/* ---------- VARIABLES ---------- */
+$signup-bg-page: #f5f5f5;
+$signup-bg-white: #ffffff;
+
+$signup-primary: #ff6b6b;
+$signup-primary-hover: #e65555;
+$signup-primary-shadow: rgba(255, 107, 107, 0.1);
+
+$signup-text-dark: #333;
+$signup-text-muted: #666;
+$signup-text-light: #888;
+
+$signup-border-default: #ddd;
+
+$signup-radius-sm: 8px;
+$signup-radius-lg: 12px;
+
+$signup-shadow-box: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+/* ---------- MIXINS ---------- */
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin input-base {
+  width: 100%;
+  padding: 12px 15px 12px 40px;
+  border: 1px solid $signup-border-default;
+  border-radius: $signup-radius-sm;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+}
+
+@mixin primary-button {
+  width: 100%;
+  padding: 12px;
+  background: $signup-primary;
+  color: $signup-bg-white;
+  border: none;
+  border-radius: $signup-radius-sm;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+/* ---------- PAGE ---------- */
+.signup-page-wrapper {
+  background-color: $signup-bg-page;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup-container {
+  flex: 1;
+  @include flex-center;
+  padding: 20px;
+}
+
+/* ---------- SIGNUP BOX ---------- */
+.signup-box {
+  background: $signup-bg-white;
+  padding: 40px;
+  border-radius: $signup-radius-lg;
+  box-shadow: $signup-shadow-box;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 8px;
+    color: $signup-text-dark;
+  }
+}
+
+/* ---------- INPUT GROUP ---------- */
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+
+  .icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $signup-text-light;
+  }
+
+  input {
+    @include input-base;
+
+    &:focus {
+      border-color: $signup-primary;
+      box-shadow: 0 0 0 3px $signup-primary-shadow;
+    }
+  }
+}
+
+/* ---------- BUTTON ---------- */
+.signup-btn {
+  @include primary-button;
+
+  &:hover {
+    background: $signup-primary-hover;
+  }
+}
+
+/* ---------- LOGIN LINK ---------- */
+.login-link {
+  margin-top: 20px;
+  font-size: 14px;
+  color: $signup-text-muted;
+
+  span {
+    color: $signup-primary;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}

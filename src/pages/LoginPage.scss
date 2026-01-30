@@ -1,0 +1,211 @@
+// ==========================================
+// 1. VARIABLES
+// ==========================================
+
+// Colors - Primary
+$login-color-primary:       #ff6b6b;
+$login-color-primary-hover: #e65555;
+$login-color-focus-shadow:  rgba(255, 107, 107, 0.1);
+
+// Colors - Text
+$login-text-header:         #333;
+$login-text-sub:            #777;
+$login-text-body:           #666;
+$login-text-muted:          #999;
+$login-text-icon:           #888;
+$login-text-dark:           #555;
+$login-text-white:          #ffffff;
+
+// Colors - Backgrounds & Borders
+$login-bg-page:             #f5f5f5;
+$login-bg-white:            #ffffff;
+$login-bg-hover:            #fdfdfd;
+
+$login-border-light:        #ddd;
+$login-border-lighter:      #eee;
+$login-border-dark:         #ccc;
+
+$login-shadow-box:          0 4px 20px rgba(0, 0, 0, 0.1);
+
+// Dimensions
+$login-radius-input:        8px;
+$login-radius-box:          12px;
+
+// ==========================================
+// 2. MIXINS
+// ==========================================
+
+@mixin login-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin login-input-base {
+  width: 100%;
+  padding: 12px 15px 12px 40px; // Space for icon
+  border: 1px solid $login-border-light;
+  border-radius: $login-radius-input;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+}
+
+// ==========================================
+// 3. STYLES
+// ==========================================
+
+.login-page-wrapper {
+  background-color: $login-bg-page;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container {
+  flex: 1;
+  @include login-flex-center;
+  padding: 20px;
+}
+
+.login-box {
+  background: $login-bg-white;
+  padding: 40px;
+  border-radius: $login-radius-box;
+  box-shadow: $login-shadow-box;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 8px;
+    color: $login-text-header;
+  }
+
+  .sub-text {
+    color: $login-text-sub;
+    margin-bottom: 30px;
+    font-size: 14px;
+  }
+}
+
+// Input Fields
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+
+  .icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $login-text-icon;
+  }
+
+  input {
+    @include login-input-base;
+
+    &:focus {
+      border-color: $login-color-primary;
+      box-shadow: 0 0 0 3px $login-color-focus-shadow;
+    }
+  }
+}
+
+// Options (Forgot Password)
+.options {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: $login-text-body;
+  margin-bottom: 25px;
+
+  .forgot-pass {
+    color: $login-color-primary;
+    cursor: pointer;
+  }
+}
+
+// Main Login Button
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: $login-color-primary;
+  color: $login-text-white;
+  border: none;
+  border-radius: $login-radius-input;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+
+  &:hover {
+    background: $login-color-primary-hover;
+  }
+}
+
+// Divider
+.divider {
+  margin: 25px 0;
+  position: relative;
+  font-size: 12px;
+  color: $login-text-muted;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background: $login-border-lighter;
+  }
+
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    right: 0;
+  }
+}
+
+// Social Login
+.social-login {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.social-btn {
+  flex: 1;
+  @include login-flex-center;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid $login-border-light;
+  background: $login-bg-white;
+  border-radius: $login-radius-input;
+  cursor: pointer;
+  font-size: 14px;
+  color: $login-text-dark;
+
+  &.google,
+  &.fb {
+    &:hover {
+      background: $login-bg-hover;
+      border-color: $login-border-dark;
+    }
+  }
+}
+
+// Footer Link
+.register-link {
+  font-size: 14px;
+  color: $login-text-body;
+
+  span {
+    color: $login-color-primary;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}

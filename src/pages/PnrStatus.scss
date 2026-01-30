@@ -1,0 +1,183 @@
+
+$pnr-bg-page: #f5f7fa;
+$pnr-bg-white: #ffffff;
+$pnr-bg-header: #e7f1ff;
+$pnr-bg-success: #d1e7dd;
+
+$pnr-text-dark: #333;
+$pnr-text-muted: #555;
+$pnr-text-primary: #0d6efd;
+$pnr-text-success: #0f5132;
+
+$pnr-border-light: #eee;
+$pnr-border-default: #ddd;
+
+$pnr-primary: #0d6efd;
+$pnr-primary-hover: #0b5ed7;
+
+$pnr-radius-sm: 6px;
+$pnr-radius-md: 8px;
+$pnr-radius-pill: 20px;
+
+$pnr-shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+@mixin flex-center($gap: 0) {
+  display: flex;
+  align-items: center;
+  gap: $gap;
+}
+
+@mixin card-base($padding) {
+  background: $pnr-bg-white;
+  width: 100%;
+  padding: $padding;
+  border-radius: $pnr-radius-md;
+  box-shadow: $pnr-shadow-card;
+  border: 1px solid $pnr-border-light;
+}
+
+@mixin input-base {
+  flex: 1;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid $pnr-border-default;
+  border-radius: $pnr-radius-sm;
+  outline: none;
+  transition: border 0.3s;
+}
+
+@mixin primary-button {
+  background-color: $pnr-primary;
+  color: $pnr-bg-white;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: $pnr-radius-sm;
+  cursor: pointer;
+  @include flex-center(8px);
+  transition: background 0.2s;
+}
+
+/* ---------- PAGE ---------- */
+.pnr-page {
+  background-color: $pnr-bg-page;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.pnr-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---------- MAIN CARD ---------- */
+.pnr-card {
+  @include card-base(30px);
+}
+
+.pnr-title {
+  font-size: 20px;
+  color: $pnr-text-dark;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.pnr-label {
+  display: block;
+  font-size: 14px;
+  color: $pnr-text-muted;
+  margin-bottom: 8px;
+}
+
+/* ---------- INPUT ROW ---------- */
+.input-row {
+  display: flex;
+  gap: 15px;
+
+  input {
+    @include input-base;
+
+    &:focus {
+      border-color: $pnr-primary;
+    }
+  }
+}
+
+/* ---------- BUTTON ---------- */
+.check-btn {
+  @include primary-button;
+  padding: 0 30px;
+
+  &:hover {
+    background-color: $pnr-primary-hover;
+  }
+}
+
+/* ---------- RESULT SECTION ---------- */
+.status-result {
+  margin-top: 30px;
+  background: $pnr-bg-white;
+  width: 100%;
+  border-radius: $pnr-radius-md;
+  box-shadow: $pnr-shadow-card;
+  overflow: hidden;
+  animation: slideDown 0.4s ease;
+}
+
+.result-header {
+  background: $pnr-bg-header;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $pnr-text-primary;
+  font-weight: bold;
+}
+
+.passenger-table {
+  padding: 20px;
+}
+
+.passenger-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid $pnr-border-light;
+}
+
+.status-badge {
+  background: $pnr-bg-success;
+  color: $pnr-text-success;
+  padding: 4px 12px;
+  border-radius: $pnr-radius-pill;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ---------- ANIMATION ---------- */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .input-row {
+    flex-direction: column;
+  }
+
+  .check-btn {
+    justify-content: center;
+    padding: 12px;
+  }
+}

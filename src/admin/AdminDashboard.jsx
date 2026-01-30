@@ -6,9 +6,8 @@ import {
   FaChartPie, FaPlus, FaRegEdit, FaRegTrashAlt, 
   FaSave, FaTimes 
 } from 'react-icons/fa';
-import './Admin.css';
+import './Admin.scss';
 
-// --- IMPORTS ---
 import Statistics from './Statistics';
 import StationManagement from './StationManagement'; 
 import FareManagement from './FareManagement'; 
@@ -17,13 +16,12 @@ import QuotaAllocation from './QuotaAllocation';
 const AdminDashboard = () => {
   const navigate = useNavigate();
   
-  // --- TAB STATE ---
+ 
   const [activeTab, setActiveTab] = useState('trains'); 
     const handleLogout = () => {
     navigate('/');
   };
 
-  // --- TRAIN DATA STATE ---
   const [trains, setTrains] = useState(() => {
     const stored = localStorage.getItem('adminTrains');
     return stored ? JSON.parse(stored) : [];
@@ -31,7 +29,7 @@ const AdminDashboard = () => {
   const [editTrainId, setEditTrainId] = useState(null); 
   const [editFormData, setEditFormData] = useState({}); 
 
-  // --- HANDLERS ---
+ 
   const handleEditClick = (train) => { setEditTrainId(train.id); setEditFormData(train); };
   const handleCancelClick = () => { setEditTrainId(null); setEditFormData({}); };
   const handleEditFormChange = (e) => { setEditFormData({ ...editFormData, [e.target.name]: e.target.value }); };
@@ -51,10 +49,9 @@ const AdminDashboard = () => {
 
   return (
     <div className="page-wrapper">
-      {/* <Navbar /> */}
+      
       <div className="admin-page-container">
         
-        {/* --- NAVIGATION TABS (FIXED STRUCTURE) --- */}
         <div style={{display:"flex", justifyContent:"space-between", alignItems:"center" }}>
     <div className="navbar-brand" style={{transform: "translate(0px,-20px)"}}>
           <FaTrain className="brand-icon" />
@@ -93,7 +90,7 @@ const AdminDashboard = () => {
                 <FaCogs /> Quota Allocation
             </div>
 
-            {/* Added Statistics Button Here correctly */}
+            
             <div 
                 className={`admin-nav-item ${activeTab === 'statistics' ? 'active' : ''}`} 
                 onClick={() => setActiveTab('statistics')}
@@ -122,10 +119,10 @@ const AdminDashboard = () => {
 
 
 
-        {/* --- DYNAMIC CONTENT AREA --- */}
+        
         <div className="dashboard-content">
             
-            {/* VIEW 1: TRAINS */}
+            
             {activeTab === 'trains' && (
                 <>
                     <div className="admin-header-row">
@@ -181,16 +178,15 @@ const AdminDashboard = () => {
                 </>
             )}
 
-            {/* VIEW 2: STATIONS */}
+            
             {activeTab === 'stations' && <StationManagement />}
 
-            {/* VIEW 3: FARES */}
+            
             {activeTab === 'fares' && <FareManagement />}
 
-            {/* VIEW 4: QUOTAS */}
             {activeTab === 'quotas' && <QuotaAllocation />}
 
-            {/* VIEW 5: STATISTICS */}
+     
             {activeTab === 'statistics' && <Statistics />}
 
         </div>

@@ -1,0 +1,246 @@
+/* ===============================
+   payment.scss
+   =============================== */
+
+/* ---------- VARIABLES ---------- */
+$payment-text-dark: #333;
+$payment-text-muted: #555;
+$payment-text-light: #777;
+
+$payment-primary: #0d6efd;
+$payment-primary-hover: #0b5ed7;
+
+$payment-bg-white: #ffffff;
+$payment-bg-light: #f8f9fa;
+$payment-bg-hover: #f9f9f9;
+$payment-bg-active: #e3f2fd;
+
+$payment-border-default: #ddd;
+$payment-border-light: #eee;
+
+$payment-success-bg: #e8f5e9;
+$payment-success-border: #c8e6c9;
+$payment-success-dark: #2e7d32;
+$payment-success-light: #4caf50;
+
+$payment-radius-sm: 6px;
+$payment-radius-md: 8px;
+$payment-radius-lg: 12px;
+
+$payment-shadow-card: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+/* ---------- MIXINS ---------- */
+@mixin flex-center($gap: 0) {
+  display: flex;
+  align-items: center;
+  gap: $gap;
+}
+
+@mixin card-base($bg, $radius, $padding) {
+  background: $bg;
+  border-radius: $radius;
+  padding: $padding;
+}
+
+@mixin input-base {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid $payment-border-default;
+  border-radius: $payment-radius-sm;
+  outline: none;
+}
+
+@mixin primary-button($padding, $font-size) {
+  width: 100%;
+  background: $payment-primary;
+  color: $payment-bg-white;
+  padding: $padding;
+  border: none;
+  border-radius: $payment-radius-sm;
+  font-size: $font-size;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ---------- PAGE WRAPPER ---------- */
+.payment-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  color: $payment-text-dark;
+}
+
+/* ---------- HEADER ---------- */
+.payment-header {
+  @include flex-center(15px);
+  margin-bottom: 30px;
+
+  h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  p {
+    margin: 0;
+    color: $payment-text-light;
+    font-size: 14px;
+  }
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: $payment-text-muted;
+}
+
+/* ---------- GRID LAYOUT ---------- */
+.payment-grid {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.payment-left {
+  flex: 2;
+  @include card-base($payment-bg-white, $payment-radius-md, 0);
+}
+
+.payment-right {
+  flex: 1;
+}
+
+/* ---------- METHOD TABS ---------- */
+.method-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.method-box {
+  border: 1px solid $payment-border-default;
+  border-radius: $payment-radius-md;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  background: $payment-bg-white;
+  transition: all 0.2s;
+
+  &:hover {
+    background: $payment-bg-hover;
+  }
+
+  &.active {
+    border: 2px solid $payment-primary;
+    background: $payment-bg-active;
+    color: $payment-primary;
+  }
+}
+
+.m-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+/* ---------- FORM ---------- */
+.payment-form {
+  @include card-base($payment-bg-light, $payment-radius-md, 20px);
+  border: 1px solid $payment-border-light;
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: $payment-text-muted;
+    margin-bottom: 6px;
+  }
+}
+
+.pay-input {
+  @include input-base;
+  margin-bottom: 15px;
+
+  &:focus {
+    border-color: $payment-primary;
+  }
+}
+
+.pay-confirm-btn {
+  @include primary-button(14px, 16px);
+  margin-top: 10px;
+
+  &:hover {
+    background: $payment-primary-hover;
+  }
+}
+
+/* ---------- SUMMARY PANEL ---------- */
+.summary-card {
+  @include card-base($payment-bg-white, $payment-radius-lg, 25px);
+  box-shadow: $payment-shadow-card;
+
+  h3 {
+    margin-top: 0;
+    font-size: 16px;
+    color: $payment-text-muted;
+    margin-bottom: 20px;
+  }
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #666;
+}
+
+.summ-divider {
+  border-top: 1px dashed $payment-border-default;
+  margin: 15px 0;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.blue-text {
+  color: $payment-primary;
+}
+
+/* ---------- SECURE BADGE ---------- */
+.secure-badge {
+  background: $payment-success-bg;
+  border: 1px solid $payment-success-border;
+  padding: 12px;
+  border-radius: $payment-radius-md;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  strong {
+    display: block;
+    color: $payment-success-dark;
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+
+  p {
+    margin: 0;
+    color: $payment-success-light;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+}
+
+.secure-icon {
+  color: $payment-success-dark;
+  margin-top: 3px;
+}

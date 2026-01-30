@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Statistics.css';
+import './Statistics.scss';
 import { 
   FaTicketAlt, FaRupeeSign, FaUsers, FaChartLine, 
   FaCalendarAlt, FaArrowUp, FaArrowDown 
@@ -8,7 +8,7 @@ import {
 const Statistics = () => {
   const [timeRange, setTimeRange] = useState('This Week');
 
-  // --- MOCK DATA ---
+ 
   const topTrains = [
     { rank: 1, name: "Rajdhani Express", bookings: 234, revenue: "876,543", avg: "3,746" },
     { rank: 2, name: "Shatabdi Express", bookings: 198, revenue: "654,321", avg: "3,305" },
@@ -27,7 +27,6 @@ const Statistics = () => {
   return (
     <div className="stats-container">
       
-      {/* 1. HEADER & FILTERS */}
       <div className="stats-header">
         <h3>Booking Statistics & Revenue</h3>
         <div className="date-filter">
@@ -40,7 +39,6 @@ const Statistics = () => {
         </div>
       </div>
 
-      {/* 2. METRIC CARDS */}
       <div className="stats-grid">
         <div className="stat-card">
           <div className="stat-top">
@@ -79,7 +77,7 @@ const Statistics = () => {
         </div>
       </div>
 
-      {/* 3. STATUS DISTRIBUTION */}
+     
       <div className="section-card">
         <h4>Booking Status Distribution</h4>
         <div className="status-bars-row">
@@ -102,7 +100,6 @@ const Statistics = () => {
         </div>
       </div>
 
-      {/* 4. TOP TRAINS TABLE */}
       <div className="section-card">
         <h4>Top Performing Trains</h4>
         <table className="stats-table">
@@ -129,10 +126,10 @@ const Statistics = () => {
         </table>
       </div>
 
-      {/* 5. REVENUE BY CLASS & RECENT ACTIVITY GRID */}
+    
       <div className="split-grid">
         
-        {/* LEFT: Revenue by Class */}
+
         <div className="section-card">
           <h4>Revenue by Class</h4>
           <div className="class-bars">
@@ -151,7 +148,7 @@ const Statistics = () => {
           </div>
         </div>
 
-        {/* RIGHT: Recent Activity */}
+       
         <div className="section-card">
           <h4>Recent Booking Activity</h4>
           <div className="activity-list">

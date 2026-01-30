@@ -1,0 +1,211 @@
+// ==========================================
+// 1. VARIABLES
+// ==========================================
+
+// Colors - Primary & Actions
+$fare-color-primary:       #0d6efd;
+$fare-color-primary-hover: #0b5ed7;
+$fare-color-success:       #198754;
+$fare-color-danger:        #dc3545;
+
+// Colors - Text
+$fare-text-dark:           #222;
+$fare-text-main:           #333;
+$fare-text-secondary:      #444;
+$fare-text-header:         #495057;
+$fare-text-muted:          #555;
+$fare-text-light:          #666;
+
+// Colors - Backgrounds & Borders
+$fare-bg-white:            #ffffff;
+$fare-bg-light-blue:       #e7f1ff;
+$fare-bg-light-gray:       #f8f9fa;
+
+$fare-border-blue:         #cce5ff;
+$fare-border-light:        #eee;
+$fare-border-medium:       #ddd;
+$fare-border-input:        #ccc;
+
+// Dimensions
+$fare-radius-sm:           4px;
+$fare-radius-md:           6px;
+$fare-radius-lg:           8px;
+
+// ==========================================
+// 2. MIXINS
+// ==========================================
+
+// Reusable card style (border, radius, bg)
+@mixin fare-card-style($padding: 0, $bg: $fare-bg-white, $border: $fare-border-medium, $radius: $fare-radius-lg) {
+  background: $bg;
+  border: 1px solid $border;
+  border-radius: $radius;
+  padding: $padding;
+}
+
+// Flex column layout
+@mixin fare-flex-col($gap: 20px) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+// ==========================================
+// 3. STYLES
+// ==========================================
+
+.fare-page-container {
+  padding: 20px;
+}
+
+.fare-header-section {
+  margin-bottom: 25px;
+
+  h3 {
+    margin: 0 0 10px 0;
+    color: $fare-text-main;
+    font-size: 20px;
+  }
+}
+
+.fare-subtitle {
+  background-color: $fare-bg-light-blue;
+  color: $fare-color-primary;
+  padding: 15px;
+  border-radius: $fare-radius-md;
+  font-size: 14px;
+  border: 1px solid $fare-border-blue;
+}
+
+.fare-table-card {
+  @include fare-card-style($padding: 0, $border: $fare-border-medium);
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.fare-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    background-color: $fare-bg-light-gray;
+    text-align: left;
+    padding: 15px;
+    font-weight: 600;
+    color: $fare-text-header;
+    border-bottom: 1px solid $fare-border-medium;
+  }
+
+  td {
+    padding: 15px;
+    border-bottom: 1px solid $fare-border-light;
+    vertical-align: middle;
+    color: $fare-text-main;
+  }
+}
+
+.class-name {
+  font-weight: 500;
+}
+
+.fare-input {
+  width: 80px;
+  padding: 6px;
+  border: 1px solid $fare-border-input;
+  border-radius: $fare-radius-sm;
+}
+
+.fare-btn-primary {
+  background-color: $fare-color-primary;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: $fare-radius-sm;
+  cursor: pointer;
+  font-size: 13px;
+
+  &:hover {
+    background-color: $fare-color-primary-hover;
+  }
+}
+
+.fare-action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 10px;
+
+  &.save { color: $fare-color-success; }
+  &.cancel { color: $fare-color-danger; }
+}
+
+.fare-info-container {
+  @include fare-flex-col(20px);
+}
+
+.fare-info-card {
+  @include fare-card-style($padding: 20px, $border: $fare-border-light);
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: $fare-text-dark;
+  }
+}
+
+/* Formula Box */
+.formula-box {
+  @include fare-card-style($padding: 20px, $bg: $fare-bg-light-gray, $border: $fare-border-light, $radius: $fare-radius-md);
+}
+
+.formula-label {
+  margin: 0 0 5px 0;
+  color: $fare-text-light;
+  font-size: 14px;
+}
+
+.formula-text {
+  display: block;
+  color: $fare-color-primary;
+  font-family: monospace;
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+
+.example-text {
+  margin: 0;
+  font-size: 14px;
+  color: $fare-text-secondary;
+  line-height: 1.5;
+}
+
+.rules-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  > li {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    position: relative;
+    font-size: 14px;
+    color: $fare-text-muted;
+
+    &::before {
+      content: "•";
+      color: $fare-color-primary;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+  }
+
+  ul {
+    margin-top: 5px;
+    padding-left: 20px;
+    list-style-type: disc;
+    color: $fare-text-light;
+  }
+}

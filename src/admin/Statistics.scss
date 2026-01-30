@@ -1,0 +1,308 @@
+// ==========================================
+// 1. VARIABLES
+// ==========================================
+
+// Colors - Theme Palette
+$stats-color-blue:          #1976d2;
+$stats-color-blue-bg:       #e3f2fd;
+$stats-color-blue-dark:     #2962ff;
+
+$stats-color-green:         #2e7d32;
+$stats-color-green-bg:      #e8f5e9;
+$stats-color-green-bright:  #00c853;
+
+$stats-color-purple:        #7b1fa2;
+$stats-color-purple-bg:     #f3e5f5;
+
+$stats-color-orange:        #f57c00;
+$stats-color-orange-bg:     #fff3e0;
+$stats-color-orange-bright: #ffab00;
+
+$stats-color-red:           #c62828;
+$stats-color-red-bright:    #ff3d00;
+
+// Colors - Text & UI
+$stats-text-main:           #333;
+$stats-text-header:         #444;
+$stats-text-secondary:      #555;
+$stats-text-light:          #666;
+$stats-text-muted:          #888;
+$stats-text-faint:          #999;
+
+$stats-bg-white:            #ffffff;
+$stats-bg-light:            #f9f9f9;
+$stats-bg-track:            #f0f0f0;
+
+$stats-border-light:        #eee;
+$stats-border-medium:       #ddd;
+$stats-shadow:              0 2px 5px rgba(0,0,0,0.05);
+
+// Dimensions
+$stats-radius:              8px;
+$stats-radius-sm:           6px;
+$stats-radius-xs:           4px;
+
+// ==========================================
+// 2. MIXINS
+// ==========================================
+
+@mixin stats-card-base {
+  background: $stats-bg-white;
+  padding: 20px;
+  border-radius: $stats-radius;
+  box-shadow: $stats-shadow;
+  border: 1px solid $stats-border-light;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+// ==========================================
+// 3. STYLES
+// ==========================================
+
+.stats-container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+// Header Section
+.stats-header {
+  @include flex-between;
+  align-items: center;
+
+  h3 {
+    margin: 0;
+    color: $stats-text-main;
+  }
+}
+
+.date-filter {
+  background: $stats-bg-white;
+  border: 1px solid $stats-border-medium;
+  padding: 5px 10px;
+  border-radius: $stats-radius-sm;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  select {
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .cal-icon {
+    color: $stats-text-light;
+  }
+}
+
+// Stats Grid (Top Cards)
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.stat-card {
+  @include stats-card-base;
+
+  .stat-top {
+    @include flex-between;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    margin: 5px 0;
+    font-size: 24px;
+    color: $stats-text-main;
+  }
+
+  p {
+    margin: 0;
+    color: $stats-text-light;
+    font-size: 14px;
+  }
+}
+
+// Icon Boxes
+.icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: $stats-radius;
+  @include flex-center;
+  font-size: 18px;
+
+  &.blue   { background: $stats-color-blue-bg;   color: $stats-color-blue; }
+  &.green  { background: $stats-color-green-bg;  color: $stats-color-green; }
+  &.purple { background: $stats-color-purple-bg; color: $stats-color-purple; }
+  &.orange { background: $stats-color-orange-bg; color: $stats-color-orange; }
+}
+
+// Growth Indicators
+.growth {
+  font-size: 13px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  &.positive {
+    color: $stats-color-green;
+  }
+}
+
+// General Section Card
+.section-card {
+  @include stats-card-base;
+
+  h4 {
+    margin: 0 0 20px 0;
+    color: $stats-text-header;
+  }
+}
+
+// Status Bars
+.status-bars-row {
+  display: flex;
+  gap: 40px;
+}
+
+.status-item {
+  flex: 1;
+
+  .status-label {
+    @include flex-between;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: $stats-text-secondary;
+  }
+}
+
+// Value Colors
+.val-green  { color: $stats-color-green;  font-weight: bold; }
+.val-orange { color: $stats-color-orange; font-weight: bold; }
+.val-red    { color: $stats-color-red;    font-weight: bold; }
+
+// Progress Bars
+.progress-track {
+  background: $stats-bg-track;
+  height: 8px;
+  border-radius: $stats-radius-xs;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: $stats-radius-xs;
+
+  &.fill-green  { background: $stats-color-green-bright; }
+  &.fill-orange { background: $stats-color-orange-bright; }
+  &.fill-red    { background: $stats-color-red-bright; }
+  &.fill-blue   { background: $stats-color-blue-dark; }
+}
+
+// Tables
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 2px solid $stats-border-light;
+    color: $stats-text-secondary;
+    font-size: 13px;
+    background: $stats-bg-light;
+  }
+
+  td {
+    padding: 12px;
+    border-bottom: 1px solid $stats-border-light;
+    font-size: 14px;
+    color: $stats-text-main;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+// Layout Grids
+.split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+// Class Bar Items
+.class-bar-item {
+  margin-bottom: 15px;
+
+  .cb-info {
+    @include flex-between;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: $stats-text-secondary;
+
+    small {
+      color: $stats-text-muted;
+    }
+  }
+}
+
+// Activity List
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.activity-item {
+  @include flex-between;
+  align-items: flex-start;
+  padding-bottom: 15px;
+  border-bottom: 1px solid $stats-bg-track;
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.act-title {
+  font-weight: 500;
+  font-size: 14px;
+  color: $stats-text-main;
+}
+
+.act-desc {
+  font-size: 12px;
+  color: $stats-text-light;
+  margin: 2px 0;
+}
+
+.act-time {
+  font-size: 11px;
+  color: $stats-text-faint;
+}
+
+.act-amount {
+  font-weight: 600;
+  font-size: 14px;
+
+  &.pos { color: $stats-color-green; }
+  &.neg { color: $stats-color-red; }
+  &.neu { color: $stats-color-blue; }
+}

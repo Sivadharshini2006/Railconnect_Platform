@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import { FaSearch, FaTrain } from "react-icons/fa";
-import "./PnrStatus.css";
+import "./PnrStatus.scss";
 
 const PnrStatus = () => {
   const [pnr, setPnr] = useState("");

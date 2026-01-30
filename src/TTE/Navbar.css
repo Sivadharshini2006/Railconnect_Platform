@@ -2,14 +2,14 @@
 
 .tte-navbar {
   background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 0px solid #e5e7eb;
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0px 3px rgba(0, 0, 0, 0);
 }
 
-/* Top Bar - Brand + Logout */
+
 .navbar-container {
   display: flex;
   justify-content: space-between;
@@ -19,7 +19,7 @@
   margin: 0 auto;
 }
 
-/* Brand Section */
+
 .navbar-brand {
   display: flex;
   align-items: center;
@@ -53,7 +53,7 @@
   line-height: 1.2;
 }
 
-/* Logout Button */
+
 .logout-btn {
   display: flex;
   align-items: center;
@@ -78,7 +78,7 @@
   font-size: 16px;
 }
 
-/* Navigation Links Section */
+
 .navbar-links {
   display: flex;
   gap: 0;
@@ -117,7 +117,7 @@
   font-size: 16px;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .navbar-container {
     padding: 12px 20px;

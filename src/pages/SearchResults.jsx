@@ -1,6 +1,6 @@
 import React, { useState, useRef, useMemo,useEffect } from "react";
 import Navbar from "../components/Navbar";
-import "./SearchResults.css";
+import "./SearchResults.scss";
 import { FaCalendarAlt, FaStar, FaChevronDown, FaChevronUp, FaExchangeAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
