@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./SearchCard.css";
+import "./SearchCard.scss";
 import { useNavigate } from "react-router-dom";
 
 import { FaTrain, FaCalendarAlt, FaExchangeAlt, FaMapMarkerAlt } from "react-icons/fa";
@@ -14,15 +14,29 @@ export default function SearchCard() {
   const [date, setDate] = useState("");
 
   const navigate = useNavigate();
+const handleSearch = (e) => {
+  e.preventDefault();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (!from || !to || !date) {
-      alert("Please fill in all details (From, To, and Departure Date) before searching!");
-      return;
+  if (!from || !to || !date) {
+    alert("Please fill in all details (From, To, and Departure Date) before searching!");
+    return;
+  }
+
+  const [fromCode, fromName] = from.split(" - ");
+  const [toCode, toName] = to.split(" - ");
+
+  navigate("/search", {
+    state: {
+      from: fromName,
+      fromCode,
+      to: toName,
+      toCode,
+      journeyDate: date,
+      quota: "General"
     }
-    navigate("/search", { state: { from, to, date } });
-  };
+  });
+};
+
 
   const selectStation = (stationName, type) => {
     if (type === 'from') {

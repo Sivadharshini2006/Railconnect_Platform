@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { IoSearchSharp } from "react-icons/io5";
 import { LuTicketCheck } from "react-icons/lu";
 import { GrStatusUnknown } from "react-icons/gr";
+import "./Navbar.scss";
 
 const Navbar = () => {
   const location = useLocation();

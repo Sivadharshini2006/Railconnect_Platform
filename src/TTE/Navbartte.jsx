@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaTrain, FaSignOutAlt, FaFileAlt, FaCheckCircle, FaListUl } from "react-icons/fa";
-import "./Navbar.css";
+import "./Navbar.scss";
 
 const Navbartte = () => {
   const location = useLocation();

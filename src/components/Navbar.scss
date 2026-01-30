@@ -1,0 +1,66 @@
+/* ===============================
+   navbar.scss
+   =============================== */
+
+/* ---------- VARIABLES ---------- */
+$nav-bg-white: #ffffff;
+$nav-primary: #1a5cff;
+$nav-text-gray: gray;
+
+$nav-padding-y: 15px;
+$nav-padding-x: 40px;
+
+$nav-radius-pill: 20px;
+
+$nav-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+/* ---------- MIXINS ---------- */
+@mixin flex-between-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin button-base {
+  border: none;
+  cursor: pointer;
+  border-radius: $nav-radius-pill;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+  @include flex-between-center;
+  padding: $nav-padding-y $nav-padding-x;
+  background: $nav-bg-white;
+  box-shadow: $nav-shadow;
+}
+
+/* ---------- LOGO ---------- */
+.logo {
+  span {
+    font-size: 22px;
+    font-weight: bold;
+    color: $nav-primary;
+  }
+
+  p {
+    font-size: 12px;
+    color: $nav-text-gray;
+  }
+}
+
+/* ---------- MENU ---------- */
+.menu {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  font-weight: 500;
+}
+
+/* ---------- LOGIN BUTTON ---------- */
+.login-btn {
+  @include button-base;
+  background: $nav-primary;
+  color: $nav-bg-white;
+  padding: 10px 18px;
+}

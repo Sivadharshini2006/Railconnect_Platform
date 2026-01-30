@@ -1,9 +1,11 @@
+
 import React, { useState, useRef, useMemo,useEffect } from "react";
 import Navbar from "../components/Navbar";
-import "./SearchResults.scss";
+
 import { FaCalendarAlt, FaStar, FaChevronDown, FaChevronUp, FaExchangeAlt } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+
 import { useAuth } from "../context/AuthContext";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 
@@ -115,11 +117,21 @@ const TrainCard = ({ train, activeFilter, isTatkalAllowed }) => {
 
  
   const handleBook = () => {
-    if (!user) {
-      alert("Must login and after that you can continue your booking");
-      navigate('/login');
-      return; 
+   if (!user) {
+  alert("Please login to continue booking");
+
+  navigate("/login", {
+    state: {
+      from: location.pathname,
+      bookingData: {
+        train,
+        selectedClass
+      }
     }
+  });
+  return;
+}
+
 
     navigate('/booking', { 
       state: { 
@@ -133,128 +145,196 @@ const TrainCard = ({ train, activeFilter, isTatkalAllowed }) => {
       } 
     });
   };
-  return (
-    <div className="train-card-wrapper">
-      <div className="train-card-row">
-       
-        <div className="train-header">
-          <div className="t-name">
-            <span className="number">{train.number}</span> {train.name}
-          </div>
-          <div className="t-rating">
-            <span className="star-box">{train.rating} <FaStar size={10} /></span>
-            <span className="schedule-link" onClick={() => setShowSchedule(!showSchedule)}>
-              Schedule {showSchedule ? <FaChevronUp size={10}/> : <FaChevronDown size={10}/>}
-            </span>
-          </div>
-        </div>
+ return (
+  <div className="bg-white rounded-lg border shadow-sm hover:shadow-md transition p-4">
 
-    
-        <div className="train-time-info">
-          <div className="time-group">
-            <span className="t-time">{train.depTime} <strong>{train.from}</strong></span>
-            <span className="t-duration">--- {train.duration} ---</span>
-            <span className="t-time">{train.arrTime} <strong>{train.to}</strong></span>
-          </div>
-        </div>
+    {/* Header */}
+    <div className="flex justify-between mb-3">
+      <div className="flex items-center font-semibold text-sm">
+        <span className="bg-blue-50 text-blue-600 text-xs px-2 py-0.5 rounded mr-2">
+          {train.number}
+        </span>
+        {train.name}
+      </div>
 
+      <div className="flex items-center gap-4 text-xs">
+        <span className="bg-gray-100 px-2 py-0.5 rounded flex items-center gap-1">
+          {train.rating} <FaStar className="text-yellow-500" size={10} />
+        </span>
+        <button
+          onClick={() => setShowSchedule(!showSchedule)}
+          className="text-blue-600 font-medium flex items-center gap-1"
+        >
+          Schedule
+          {showSchedule ? <FaChevronUp size={10} /> : <FaChevronDown size={10} />}
+        </button>
+      </div>
+    </div>
 
-        <div className="seat-scroller">
-          {train.classes.map((cls, idx) => {
-            const isSelected = selectedClass === cls.type;
-            const isAvailable = cls.label === 'Available';
-            return (
-              <div 
-                key={idx} 
-                className={`seat-ticket ${isSelected ? 'selected' : ''} ${train.status === 'departed' ? 'departed' : ''}`}
-                onClick={() => handleClassClick(cls.type)}
-              >
-                <div className="seat-top">
-                  <span className="cls-name">{cls.type}</span>
-                  <span className="cls-price">₹{cls.price}</span>
-                </div>
-                <div className={`seat-stat ${isAvailable ? 'green-txt' : 'red-txt'}`}>
-                   {activeFilter === 'TATKAL' ? 'TQWL-10' : cls.status}
-                </div>
-                <div className="seat-lbl">
-                   {activeFilter === 'TATKAL' ? 'Tatkal Waitlist' : cls.label}
-                </div>
-                {isSelected && <div className="check-mark">✓</div>}
+    {/* Time Row */}
+    <div className="flex justify-between items-center text-sm text-gray-700 mb-4">
+      <span>
+        {train.depTime} <strong>{train.from}</strong>
+      </span>
+      <span className="text-xs text-gray-400">
+        — {train.duration} —
+      </span>
+      <span>
+        {train.arrTime} <strong>{train.to}</strong>
+      </span>
+    </div>
+
+    {/* Seat Cards */}
+    <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-2">
+      {train.classes.map((cls, idx) => {
+        const isSelected = selectedClass === cls.type;
+        const isAvailable = cls.label === "Available";
+
+        return (
+          <div
+            key={idx}
+            onClick={() => handleClassClick(cls.type)}
+            className={`min-w-[130px] border rounded-md p-3 cursor-pointer relative
+              ${isSelected ? "border-blue-600 bg-blue-50" : "hover:border-blue-400"}
+              ${!isAvailable ? "bg-red-50" : "bg-gray-50"}
+            `}
+          >
+            <div className="flex justify-between font-semibold text-sm mb-1">
+              <span>{cls.type}</span>
+              <span>₹{cls.price}</span>
+            </div>
+
+            <div
+              className={`text-xs font-medium ${
+                isAvailable ? "text-green-700" : "text-red-600"
+              }`}
+            >
+              {activeFilter === "TATKAL" ? "TQWL-10" : cls.status}
+            </div>
+
+            <div className="text-[11px] text-gray-500">
+              {activeFilter === "TATKAL" ? "Tatkal Waitlist" : cls.label}
+            </div>
+
+            {isSelected && (
+              <div className="absolute -top-2 -right-2 bg-blue-600 text-white w-5 h-5 rounded-full flex items-center justify-center text-xs">
+                ✓
               </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+
+    {/* Booking Section */}
+    {selectedClass && (
+      <div className="mt-4 border-t pt-4">
+
+        {/* Tabs */}
+        <div className="flex gap-6 border-b pb-2 mb-4 text-sm">
+          {["General", "Tatkal", "Senior Citizen", "Ladies"].map((tab) => {
+            const disabled = tab === "Tatkal" && !isTatkalAllowed;
+
+            return (
+              <button
+                key={tab}
+                onClick={() => !disabled && setActiveTab(tab)}
+                className={`pb-1 ${
+                  activeTab === tab
+                    ? "text-blue-600 font-semibold border-b-2 border-blue-600"
+                    : "text-gray-500"
+                } ${disabled ? "opacity-40 cursor-not-allowed" : ""}`}
+              >
+                {tab}
+              </button>
             );
           })}
         </div>
 
-
-        {selectedClass && (
-          <div className="booking-expanded">
-            <div className="booking-tabs">
-              {['General', 'Tatkal', 'Senior Citizen', 'Ladies'].map(tab => {
-                 const isTabDisabled = tab === 'Tatkal' && !isTatkalAllowed;
-                 return (
-                   <div 
-                     key={tab} 
-                     className={`b-tab ${activeTab === tab ? 'active' : ''}`}
-                     style={isTabDisabled ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
-                     onClick={() => { if (!isTabDisabled) setActiveTab(tab); }}
-                   >
-                     {tab}
-                   </div>
-                 );
-              })}
-            </div>
-
-            <div className="date-rows-container">
-              {bookingRows.map((row, idx) => (
-                <div key={idx} className="date-row">
-                  <div className="dr-left">
-                    <span className="dr-date">{row.date}</span>
-                    <span className={`dr-status ${row.color}`}>
-                        {activeTab === 'Tatkal' && idx === 0 ? "Train Departed" : 
-                         activeTab === 'Tatkal' && idx === 1 ? "AVAILABLE-04" :
-                         activeTab === 'Tatkal' ? "Not Available" :
-                         row.status}
-                    </span>
-                  </div>
-                  <div className="dr-right">
-                    {row.color === 'orange' && activeTab === 'General' && (
-                        <div className="prob-badge"><span className="prob-txt">{row.prob || '65%'} Chance</span></div>
-                    )}
-                    <button 
-                        className={`book-btn-sm ${!row.canBook ? 'disabled' : ''}`}
-                        disabled={!row.canBook}
-                        onClick={handleBook} 
-                    >
-                        {row.canBook ? `Book ₹${row.price}` : 'Closed'}
-                    </button>
-                  </div>
+        {/* Date Rows */}
+        <div className="space-y-3">
+          {bookingRows.map((row, idx) => (
+            <div
+              key={idx}
+              className="flex justify-between items-center border-b border-dashed pb-3"
+            >
+              <div>
+                <div className="text-sm font-semibold">{row.date}</div>
+                <div
+                  className={`text-xs font-medium ${
+                    row.color === "green"
+                      ? "text-green-700"
+                      : row.color === "orange"
+                      ? "text-orange-600"
+                      : "text-red-600"
+                  }`}
+                >
+                  {row.status}
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {showSchedule && (
-           <div className="schedule-accordion">
-              <div className="sch-head"><span>Station</span><span>Arrives</span><span>Departs</span><span>Halt</span><span>Day</span></div>
-              <div className="sch-timeline">
-                {scheduleData.map((stop, i) => (
-                    <div key={i} className="sch-row">
-                        <div className="sch-line-col">
-                            <div className="line-top"></div><div className="dot"></div><div className="line-btm"></div>
-                        </div>
-                        <div className="sch-data">
-                            <div className="stn-name"><strong>{stop.station}</strong> <span className="stn-code">({stop.code})</span><span className={`delay-tag ${stop.delay === 'On Time' ? 'green' : 'red'}`}>{stop.delay}</span></div>
-                            <div className="sch-time">{stop.arr}</div><div className="sch-time">{stop.dep}</div><div className="sch-time">{stop.halt}</div><div className="sch-time">{stop.day}</div>
-                        </div>
-                    </div>
-                ))}
               </div>
-           </div>
-        )}
+
+              <div className="flex items-center gap-4">
+                {row.prob && (
+                  <span className="text-[10px] bg-orange-100 text-orange-700 px-2 py-0.5 rounded">
+                    {row.prob} Chance
+                  </span>
+                )}
+
+                <button
+                  disabled={!row.canBook}
+                  onClick={handleBook}
+                  className={`text-xs px-5 py-1.5 rounded font-medium
+                    ${
+                      row.canBook
+                        ? "bg-blue-600 text-white hover:bg-blue-700"
+                        : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    }`}
+                >
+                  {row.canBook ? `Book ₹${row.price}` : "Closed"}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+    )}
+
+    {/* Schedule */}
+    {showSchedule && (
+  <div className="mt-4 border rounded-lg bg-gray-50 p-4 text-sm">
+
+    {/* HEADER */}
+    <div className="grid grid-cols-5 font-semibold text-gray-500 text-xs mb-3">
+      <span>Station</span>
+      <span>Arr</span>
+      <span>Dep</span>
+      <span>Halt</span>
+      <span>Day</span>
     </div>
-  );
+
+    {/* ROWS */}
+    {scheduleData.map((s, i) => (
+      <div
+        key={i}
+        className="grid grid-cols-5 items-center py-2 border-t text-gray-700"
+      >
+        <div>
+          <div className="font-medium">{s.station}</div>
+          <div className="text-xs text-gray-400">({s.code})</div>
+        </div>
+
+        <span>{s.arr}</span>
+        <span>{s.dep}</span>
+        <span>{s.halt}</span>
+        <span>{s.day}</span>
+      </div>
+    ))}
+  </div>
+)}
+
+  </div>
+);
+
 };
 
 
@@ -266,6 +346,21 @@ export default function SearchResults() {
   const { user } = useAuth();
   const dateInputRef = useRef(null);
 const navigate = useNavigate();
+  const location = useLocation();
+
+  const {
+    from,
+    fromCode,
+    to,
+    toCode,
+    journeyDate,
+    quota
+  } = location.state || {};
+useEffect(() => {
+  if (!location.state) {
+    navigate("/");
+  }
+}, [location, navigate]);
 
   useEffect(() => {
     if (user && user.role === 'tte') {
@@ -329,94 +424,134 @@ const navigate = useNavigate();
     }
     return true; 
   });
+return (
+ <div className="min-h-screen bg-[#f2f4f7] font-poppins text-gray-800">
+  
+    <Navbar />
 
-  return (
-    <div className="page-wrapper">
-      <Navbar />
-      
-      <div className="main-container">
-       
-        <div className="route-header">
-           <h1>New Delhi (NDLS) <FaExchangeAlt style={{margin:'0 8px', fontSize:'12px', color:'#999'}}/> Mumbai Central (MMCT)</h1>
-           <span className="route-meta">
-             {filteredTrains.length} Trains found | {selectedDate.toDateString()} | General Quota
-           </span>
-        </div>
+    <div className="w-full px-6 pb-10">
 
-       
-        <div className="date-carousel">
-            <input type="date" ref={dateInputRef} onChange={handleCalendarPick} 
-            style={{visibility: 'hidden', position:'absolute'}} />
-            <button className="cal-btn" onClick={() => dateInputRef.current.showPicker()}><FaCalendarAlt /></button>
-            <div className="dates-scroll">
-                {dates.map((d, index) => {
-                    const isActive = isSameDate(d.fullDate, selectedDate);
-                    return (
-                        <div key={index} className={`date-card ${isActive ? 'active' : ''}`} onClick={() => handleDateClick(d.fullDate)}>
-                            <span className="d-day">{d.display}</span>
-                            <span className={`d-label ${d.color}`}>● {d.label}</span>
-                            {isActive && <div className="active-bar"></div>}
-                        </div>
-                    );
-                })}
-            </div>
-        </div>
+      {/* Route Header */}
+      <div className="my-4">
+        <h1 className="text-[18px] font-semibold flex items-center">
+  {fromCode} – {from}
+  <FaExchangeAlt className="mx-2 text-xs text-gray-400" />
+ {toCode} – {to}
+</h1>
 
-      
-        <div className="quick-filters">
-            <div className="toggles">
-                <label className="toggle-container">
-                   <input type="checkbox" checked={activeFilter === 'BEST_AVAIL'} onChange={() => setActiveFilter(activeFilter === 'BEST_AVAIL' ? null : 'BEST_AVAIL')}/>
-                   <span className="checkmark"></span> Best Available
-                </label>
-                <label className="toggle-container">
-                   <input type="checkbox" checked={activeFilter === 'TATKAL'} onChange={() => setActiveFilter(activeFilter === 'TATKAL' ? null : 'TATKAL')}/>
-                   <span className="checkmark"></span> Tatkal Only
-                </label>
-                <label className="toggle-container">
-                   <input type="checkbox" checked={activeFilter === 'AC_ONLY'} onChange={() => setActiveFilter(activeFilter === 'AC_ONLY' ? null : 'AC_ONLY')}/>
-                   <span className="checkmark"></span> AC Only
-                </label>
-            </div>
-        </div>
+<span className="text-xs text-gray-500">
+  {filteredTrains.length} Trains found | {journeyDate} | {quota} Quota
+</span>
 
-        
-        {activeFilter === 'TATKAL' && !isTatkalAllowed && (
-            <div className="error-banner">
-                ⚠️ Tatkal booking is only allowed for journey starting Tomorrow.
-            </div>
-        )}
+      </div>
 
-        <div className="promo-banner green">
-            <div className="banner-content">
-                <input type="checkbox" checked readOnly className="check-box" />
-                <div className="text-col">
-                    <strong>Free Cancellation</strong>
-                    <span>Get full refund of your train fare on cancellation*</span>
-                </div>
-            </div>
-            <div className="shield-icon">🛡️ FCF</div>
-        </div>
+      {/* Date Carousel */}
+      <div className="flex items-center bg-white p-2 rounded-t-lg border-b">
+        <input
+          type="date"
+          ref={dateInputRef}
+          onChange={handleCalendarPick}
+          className="hidden"
+        />
+        <button
+          onClick={() => dateInputRef.current.showPicker()}
+          className="px-4 text-gray-500 border-r"
+        >
+          <FaCalendarAlt />
+        </button>
 
-        
-        <div className="train-list">
-            {filteredTrains.length > 0 ? (
-                filteredTrains.map((train) => (
-                    <TrainCard 
-                        key={train.id} 
-                        train={train} 
-                        activeFilter={activeFilter}
-                        isTatkalAllowed={isTatkalAllowed}
-                    />
-                ))
-            ) : (
-                <div className="no-trains">
-                   <h3>No trains found</h3>
-                   <p>Try changing the date or filters.</p>
-                </div>
-            )}
+        <div className="flex gap-3 overflow-x-auto scrollbar-hide flex-1">
+          {dates.map((d, i) => {
+            const isActive = isSameDate(d.fullDate, selectedDate);
+            return (
+              <div
+                key={i}
+                onClick={() => handleDateClick(d.fullDate)}
+                className={`min-w-[85px] text-center p-2 rounded cursor-pointer relative
+                  ${isActive ? "bg-blue-50" : "hover:bg-gray-50"}`}
+              >
+                <span className="block text-sm font-medium">{d.display}</span>
+                <span
+                  className={`text-[10px] font-medium ${
+                    d.color === "green"
+                      ? "text-green-700"
+                      : d.color === "orange"
+                      ? "text-orange-600"
+                      : "text-yellow-600"
+                  }`}
+                >
+                  ● {d.label}
+                </span>
+                {isActive && (
+                  <div className="absolute bottom-0 left-0 h-[3px] w-full bg-blue-600 rounded-t" />
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
+
+      {/* Filters */}
+      <div className="bg-white p-3 rounded-b-lg shadow-sm flex gap-4 text-sm">
+        {[
+          ["BEST_AVAIL", "Best Available"],
+          ["TATKAL", "Tatkal Only"],
+          ["AC_ONLY", "AC Only"],
+        ].map(([key, label]) => (
+          <label key={key} className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={activeFilter === key}
+              onChange={() =>
+                setActiveFilter(activeFilter === key ? null : key)
+              }
+              className="accent-blue-600"
+            />
+            {label}
+          </label>
+        ))}
+      </div>
+
+      {/* Tatkal Warning */}
+      {activeFilter === "TATKAL" && !isTatkalAllowed && (
+        <div className="bg-yellow-100 border border-yellow-300 text-yellow-800 text-sm p-3 rounded mt-4">
+          ⚠️ Tatkal booking is only allowed for journey starting Tomorrow.
+        </div>
+      )}
+
+      {/* Promo Banner */}
+      <div className="mt-4 bg-gradient-to-r from-green-600 to-green-500 text-white p-4 rounded-lg flex justify-between items-center">
+        <div className="flex items-center gap-3">
+          <input type="checkbox" checked readOnly className="accent-white" />
+          <div>
+            <strong className="block text-sm">Free Cancellation</strong>
+            <span className="text-xs opacity-90">
+              Get full refund of your train fare on cancellation*
+            </span>
+          </div>
+        </div>
+        <div className="font-bold">🛡️ FCF</div>
+      </div>
+
+      {/* Train List */}
+      <div className="mt-4 space-y-4">
+        {filteredTrains.length ? (
+          filteredTrains.map((train) => (
+            <TrainCard
+              key={train.id}
+              train={train}
+              activeFilter={activeFilter}
+              isTatkalAllowed={isTatkalAllowed}
+            />
+          ))
+        ) : (
+          <div className="text-center text-gray-500 py-10">
+            <h3 className="font-semibold">No trains found</h3>
+            <p className="text-sm">Try changing the date or filters.</p>
+          </div>
+        )}
+      </div>
     </div>
-  );
+  </div>
+);
 }

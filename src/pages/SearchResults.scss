@@ -1,229 +1,259 @@
-/* ===============================
-   search-results.scss
-   =============================== */
+// ==========================================
+// 1. VARIABLES
+// ==========================================
 
-/* ---------- IMPORTS ---------- */
+// Colors - Brand & UI
+$search-color-primary:       #1a5cff;
+$search-color-primary-dark:  #0047cc;
+$search-color-primary-light: #eef5ff;
+$search-color-primary-bg:    #cce0ff;
+$search-color-info:          #2196F3; // From second section
+
+// Colors - Text
+$search-text-main:           #333;
+$search-text-secondary:      #444;
+$search-text-muted:          #777;
+$search-text-light:          #999;
+$search-text-white:          #ffffff;
+$search-text-dark:           #222;
+
+// Colors - Status
+$search-status-green:        #2e7d32;
+$search-status-green-bg:     #e8f5e9;
+$search-status-green-grad:   linear-gradient(90deg, #00994d, #00b359);
+$search-status-red:          #d32f2f;
+$search-status-red-bg:       #fff5f5;
+$search-status-red-border:   #fce8e8;
+$search-status-orange:       #ef6c00;
+$search-status-orange-bg:    #fff3e0;
+$search-status-yellow:       #fbc02d;
+
+// Backgrounds
+$search-bg-page:             #f2f4f7; // Note: Bottom section uses #f5f5f5
+$search-bg-white:            #ffffff;
+$search-bg-light:            #fafafa;
+$search-bg-divider:          #f0f0f0;
+
+// Borders & Shadows
+$search-border-light:        #eee;
+$search-border-medium:       #e0e0e0;
+$search-border-input:        #ccc;
+$search-shadow-sm:           0 1px 3px rgba(0,0,0,0.05);
+$search-shadow-md:           0 2px 8px rgba(0,0,0,0.04);
+$search-shadow-hover:        0 5px 15px rgba(0,0,0,0.08);
+
+// Fonts
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+$search-font-main:           'Poppins', sans-serif;
+$search-font-alt:            'Segoe UI', sans-serif;
 
-/* ---------- VARIABLES ---------- */
-$search-font-primary: 'Poppins', sans-serif;
-$search-font-secondary: 'Segoe UI', sans-serif;
+// Dimensions
+$search-radius-sm:           4px;
+$search-radius-md:           6px;
+$search-radius-lg:           8px;
 
-$search-bg-page: #f2f4f7;
-$search-bg-alt: #f5f5f5;
-$search-bg-white: #ffffff;
-$search-bg-light: #fafafa;
-$search-bg-hover: #f9f9f9;
-$search-bg-blue-light: #eef5ff;
-$search-bg-blue-soft: #e3f2fd;
+// ==========================================
+// 2. MIXINS
+// ==========================================
 
-$search-primary: #1a5cff;
-$search-primary-dark: #0047cc;
-$search-primary-alt: #2196f3;
-
-$search-text-dark: #333;
-$search-text-muted: #555;
-$search-text-light: #777;
-$search-text-grey: #888;
-
-$search-border-light: #eee;
-$search-border-default: #ddd;
-
-$search-success: #2e7d32;
-$search-warning: #f57c00;
-$search-danger: #d32f2f;
-
-$search-radius-sm: 4px;
-$search-radius-md: 6px;
-$search-radius-lg: 8px;
-$search-radius-pill: 20px;
-
-$search-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
-$search-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.04);
-$search-shadow-lg: 0 5px 15px rgba(0, 0, 0, 0.08);
-
-/* ---------- MIXINS ---------- */
-@mixin flex-center($gap: 0) {
+@mixin search-flex-center {
   display: flex;
   align-items: center;
-  gap: $gap;
 }
 
-@mixin flex-between {
+@mixin search-flex-between {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-@mixin card-base($padding) {
-  background: $search-bg-white;
-  border-radius: $search-radius-lg;
-  padding: $padding;
-  border: 1px solid $search-border-light;
-}
-
-@mixin hover-color($color) {
-  &:hover {
-    color: $color;
+@mixin search-hide-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
-/* ---------- GLOBAL ---------- */
+// ==========================================
+// 3. GLOBAL & LAYOUT
+// ==========================================
+
 * {
   box-sizing: border-box;
 }
 
 .page-wrapper {
+  font-family: $search-font-main;
   background-color: $search-bg-page;
   min-height: 100vh;
-  font-family: $search-font-primary;
-  color: $search-text-dark;
+  color: $search-text-main;
   padding-bottom: 40px;
 }
 
 .main-container {
   max-width: 950px;
   margin: 0 auto;
-  padding: 0 10px 40px;
+  padding: 0 10px 40px 10px;
 }
 
-/* ---------- NAV ---------- */
+// Navigation
 .nav-item {
-  &.active {
-    color: $search-primary;
+  &:hover, &.active {
+    color: $search-color-primary;
     font-weight: 600;
   }
-
-  @include hover-color($search-primary);
 }
 
-/* ---------- ROUTE HEADER ---------- */
+// ==========================================
+// 4. HEADER & FILTERS
+// ==========================================
+
 .route-header {
-  margin: 20px 0 15px;
+  margin: 20px 0 15px 0;
 
   h1 {
     font-size: 18px;
     margin: 0;
     font-weight: 600;
-    @include flex-center;
+    @include search-flex-center;
+  }
+
+  .route-meta {
+    font-size: 12px;
+    color: $search-text-muted;
+    margin-top: 4px;
+    display: block;
   }
 }
 
-.route-meta {
-  font-size: 12px;
-  color: $search-text-light;
-  margin-top: 4px;
-  display: block;
-}
-
-/* ---------- DATE CAROUSEL ---------- */
+// Date Carousel
 .date-carousel {
-  @include flex-center;
+  @include search-flex-center;
   background: $search-bg-white;
   padding: 10px;
   border-radius: $search-radius-lg $search-radius-lg 0 0;
-  border-bottom: 1px solid #f0f0f0;
-}
+  border-bottom: 1px solid $search-bg-divider;
+  // Merging styles from bottom section
+  gap: 10px; 
+  overflow: hidden;
 
-.cal-btn {
-  border: none;
-  background: none;
-  font-size: 18px;
-  color: $search-text-muted;
-  padding: 0 15px;
-  border-right: 1px solid $search-border-light;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-.dates-scroll {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  flex: 1;
-  scrollbar-width: none;
-}
-
-.date-card {
-  min-width: 85px;
-  text-align: center;
-  cursor: pointer;
-  padding: 6px;
-  border-radius: $search-radius-sm;
-  position: relative;
-  transition: 0.2s;
-
-  &:hover {
-    background: $search-bg-hover;
+  .cal-btn {
+    border: none;
+    background: none;
+    font-size: 18px;
+    color: #555;
+    padding: 0 15px;
+    border-right: 1px solid $search-border-light;
+    margin-right: 10px;
+    cursor: pointer;
   }
 
-  &.active {
-    background: $search-bg-blue-light;
+  .dates-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    flex: 1;
+    @include search-hide-scrollbar;
+  }
+
+  .date-card {
+    min-width: 85px;
+    text-align: center;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: $search-radius-sm;
+    position: relative;
+    transition: 0.2s;
+    border: 1px solid transparent;
+
+    &:hover {
+      background: #f9f9f9;
+    }
+
+    &.active {
+      background: $search-color-primary-light;
+      border-color: $search-color-info; // merged from bottom
+
+      .active-bar {
+        height: 3px;
+        width: 100%;
+        background: $search-color-primary;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-radius: 2px 2px 0 0;
+      }
+    }
+
+    .d-day {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: $search-text-secondary;
+      margin-bottom: 3px;
+    }
+
+    .d-label {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 6px;
+      border-radius: 4px;
+
+      &.orange { color: $search-status-orange; background: #ffe0b2; }
+      &.yellow { color: $search-status-yellow; background: #fff9c4; }
+      &.green  { color: $search-status-green;  background: #c8e6c9; }
+    }
   }
 }
 
-.d-day {
-  display: block;
-  font-size: 13px;
-  font-weight: 500;
-  color: #444;
-  margin-bottom: 3px;
-}
-
-.d-label {
-  font-size: 10px;
-  font-weight: 500;
-
-  &.orange {
-    color: #ff5722;
-  }
-
-  &.yellow {
-    color: #fbc02d;
-  }
-
-  &.green {
-    color: $search-success;
-  }
-}
-
-.active-bar {
-  height: 3px;
-  width: 100%;
-  background: $search-primary;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  border-radius: 2px 2px 0 0;
-}
-
-/* ---------- FILTERS ---------- */
+// Quick Filters
 .quick-filters {
   background: $search-bg-white;
   padding: 12px 20px;
   border-radius: 0 0 $search-radius-lg $search-radius-lg;
   margin-bottom: 15px;
   box-shadow: $search-shadow-sm;
-}
-
-.toggles {
+  // Merging bottom section flex logic
   display: flex;
-  gap: 20px;
-}
+  gap: 10px;
 
-.toggle-container {
-  @include flex-center(8px);
-  font-size: 13px;
-  cursor: pointer;
-  user-select: none;
-  color: $search-text-muted;
+  .toggles {
+    display: flex;
+    gap: 20px;
+  }
 
-  input {
-    display: none;
+  .toggle-container {
+    @include search-flex-center;
+    gap: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+    color: #555;
+    
+    // Styling from bottom section
+    background: $search-bg-white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    border: 1px solid $search-border-light;
 
-    &:checked ~ .checkmark {
-      background-color: $search-primary;
-      border-color: $search-primary;
+    input {
+      display: none;
+      margin-right: 5px;
+    }
+
+    .checkmark {
+      height: 16px;
+      width: 16px;
+      border: 1px solid $search-border-input;
+      border-radius: 3px;
+      display: inline-block;
+      position: relative;
+    }
+
+    // Checked State Logic
+    input:checked ~ .checkmark {
+      background-color: $search-color-primary;
+      border-color: $search-color-primary;
 
       &:after {
         content: "✓";
@@ -237,82 +267,454 @@ $search-shadow-lg: 0 5px 15px rgba(0, 0, 0, 0.08);
   }
 }
 
-.checkmark {
-  height: 16px;
-  width: 16px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  position: relative;
-}
+// ==========================================
+// 5. TRAIN CARD COMPONENT
+// ==========================================
 
-/* ---------- TRAIN CARD ---------- */
 .train-card-wrapper {
   margin-bottom: 15px;
+  // Bottom section overrides
+  background: $search-bg-white;
+  border-radius: $search-radius-lg;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  overflow: hidden;
 }
 
 .train-card-row {
-  @include card-base(18px);
+  background: $search-bg-white;
+  border-radius: $search-radius-lg;
+  padding: 18px;
   box-shadow: $search-shadow-md;
+  border: 1px solid $search-border-light;
   transition: 0.2s;
 
   &:hover {
-    box-shadow: $search-shadow-lg;
+    box-shadow: $search-shadow-hover;
   }
 }
 
 .train-header {
-  @include flex-between;
+  // Merged styles
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 12px;
+  background: $search-bg-light;
+  padding: 10px 15px;
+  border-bottom: 1px solid $search-border-light;
+
+  .t-name {
+    font-weight: 600;
+    color: $search-text-dark;
+    font-size: 15px;
+    @include search-flex-center;
+
+    .number {
+      background: $search-color-primary-light; // or #2196F3 from bottom
+      color: $search-color-primary; // or white from bottom
+      padding: 2px 6px;
+      font-size: 11px;
+      border-radius: $search-radius-sm;
+      margin-right: 8px;
+      font-weight: 500;
+    }
+  }
+
+  .t-rating {
+    @include search-flex-center;
+    gap: 15px;
+
+    .star-box {
+      background: $search-bg-divider;
+      padding: 2px 6px;
+      border-radius: $search-radius-sm;
+      font-size: 11px;
+      font-weight: 600;
+      @include search-flex-center;
+      gap: 3px;
+    }
+
+    .schedule-link {
+      color: $search-color-primary;
+      font-size: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 500;
+      @include search-flex-center;
+      gap: 4px;
+    }
+  }
 }
 
-.t-name {
-  font-weight: 600;
-  color: #222;
-  font-size: 15px;
-  @include flex-center;
+.train-time-info {
+  margin-bottom: 18px;
+  font-size: 14px;
+  color: $search-text-secondary;
+  padding: 15px; // from bottom
+  text-align: center; // from bottom
+  
+  .time-group {
+    @include search-flex-between;
+  }
+
+  .t-duration {
+    font-size: 12px;
+    color: $search-text-light;
+    margin: 0 12px;
+    position: relative;
+    top: -1px;
+  }
 }
 
-.number {
-  background: $search-bg-blue-light;
-  color: $search-primary;
-  padding: 2px 6px;
-  font-size: 11px;
-  border-radius: $search-radius-sm;
-  margin-right: 8px;
-  font-weight: 500;
+// ==========================================
+// 6. SEAT SCROLLER
+// ==========================================
+
+.seat-scroller {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+  @include search-hide-scrollbar;
 }
 
-.t-rating {
-  @include flex-center(15px);
-}
-
-.star-box {
-  background: #f0f0f0;
-  padding: 2px 6px;
-  border-radius: $search-radius-sm;
-  font-size: 11px;
-  font-weight: 600;
-  @include flex-center(3px);
-}
-
-.schedule-link {
-  color: $search-primary;
-  font-size: 12px;
+.seat-ticket {
+  min-width: 130px;
+  border-radius: $search-radius-md;
+  padding: 10px;
+  background: $search-bg-light;
+  border: 1px solid $search-border-medium;
   cursor: pointer;
-  text-decoration: none;
-  font-weight: 500;
-  @include flex-center(4px);
+  position: relative;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: $search-color-primary;
+    background: $search-bg-white;
+  }
+
+  &.selected {
+    background: $search-color-primary-light;
+    border: 1px solid $search-color-primary;
+  }
+
+  &.departed {
+    opacity: 0.6;
+    background: $search-status-red-bg;
+    border-color: $search-status-red-border;
+  }
+
+  .seat-top {
+    @include search-flex-between;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 13px;
+    color: $search-text-main;
+  }
+
+  .green-txt { color: $search-status-green; font-weight: 600; font-size: 12px; }
+  .red-txt   { color: $search-status-red; font-weight: 600; font-size: 12px; }
+  
+  .seat-lbl {
+    font-size: 11px;
+    color: #888;
+    margin-top: 3px;
+  }
+
+  .check-mark {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: $search-color-primary;
+    color: $search-text-white;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    border-radius: 50%;
+    @include search-flex-center;
+    justify-content: center;
+    border: 2px solid $search-bg-white;
+  }
 }
 
-/* ---------- ANIMATION ---------- */
+// ==========================================
+// 7. EXPANDED BOOKING SECTION
+// ==========================================
+
 @keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.booking-expanded {
+  margin-top: 15px;
+  border-top: 1px solid $search-border-light;
+  padding-top: 15px;
+  animation: slideDown 0.3s ease;
+
+  .booking-tabs {
+    display: flex;
+    gap: 25px;
+    border-bottom: 1px solid $search-border-light;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+
+    .b-tab {
+      font-size: 13px;
+      font-weight: 500;
+      color: $search-text-light;
+      cursor: pointer;
+      padding-bottom: 5px;
+      position: relative;
+
+      &:hover { color: $search-color-primary; }
+      
+      &.active {
+        color: $search-color-primary;
+        font-weight: 600;
+
+        &:after {
+          content: '';
+          width: 100%;
+          height: 2px;
+          background: $search-color-primary;
+          position: absolute;
+          bottom: -9px;
+          left: 0;
+        }
+      }
+    }
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .date-row {
+    @include search-flex-between;
+    padding: 12px 0;
+    border-bottom: 1px dashed $search-border-light;
+
+    &:last-child { border-bottom: none; }
+
+    .dr-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .dr-date {
+      font-size: 13px;
+      font-weight: 600;
+      color: $search-text-main;
+    }
+
+    .dr-status {
+      font-size: 12px;
+      font-weight: 500;
+
+      &.red    { color: $search-status-red; }
+      &.orange { color: $search-status-orange; }
+      &.green  { color: $search-status-green; }
+    }
+
+    .dr-right {
+      @include search-flex-center;
+      gap: 15px;
+
+      .prob-badge {
+        font-size: 10px;
+        background: $search-status-orange-bg;
+        color: $search-status-orange;
+        padding: 2px 6px;
+        border-radius: $search-radius-sm;
+        border: 1px solid lighten($search-status-orange, 30%);
+      }
+
+      .book-btn-sm {
+        background: $search-color-primary;
+        color: $search-text-white;
+        border: none;
+        padding: 6px 18px;
+        border-radius: $search-radius-sm;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        min-width: 90px;
+
+        &:hover { background: $search-color-primary-dark; }
+        
+        &.disabled {
+          background: $search-border-medium;
+          color: $search-text-light;
+          cursor: not-allowed;
+        }
+      }
+    }
   }
+}
+
+// ==========================================
+// 8. SCHEDULE ACCORDION
+// ==========================================
+
+.schedule-accordion {
+  background: #fcfcfc;
+  border: 1px solid $search-border-light;
+  border-radius: $search-radius-md;
+  margin-top: 15px;
+  padding: 15px;
+  font-size: 13px;
+
+  .sch-head {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    color: #888;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-left: 20px;
+  }
+
+  .sch-timeline {
+    position: relative;
+  }
+
+  .sch-row {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 10px;
+    margin-bottom: 0;
+    min-height: 45px;
+
+    .sch-line-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 20px;
+      position: relative;
+    }
+
+    .line-top, .line-btm {
+      width: 2px;
+      background: #ddd;
+      flex: 1;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: $search-border-input;
+      border-radius: 50%;
+      margin: 2px 0;
+    }
+
+    // First and Last Logic
+    &:first-child {
+      .line-top { visibility: hidden; }
+      .dot {
+        background: $search-color-primary;
+        border: 2px solid $search-color-primary-bg;
+        width: 10px;
+        height: 10px;
+      }
+    }
+
+    &:last-child {
+      .line-btm { visibility: hidden; }
+      .dot {
+        background: $search-color-primary;
+        border: 2px solid $search-color-primary-bg;
+        width: 10px;
+        height: 10px;
+      }
+      .sch-data { border-bottom: none; }
+    }
+
+    .sch-data {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      align-items: center;
+      width: 100%;
+      border-bottom: 1px solid #f5f5f5;
+      padding-bottom: 10px;
+
+      .stn-name {
+        color: $search-text-main;
+        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+        line-height: 1.3;
+      }
+
+      .stn-code {
+        color: #888;
+        font-size: 11px;
+        font-weight: 400;
+      }
+
+      .delay-tag {
+        font-size: 10px;
+        margin-top: 2px;
+        &.green { color: $search-status-green; }
+        &.red   { color: $search-status-red; }
+      }
+
+      .sch-time {
+        color: #555;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+// ==========================================
+// 9. BANNERS
+// ==========================================
+
+.promo-banner {
+  border-radius: $search-radius-lg;
+  padding: 12px 18px;
+  @include search-flex-between;
+  margin-bottom: 15px;
+  color: $search-text-white;
+
+  &.green {
+    background: $search-status-green-grad;
+  }
+
+  .banner-content {
+    @include search-flex-center;
+    gap: 12px;
+    
+    .check-box {
+      width: 16px;
+      height: 16px;
+      accent-color: white;
+    }
+
+    .text-col {
+      strong {
+        font-size: 14px;
+        display: block;
+        margin-bottom: 2px;
+      }
+      span {
+        font-size: 11px;
+        opacity: 0.9;
+      }
+    }
+  }
+
+  .shield-icon {
+    font-size: 16px;
+    font-weight: 700;
+    opacity: 0.8;
+  }
+}
+
+.error-banner {
+  background: #fff3cd;
+  color: #856404;
+  padding: 10px 15px;
+  border-radius: $search-radius-md;
+  margin-bottom: 15px;
+  font-size: 13px;
+  border: 1px solid #ffeeba;
 }

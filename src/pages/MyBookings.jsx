@@ -7,26 +7,47 @@ import "./MyBookings.scss";
 export default function MyBookings() {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [bookings, setBookings] = useState([]);
+
+  const getFilteredBookings = (currentUser) => {
+    if (!currentUser) return [];
+    try {
+      const rawData = localStorage.getItem("bookings") || "[]";
+      const allTickets = JSON.parse(rawData);
+      return allTickets.filter(
+        (ticket) => ticket.email === currentUser.email || ticket.contactInfo?.email === currentUser.email
+      );
+    } catch (error) {
+      console.error("Error parsing bookings:", error);
+      return [];
+    }
+  };
+
+  // Keep setBookings here because we will use it in handleCancel
+  const [bookings, setBookings] = useState(() => getFilteredBookings(user));
 
   useEffect(() => {
-  
     if (!user) {
       navigate("/login");
-      return;
     }
-
-    
-    const rawData = localStorage.getItem("bookings") || "[]";
-    const allTickets = JSON.parse(rawData);
-
-    
-    const myTickets = allTickets.filter(
-      (ticket) => ticket.email === user.email || ticket.contactInfo?.email === user.email
-    );
-
-    setBookings(myTickets);
   }, [user, navigate]);
+
+  // --- NEW: Cancel Ticket Function ---
+  const handleCancel = (pnrToCancel) => {
+    if (window.confirm(`Are you sure you want to cancel PNR: ${pnrToCancel}?`)) {
+      
+      // 1. Get current data
+      const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
+      
+      // 2. Filter out the cancelled ticket
+      const updatedAllBookings = allBookings.filter(b => b.pnr !== pnrToCancel);
+      
+      // 3. Update LocalStorage
+      localStorage.setItem("bookings", JSON.stringify(updatedAllBookings));
+
+      // 4. Update UI (This uses setBookings, fixing your error!)
+      setBookings(getFilteredBookings(user));
+    }
+  };
 
   return (
     <div className="my-bookings-page">
@@ -34,7 +55,6 @@ export default function MyBookings() {
       <div className="bookings-container">
         <h2>My Bookings</h2>
 
-        {/* Dynamic Empty State */}
         {bookings.length === 0 ? (
           <div className="no-data">
             <p>You haven't booked any tickets yet.</p>
@@ -43,7 +63,6 @@ export default function MyBookings() {
             </button>
           </div>
         ) : (
-         
           <div className="tickets-list">
             {bookings.map((ticket, index) => (
               <div key={index} className="ticket-card">
@@ -60,18 +79,28 @@ export default function MyBookings() {
                   </div>
                   
                   <div className="passenger-list">
-                     <h4>Passengers:</h4>
-                     <ul>
-                       {(ticket.passengers || []).map((p, i) => (
-                         <li key={i}>{p.name} ({p.gender}, {p.age})</li>
-                       ))}
-                     </ul>
+                      <h4>Passengers:</h4>
+                      <ul>
+                        {(ticket.passengers || []).map((p, i) => (
+                          <li key={i}>{p.name} ({p.gender}, {p.age})</li>
+                        ))}
+                      </ul>
                   </div>
                 </div>
 
                 <div className="ticket-footer">
-                   <span className="status confirmed">● Booked</span>
-                   <span className="price">₹{ticket.totalAmount}</span>
+                   <div className="status-section">
+                       <span className="status confirmed">● Booked</span>
+                       <span className="price">₹{ticket.totalAmount}</span>
+                   </div>
+                   {/* Cancel Button - Uses the handleCancel function */}
+                   <button 
+                     className="cancel-btn"
+                     style={{ marginLeft: 'auto', background: '#ff4d4d', color: 'white', border: 'none', padding: '5px 10px', borderRadius: '4px', cursor: 'pointer'}}
+                     onClick={() => handleCancel(ticket.pnr)}
+                   >
+                     Cancel
+                   </button>
                 </div>
               </div>
             ))}

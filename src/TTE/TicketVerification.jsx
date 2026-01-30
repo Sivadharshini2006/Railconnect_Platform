@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
 import { FaCheckCircle, FaTimesCircle, FaSearch, FaIdCard } from "react-icons/fa";
-import "./ReservationCharts.css"; 
+import "./ReservationCharts.scss"; 
 import Navbartte from "./Navbartte";
 
 const TicketVerification = () => {
@@ -19,13 +18,13 @@ const TicketVerification = () => {
         return;
     }
 
-    
+    // 1. Get existing bookings from Local Storage
     const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
     
- 
+    // 2. Find the booking with this PNR
     const foundBooking = allBookings.find(b => b.pnr === pnr);
 
-   
+    // 3. Update State
     if (foundBooking) {
       setResult(foundBooking);
     } else {
@@ -37,14 +36,14 @@ const TicketVerification = () => {
     <div className="chart-page-wrapper">
       <Navbartte />
       
-      
-      <div className="chart-container-full" style={{ maxWidth: '1000px', margin: '0 auto' }}>
+      {/* UPDATED: Removed inline maxWidth to allow full page width */}
+      <div className="chart-container-full">
         
         <h2 className="page-title" style={{ fontSize: '26px', marginBottom: '25px' }}>
           Ticket Verification
         </h2>
 
-        
+        {/* --- BIG SEARCH CARD --- */}
         <div className="chart-card" style={{ padding: '40px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
               <FaIdCard size={24} color="#0d6efd"/>
@@ -53,7 +52,7 @@ const TicketVerification = () => {
           
           <form onSubmit={handleVerify} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
              
-             
+             {/* WIDE INPUT BAR */}
              <div style={{ display: 'flex', gap: '15px', alignItems: 'stretch' }}>
                 <input 
                   type="text" 
@@ -63,7 +62,7 @@ const TicketVerification = () => {
                   style={{
                       flex: 1, 
                       padding: '12px 20px',
-                      fontSize: '11px', 
+                      fontSize: '14px', /* Adjusted input text size slightly for better readability */
                       border: '2px solid #ddd',
                       borderRadius: '8px',
                       outline: 'none',
@@ -81,13 +80,14 @@ const TicketVerification = () => {
                     alignItems: 'center',
                     borderRadius: '8px' 
                 }}>
-                   <FaSearch style={{ marginRight: '8px' }} /> Verify
+                    <FaSearch style={{ marginRight: '8px' }} /> Verify
                 </button>
              </div>
 
           </form>
         </div>
 
+        {/* --- RESULT SECTION --- */}
         {result && (
            <div className="chart-results fade-in" style={{ marginTop: '30px', padding: '30px' }}>
               <div className="result-top-bar" style={{ justifyContent:'flex-start', gap:'20px', borderBottom: '2px solid #eee', paddingBottom: '20px' }}>
@@ -102,44 +102,47 @@ const TicketVerification = () => {
 
               <h4 style={{ marginTop: '25px', marginBottom: '15px', color: '#444', fontSize: '18px' }}>Passenger List</h4>
               
-              <table className="chart-table">
-                 <thead>
-                    <tr style={{ background: '#f1f3f5' }}>
-                       <th style={{ padding: '15px' }}>S.No</th>
-                       <th style={{ padding: '15px' }}>Name</th>
-                       <th style={{ padding: '15px' }}>Age / Gender</th>
-                       <th style={{ padding: '15px' }}>Seat Number</th>
-                       <th style={{ padding: '15px' }}>Current Status</th>
-                    </tr>
-                 </thead>
-                 <tbody>
-                    {result.passengers.map((p, index) => (
-                       <tr key={index} style={{ borderBottom: '1px solid #eee' }}>
-                          <td style={{ padding: '15px' }}>{index + 1}</td>
-                          <td style={{ padding: '15px', fontWeight: 'bold', color: '#333' }}>{p.name}</td>
-                          <td style={{ padding: '15px' }}>{p.age} / {p.gender}</td>
-                          <td style={{ padding: '15px', color: '#0d6efd', fontWeight: '600' }}>S5 - {12 + index}</td>
-                          <td style={{ padding: '15px' }}>
-                              <span style={{
-                                  background: '#d4edda', 
-                                  color: '#155724', 
-                                  padding: '6px 12px', 
-                                  borderRadius: '20px', 
-                                  fontSize: '13px', 
-                                  fontWeight: 'bold',
-                                  border: '1px solid #c3e6cb'
-                              }}>
-                                CONFIRMED
-                              </span>
-                          </td>
-                       </tr>
-                    ))}
-                 </tbody>
-              </table>
+              <div className="table-responsive">
+                <table className="chart-table">
+                   <thead>
+                      <tr style={{ background: '#f1f3f5' }}>
+                         <th style={{ padding: '15px' }}>S.No</th>
+                         <th style={{ padding: '15px' }}>Name</th>
+                         <th style={{ padding: '15px' }}>Age / Gender</th>
+                         <th style={{ padding: '15px' }}>Seat Number</th>
+                         <th style={{ padding: '15px' }}>Current Status</th>
+                      </tr>
+                   </thead>
+                   <tbody>
+                      {result.passengers.map((p, index) => (
+                         <tr key={index} style={{ borderBottom: '1px solid #eee' }}>
+                            <td style={{ padding: '15px' }}>{index + 1}</td>
+                            <td style={{ padding: '15px', fontWeight: 'bold', color: '#333' }}>{p.name}</td>
+                            <td style={{ padding: '15px' }}>{p.age} / {p.gender}</td>
+                            <td style={{ padding: '15px', color: '#0d6efd', fontWeight: '600' }}>S5 - {12 + index}</td>
+                            <td style={{ padding: '15px' }}>
+                                {/* UPDATED: Increased fontSize from 13px to 15px */}
+                                <span style={{
+                                    background: '#d4edda', 
+                                    color: '#155724', 
+                                    padding: '6px 12px', 
+                                    borderRadius: '20px', 
+                                    fontSize: '15px', 
+                                    fontWeight: 'bold',
+                                    border: '1px solid #c3e6cb'
+                                }}>
+                                  CONFIRMED
+                                </span>
+                            </td>
+                         </tr>
+                      ))}
+                   </tbody>
+                </table>
+              </div>
            </div>
         )}
 
-       
+        {/* --- ERROR MESSAGE --- */}
         {error && (
             <div style={{
                 marginTop: '25px', 
