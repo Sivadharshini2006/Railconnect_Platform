@@ -1,8 +1,4 @@
-// ==========================================
-// 1. VARIABLES
-// ==========================================
 
-// Colors - Primary & UI
 $ticket-color-primary:       #0d6efd;
 $ticket-color-primary-light: #e3f2fd;
 $ticket-bg-page:             #f1f3f6;
@@ -10,7 +6,7 @@ $ticket-bg-white:            #ffffff;
 $ticket-bg-header:           #f8f9fa;
 $ticket-bg-gray:             #eee;
 
-// Colors - Text
+
 $ticket-text-dark:           #333;
 $ticket-text-medium:         #555;
 $ticket-text-light:          #666;
@@ -26,42 +22,33 @@ $ticket-status-orange-bg:    #fff3e0;
 $ticket-status-red:          #c62828;
 $ticket-status-red-bg:       #ffebee;
 
-// Borders & Shadows
+
 $ticket-border-light:        #eee;
 $ticket-border-medium:       #e0e0e0;
 $ticket-shadow-sm:           0 1px 3px rgba(0,0,0,0.1);
 $ticket-shadow-md:           0 2px 8px rgba(0,0,0,0.08);
 $ticket-shadow-hover:        0 4px 12px rgba(0,0,0,0.12);
 
-// Dimensions
+
 $ticket-radius-sm:           4px;
 $ticket-radius-md:           6px;
 $ticket-radius-lg:           8px;
 $ticket-radius-xl:           12px;
 
-// ==========================================
-// 2. MIXINS
-// ==========================================
 
-// Flexbox: Space Between + Vertical Center
 @mixin ticket-flex-between {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-// Flexbox: Center + Vertical Center
 @mixin ticket-flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-// ==========================================
-// 3. STYLES
-// ==========================================
 
-/* Layout */
 .page-wrapper {
   background-color: $ticket-bg-page;
   min-height: 100vh;
@@ -108,7 +95,7 @@ $ticket-radius-xl:           12px;
   }
 }
 
-/* Ticket Card */
+
 .ticket-card {
   background: $ticket-bg-white;
   border-radius: $ticket-radius-xl;
@@ -123,7 +110,6 @@ $ticket-radius-xl:           12px;
     box-shadow: $ticket-shadow-hover;
   }
 
-  /* Card Header */
   .ticket-header {
     background: $ticket-bg-header;
     padding: 12px 20px;
@@ -148,7 +134,7 @@ $ticket-radius-xl:           12px;
     }
   }
 
-  /* Card Body */
+  
   .ticket-body {
     padding: 20px;
 
@@ -217,7 +203,6 @@ $ticket-radius-xl:           12px;
     }
   }
 
-  /* Card Footer */
   .ticket-footer {
     padding: 12px 20px;
     border-top: 1px dashed $ticket-border-light;

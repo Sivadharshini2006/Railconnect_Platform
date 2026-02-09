@@ -5,6 +5,9 @@ import "./LoginPage.scss";
 import { FaUser, FaLock } from "react-icons/fa"; 
 import { useAuth } from "../context/AuthContext"; 
 
+// 1. Import the BackButton Component
+import BackButton from "../components/BackButton"; 
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,33 +16,25 @@ export default function LoginPage() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    
     const cleanEmail = email.trim();
     const cleanPass = password.trim();
 
     console.log("Attempting login with:", cleanEmail, cleanPass);
 
-    
     if (cleanEmail === "tte@railconnect.com" && cleanPass === "tte123") {
-      console.log("Logged in as TTE");
       const tteUser = { name: "TTE Admin", email: cleanEmail, role: "tte" };
       login(tteUser);
       navigate("/tte/charts"); 
       return; 
     }
 
-   
     if (cleanEmail === "admin@railconnect.com" && cleanPass === "admin123") {
-      console.log("Logged in as Admin");
       const adminUser = { name: "System Admin", email: cleanEmail, role: "admin" };
       login(adminUser);
       navigate("/admin/dashboard");
       return;
     }
 
-    
-    console.log("Logged in as User");
     const userData = {
       name: cleanEmail.split("@")[0],
       email: cleanEmail,
@@ -55,6 +50,12 @@ export default function LoginPage() {
       <Navbar />
       <div className="login-container">
         <div className="login-box">
+          
+          {/* 2. Place the BackButton Here */}
+          <div style={{ alignSelf: 'flex-start', marginBottom: '10px' }}>
+            <BackButton />
+          </div>
+
           <h2>Welcome Back</h2>
           <p className="sub-text">Please sign in to continue</p>
 

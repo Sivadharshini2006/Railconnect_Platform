@@ -1,19 +1,20 @@
-import React, { createContext, useContext,useState } from 'react';
-
+import React, { createContext, useContext, useState } from 'react';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   
+  // 1. Check Session Storage (Persists on Refresh, Clears on Close)
   const [user, setUser] = useState(() => {
-    const savedUser = localStorage.getItem('currentUser');
+    const savedUser = sessionStorage.getItem('currentUser');
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
   const login = (username, password) => {
     let role = 'passenger';
 
+    
     if (username === 'admin' && password === 'admin123') {
       role = 'admin';
     } else if (username === 'tte' && password === 'tte123') {
@@ -24,13 +25,16 @@ export const AuthProvider = ({ children }) => {
 
     const userData = { username, role };
     setUser(userData);
-    localStorage.setItem('currentUser', JSON.stringify(userData));
+    
+    // 2. Save to Session Storage instead of Local Storage
+    sessionStorage.setItem('currentUser', JSON.stringify(userData));
     return true;
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('currentUser');
+    // 3. Remove from Session Storage
+    sessionStorage.removeItem('currentUser');
   };
 
   return (

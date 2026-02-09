@@ -18,13 +18,13 @@ const TicketVerification = () => {
         return;
     }
 
-    // 1. Get existing bookings from Local Storage
+    
     const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
     
-    // 2. Find the booking with this PNR
+  
     const foundBooking = allBookings.find(b => b.pnr === pnr);
 
-    // 3. Update State
+  
     if (foundBooking) {
       setResult(foundBooking);
     } else {
@@ -36,14 +36,14 @@ const TicketVerification = () => {
     <div className="chart-page-wrapper">
       <Navbartte />
       
-      {/* UPDATED: Removed inline maxWidth to allow full page width */}
+     
       <div className="chart-container-full">
         
         <h2 className="page-title" style={{ fontSize: '26px', marginBottom: '25px' }}>
           Ticket Verification
         </h2>
 
-        {/* --- BIG SEARCH CARD --- */}
+       
         <div className="chart-card" style={{ padding: '40px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
               <FaIdCard size={24} color="#0d6efd"/>
@@ -52,7 +52,7 @@ const TicketVerification = () => {
           
           <form onSubmit={handleVerify} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
              
-             {/* WIDE INPUT BAR */}
+         
              <div style={{ display: 'flex', gap: '15px', alignItems: 'stretch' }}>
                 <input 
                   type="text" 
@@ -62,7 +62,7 @@ const TicketVerification = () => {
                   style={{
                       flex: 1, 
                       padding: '12px 20px',
-                      fontSize: '14px', /* Adjusted input text size slightly for better readability */
+                      fontSize: '14px', 
                       border: '2px solid #ddd',
                       borderRadius: '8px',
                       outline: 'none',
@@ -121,7 +121,7 @@ const TicketVerification = () => {
                             <td style={{ padding: '15px' }}>{p.age} / {p.gender}</td>
                             <td style={{ padding: '15px', color: '#0d6efd', fontWeight: '600' }}>S5 - {12 + index}</td>
                             <td style={{ padding: '15px' }}>
-                                {/* UPDATED: Increased fontSize from 13px to 15px */}
+                                
                                 <span style={{
                                     background: '#d4edda', 
                                     color: '#155724', 
@@ -142,7 +142,7 @@ const TicketVerification = () => {
            </div>
         )}
 
-        {/* --- ERROR MESSAGE --- */}
+        
         {error && (
             <div style={{
                 marginTop: '25px', 

@@ -31,41 +31,35 @@ const ReservationCharts = () => {
     setLoading(true);
     setChartData(null);
 
-    // --- FIX 2: DATE FORMAT CONVERSION ---
-    // Your date picker gives "2026-01-26"
-    // Your saved data has "26 Jan"
-    // We must convert the picker date to match the saved text.
-    const dateObj = new Date(journeyDate);
-    const day = dateObj.getDate(); // e.g., 26
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const month = months[dateObj.getMonth()]; // e.g., "Jan"
     
-    // Result: "26 Jan" (This matches your database)
+    const dateObj = new Date(journeyDate);
+    const day = dateObj.getDate(); 
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const month = months[dateObj.getMonth()]; 
+    
+    
     const formattedSearchDate = `${day} ${month}`; 
 
     console.log("Searching for Train:", selectedTrain);
     console.log("Searching for Date:", formattedSearchDate); 
 
     setTimeout(() => {
-        // 1. Get All Bookings
+        
         const rawData = localStorage.getItem("bookings") || "[]";
         const allBookings = JSON.parse(rawData);
         
         console.log("All Bookings in DB:", allBookings);
 
-        // 2. FILTER LOGIC
+        
         const filtered = allBookings.filter(b => {
-             // Handle data structure variations (some might be b.train.name, others b.trainName)
+             
              const dbTrainName = b.train?.name || b.trainName || "";
              const dbDate = b.train?.date || b.date || "";
-
-             // Check Train Match (Flexible check)
              const isTrainMatch = dbTrainName.includes(selectedTrain) || selectedTrain.includes(dbTrainName);
 
-             // Check Date Match (Look for "26 Jan" inside the saved date string)
              const isDateMatch = dbDate.toString().includes(formattedSearchDate);
 
-             // Debugging specifically for your case
+             
              if (isTrainMatch && !isDateMatch) {
                  console.log(`Train matched but date failed. DB has: "${dbDate}", we wanted: "${formattedSearchDate}"`);
              }
@@ -78,7 +72,7 @@ const ReservationCharts = () => {
         let cnf = 0;
         
         filtered.forEach(b => {
-            // reliable access to passengers array
+            
             const passengers = b.passengers || []; 
             total += passengers.length;
             cnf += passengers.length; 
@@ -107,7 +101,7 @@ const ReservationCharts = () => {
       
       <div className="chart-container-full">
         
-        {/* --- INPUT CARD --- */}
+       
         <div className="chart-card">
           <h3 className="section-title">Reservation Chart Preparation</h3>
           

@@ -1,8 +1,4 @@
-// ==========================================
-// 1. VARIABLES
-// ==========================================
 
-// Colors - Theme Palette
 $stats-color-blue:          #1976d2;
 $stats-color-blue-bg:       #e3f2fd;
 $stats-color-blue-dark:     #2962ff;
@@ -21,7 +17,6 @@ $stats-color-orange-bright: #ffab00;
 $stats-color-red:           #c62828;
 $stats-color-red-bright:    #ff3d00;
 
-// Colors - Text & UI
 $stats-text-main:           #333;
 $stats-text-header:         #444;
 $stats-text-secondary:      #555;
@@ -37,14 +32,12 @@ $stats-border-light:        #eee;
 $stats-border-medium:       #ddd;
 $stats-shadow:              0 2px 5px rgba(0,0,0,0.05);
 
-// Dimensions
+
 $stats-radius:              8px;
 $stats-radius-sm:           6px;
 $stats-radius-xs:           4px;
 
-// ==========================================
-// 2. MIXINS
-// ==========================================
+
 
 @mixin stats-card-base {
   background: $stats-bg-white;
@@ -65,9 +58,7 @@ $stats-radius-xs:           4px;
   justify-content: space-between;
 }
 
-// ==========================================
-// 3. STYLES
-// ==========================================
+
 
 .stats-container {
   padding: 10px;
@@ -108,7 +99,7 @@ $stats-radius-xs:           4px;
   }
 }
 
-// Stats Grid (Top Cards)
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -136,7 +127,7 @@ $stats-radius-xs:           4px;
   }
 }
 
-// Icon Boxes
+
 .icon-box {
   width: 40px;
   height: 40px;
@@ -150,7 +141,7 @@ $stats-radius-xs:           4px;
   &.orange { background: $stats-color-orange-bg; color: $stats-color-orange; }
 }
 
-// Growth Indicators
+
 .growth {
   font-size: 13px;
   font-weight: bold;
@@ -163,7 +154,7 @@ $stats-radius-xs:           4px;
   }
 }
 
-// General Section Card
+
 .section-card {
   @include stats-card-base;
 
@@ -173,7 +164,6 @@ $stats-radius-xs:           4px;
   }
 }
 
-// Status Bars
 .status-bars-row {
   display: flex;
   gap: 40px;
@@ -190,12 +180,12 @@ $stats-radius-xs:           4px;
   }
 }
 
-// Value Colors
+
 .val-green  { color: $stats-color-green;  font-weight: bold; }
 .val-orange { color: $stats-color-orange; font-weight: bold; }
 .val-red    { color: $stats-color-red;    font-weight: bold; }
 
-// Progress Bars
+
 .progress-track {
   background: $stats-bg-track;
   height: 8px;
@@ -239,14 +229,14 @@ $stats-radius-xs:           4px;
   }
 }
 
-// Layout Grids
+
 .split-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-// Class Bar Items
+
 .class-bar-item {
   margin-bottom: 15px;
 

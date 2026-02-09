@@ -1,15 +1,10 @@
-// ==========================================
-// 1. VARIABLES
-// ==========================================
 
-// Colors - Brand & UI
 $search-color-primary:       #1a5cff;
 $search-color-primary-dark:  #0047cc;
 $search-color-primary-light: #eef5ff;
 $search-color-primary-bg:    #cce0ff;
-$search-color-info:          #2196F3; // From second section
+$search-color-info:          #2196F3; 
 
-// Colors - Text
 $search-text-main:           #333;
 $search-text-secondary:      #444;
 $search-text-muted:          #777;
@@ -28,13 +23,13 @@ $search-status-orange:       #ef6c00;
 $search-status-orange-bg:    #fff3e0;
 $search-status-yellow:       #fbc02d;
 
-// Backgrounds
-$search-bg-page:             #f2f4f7; // Note: Bottom section uses #f5f5f5
+
+$search-bg-page:             #f2f4f7; 
 $search-bg-white:            #ffffff;
 $search-bg-light:            #fafafa;
 $search-bg-divider:          #f0f0f0;
 
-// Borders & Shadows
+
 $search-border-light:        #eee;
 $search-border-medium:       #e0e0e0;
 $search-border-input:        #ccc;
@@ -42,19 +37,17 @@ $search-shadow-sm:           0 1px 3px rgba(0,0,0,0.05);
 $search-shadow-md:           0 2px 8px rgba(0,0,0,0.04);
 $search-shadow-hover:        0 5px 15px rgba(0,0,0,0.08);
 
-// Fonts
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 $search-font-main:           'Poppins', sans-serif;
 $search-font-alt:            'Segoe UI', sans-serif;
 
-// Dimensions
+
 $search-radius-sm:           4px;
 $search-radius-md:           6px;
 $search-radius-lg:           8px;
 
-// ==========================================
-// 2. MIXINS
-// ==========================================
+
 
 @mixin search-flex-center {
   display: flex;
@@ -74,9 +67,6 @@ $search-radius-lg:           8px;
   }
 }
 
-// ==========================================
-// 3. GLOBAL & LAYOUT
-// ==========================================
 
 * {
   box-sizing: border-box;
@@ -104,10 +94,6 @@ $search-radius-lg:           8px;
   }
 }
 
-// ==========================================
-// 4. HEADER & FILTERS
-// ==========================================
-
 .route-header {
   margin: 20px 0 15px 0;
 
@@ -126,14 +112,14 @@ $search-radius-lg:           8px;
   }
 }
 
-// Date Carousel
+
 .date-carousel {
   @include search-flex-center;
   background: $search-bg-white;
   padding: 10px;
   border-radius: $search-radius-lg $search-radius-lg 0 0;
   border-bottom: 1px solid $search-bg-divider;
-  // Merging styles from bottom section
+  
   gap: 10px; 
   overflow: hidden;
 
@@ -172,7 +158,7 @@ $search-radius-lg:           8px;
 
     &.active {
       background: $search-color-primary-light;
-      border-color: $search-color-info; // merged from bottom
+      border-color: $search-color-info; 
 
       .active-bar {
         height: 3px;
@@ -206,14 +192,14 @@ $search-radius-lg:           8px;
   }
 }
 
-// Quick Filters
+
 .quick-filters {
   background: $search-bg-white;
   padding: 12px 20px;
   border-radius: 0 0 $search-radius-lg $search-radius-lg;
   margin-bottom: 15px;
   box-shadow: $search-shadow-sm;
-  // Merging bottom section flex logic
+  
   display: flex;
   gap: 10px;
 
@@ -230,7 +216,7 @@ $search-radius-lg:           8px;
     user-select: none;
     color: #555;
     
-    // Styling from bottom section
+    
     background: $search-bg-white;
     padding: 8px 12px;
     border-radius: 20px;
@@ -250,7 +236,7 @@ $search-radius-lg:           8px;
       position: relative;
     }
 
-    // Checked State Logic
+    
     input:checked ~ .checkmark {
       background-color: $search-color-primary;
       border-color: $search-color-primary;
@@ -267,13 +253,11 @@ $search-radius-lg:           8px;
   }
 }
 
-// ==========================================
-// 5. TRAIN CARD COMPONENT
-// ==========================================
+
 
 .train-card-wrapper {
   margin-bottom: 15px;
-  // Bottom section overrides
+  
   background: $search-bg-white;
   border-radius: $search-radius-lg;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
@@ -294,7 +278,7 @@ $search-radius-lg:           8px;
 }
 
 .train-header {
-  // Merged styles
+  
   display: flex;
   justify-content: space-between;
   margin-bottom: 12px;
@@ -309,8 +293,8 @@ $search-radius-lg:           8px;
     @include search-flex-center;
 
     .number {
-      background: $search-color-primary-light; // or #2196F3 from bottom
-      color: $search-color-primary; // or white from bottom
+      background: $search-color-primary-light; 
+      color: $search-color-primary; 
       padding: 2px 6px;
       font-size: 11px;
       border-radius: $search-radius-sm;
@@ -349,8 +333,8 @@ $search-radius-lg:           8px;
   margin-bottom: 18px;
   font-size: 14px;
   color: $search-text-secondary;
-  padding: 15px; // from bottom
-  text-align: center; // from bottom
+  padding: 15px;
+  text-align: center; 
   
   .time-group {
     @include search-flex-between;
@@ -365,9 +349,7 @@ $search-radius-lg:           8px;
   }
 }
 
-// ==========================================
-// 6. SEAT SCROLLER
-// ==========================================
+
 
 .seat-scroller {
   display: flex;
@@ -436,9 +418,7 @@ $search-radius-lg:           8px;
   }
 }
 
-// ==========================================
-// 7. EXPANDED BOOKING SECTION
-// ==========================================
+
 
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-10px); }
@@ -549,9 +529,7 @@ $search-radius-lg:           8px;
   }
 }
 
-// ==========================================
-// 8. SCHEDULE ACCORDION
-// ==========================================
+
 
 .schedule-accordion {
   background: #fcfcfc;
@@ -663,10 +641,6 @@ $search-radius-lg:           8px;
     }
   }
 }
-
-// ==========================================
-// 9. BANNERS
-// ==========================================
 
 .promo-banner {
   border-radius: $search-radius-lg;

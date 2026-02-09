@@ -1,8 +1,4 @@
-/* ===============================
-   signup.scss
-   =============================== */
 
-/* ---------- VARIABLES ---------- */
 $signup-bg-page: #f5f5f5;
 $signup-bg-white: #ffffff;
 
@@ -21,7 +17,7 @@ $signup-radius-lg: 12px;
 
 $signup-shadow-box: 0 4px 20px rgba(0, 0, 0, 0.1);
 
-/* ---------- MIXINS ---------- */
+
 @mixin flex-center {
   display: flex;
   justify-content: center;
@@ -51,7 +47,7 @@ $signup-shadow-box: 0 4px 20px rgba(0, 0, 0, 0.1);
   transition: background 0.3s;
 }
 
-/* ---------- PAGE ---------- */
+
 .signup-page-wrapper {
   background-color: $signup-bg-page;
   min-height: 100vh;
@@ -65,7 +61,7 @@ $signup-shadow-box: 0 4px 20px rgba(0, 0, 0, 0.1);
   padding: 20px;
 }
 
-/* ---------- SIGNUP BOX ---------- */
+
 .signup-box {
   background: $signup-bg-white;
   padding: 40px;
@@ -81,7 +77,7 @@ $signup-shadow-box: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
 }
 
-/* ---------- INPUT GROUP ---------- */
+
 .input-group {
   position: relative;
   margin-bottom: 20px;
@@ -104,7 +100,7 @@ $signup-shadow-box: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
 }
 
-/* ---------- BUTTON ---------- */
+
 .signup-btn {
   @include primary-button;
 
@@ -113,7 +109,7 @@ $signup-shadow-box: 0 4px 20px rgba(0, 0, 0, 0.1);
   }
 }
 
-/* ---------- LOGIN LINK ---------- */
+
 .login-link {
   margin-top: 20px;
   font-size: 14px;

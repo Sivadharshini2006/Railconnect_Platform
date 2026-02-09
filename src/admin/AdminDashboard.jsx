@@ -104,22 +104,22 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          {/* Logout Button */}
+          
           <button 
   onClick={handleLogout}
   style={{ 
-    background: '#dc3545', /* Red Background */
+    background: '#dc3545', 
     color: 'white', 
     border: 'none', 
-    padding: '8px 25px', /* Adjusted padding for text-only */
-    borderRadius: '25px', /* Rounded Pill Shape */
+    padding: '8px 25px',
+    borderRadius: '25px', 
     fontWeight: '600',
     cursor: 'pointer',
     fontSize: '14px',
     transition: 'background 0.2s',
-    marginLeft: 'auto' /* Pushes button to the right */
+    marginLeft: 'auto' 
   }}
-  onMouseOver={(e) => e.currentTarget.style.background = '#c82333'} /* Darker Red on Hover */
+  onMouseOver={(e) => e.currentTarget.style.background = '#c82333'} 
   onMouseOut={(e) => e.currentTarget.style.background = '#dc3545'}
 >
   Logout
@@ -128,7 +128,7 @@ const AdminDashboard = () => {
         </div>
       </nav>
 
-      {/* ===== EXISTING DASHBOARD CONTENT (Unchanged) ===== */}
+      
       <div className="dashboard-content">
           
           {activeTab === 'trains' && (

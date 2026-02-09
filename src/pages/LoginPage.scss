@@ -1,13 +1,9 @@
-// ==========================================
-// 1. VARIABLES
-// ==========================================
 
-// Colors - Primary
 $login-color-primary:       #ff6b6b;
 $login-color-primary-hover: #e65555;
 $login-color-focus-shadow:  rgba(255, 107, 107, 0.1);
 
-// Colors - Text
+
 $login-text-header:         #333;
 $login-text-sub:            #777;
 $login-text-body:           #666;
@@ -16,7 +12,6 @@ $login-text-icon:           #888;
 $login-text-dark:           #555;
 $login-text-white:          #ffffff;
 
-// Colors - Backgrounds & Borders
 $login-bg-page:             #f5f5f5;
 $login-bg-white:            #ffffff;
 $login-bg-hover:            #fdfdfd;
@@ -27,13 +22,11 @@ $login-border-dark:         #ccc;
 
 $login-shadow-box:          0 4px 20px rgba(0, 0, 0, 0.1);
 
-// Dimensions
+
 $login-radius-input:        8px;
 $login-radius-box:          12px;
 
-// ==========================================
-// 2. MIXINS
-// ==========================================
+
 
 @mixin login-flex-center {
   display: flex;
@@ -51,9 +44,7 @@ $login-radius-box:          12px;
   transition: 0.3s;
 }
 
-// ==========================================
-// 3. STYLES
-// ==========================================
+
 
 .login-page-wrapper {
   background-color: $login-bg-page;
@@ -89,7 +80,7 @@ $login-radius-box:          12px;
   }
 }
 
-// Input Fields
+
 .input-group {
   position: relative;
   margin-bottom: 20px;
@@ -112,7 +103,7 @@ $login-radius-box:          12px;
   }
 }
 
-// Options (Forgot Password)
+
 .options {
   display: flex;
   justify-content: space-between;
@@ -144,7 +135,6 @@ $login-radius-box:          12px;
   }
 }
 
-// Divider
 .divider {
   margin: 25px 0;
   position: relative;
@@ -170,7 +160,6 @@ $login-radius-box:          12px;
   }
 }
 
-// Social Login
 .social-login {
   display: flex;
   gap: 10px;

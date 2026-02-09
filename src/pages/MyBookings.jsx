@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useAuth } from "../context/AuthContext";
 import "./MyBookings.scss";
+import BackButton from "../components/BackButton";
 
 export default function MyBookings() {
   const { user } = useAuth();
@@ -22,7 +23,7 @@ export default function MyBookings() {
     }
   };
 
-  // Keep setBookings here because we will use it in handleCancel
+  
   const [bookings, setBookings] = useState(() => getFilteredBookings(user));
 
   useEffect(() => {
@@ -31,20 +32,19 @@ export default function MyBookings() {
     }
   }, [user, navigate]);
 
-  // --- NEW: Cancel Ticket Function ---
+  
   const handleCancel = (pnrToCancel) => {
     if (window.confirm(`Are you sure you want to cancel PNR: ${pnrToCancel}?`)) {
       
-      // 1. Get current data
-      const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
       
-      // 2. Filter out the cancelled ticket
+      const allBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
+     
       const updatedAllBookings = allBookings.filter(b => b.pnr !== pnrToCancel);
       
-      // 3. Update LocalStorage
+     
       localStorage.setItem("bookings", JSON.stringify(updatedAllBookings));
 
-      // 4. Update UI (This uses setBookings, fixing your error!)
+  
       setBookings(getFilteredBookings(user));
     }
   };
@@ -53,7 +53,10 @@ export default function MyBookings() {
     <div className="my-bookings-page">
       <Navbar />
       <div className="bookings-container">
-        <h2>My Bookings</h2>
+        <div style={{ alignSelf: 'flex-start', width: '100%', marginBottom: '10px' }}>
+            <BackButton />
+          </div>
+        
 
         {bookings.length === 0 ? (
           <div className="no-data">

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import { FaSearch, FaTrain } from "react-icons/fa";
 import "./PnrStatus.scss";
+import BackButton from "../components/BackButton"; 
 
 const PnrStatus = () => {
   const [pnr, setPnr] = useState("");
@@ -43,9 +44,12 @@ const PnrStatus = () => {
   return (
     <div className="pnr-page">
       <Navbar />
-      
+       <div style={{ alignSelf: 'flex-start', width: '100%', marginBottom: '10px' }}>
+            <BackButton />
+          </div>
       <div className="pnr-container">
         <div className="pnr-card">
+         
           <h2 className="pnr-title">Check PNR Status</h2>
           
           <label className="pnr-label">Enter PNR Number</label>

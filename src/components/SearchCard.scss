@@ -8,19 +8,8 @@
   font-weight: 600;
 }
 
-.search-bar {
-  display: flex;
-  align-items: stretch;
-   position: relative;  
-  background: #fff;
-  width: 85%;
-  margin: 30px auto;
-  border-radius: 14px;
-  border: 1px solid #e0e0e0;     /* ✅ border added */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-   
-  overflow: hidden;
-  
+.relative-box {
+  position: relative; 
 }
 
 .box {
@@ -30,129 +19,194 @@
   cursor: pointer;
   border-right: 1px solid #eee;
   flex: 1;
+  align-items: center;
+  min-width: 200px; /* Ensure boxes don't squash */
+}
+
+.box:hover {
+  background-color: #f9f9f9;
 }
 
 .box small {
   color: gray;
   font-size: 11px;
+  display: block;
 }
 
 .box p {
   font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
 }
 
 .icon {
-  color: #1a5cff;
-  font-size: 18px;
+  font-size: 20px;
 }
 
-
-.search-btn {
-  background:  #1a5cff;
-  color: white;
-   top: 260px;
-  left: 120px;
-  width: 320px;
-  padding: 12px 25px;
-  border-radius: 10px;
-  border: none;
-  font-weight: bold;
-}
-
-
-/* FROM / TO PANEL */
-.station-panel {
+/* --- NEW DROPDOWN STYLES --- */
+.station-dropdown, .date-dropdown {
   position: absolute;
-  top: 260px;
-  left: 120px;
-  width: 320px;
+  top: 100%; /* Push it right below the box */
+  left: 0;
+  width: 100%;
+  min-width: 280px; /* Wider than the box */
   background: white;
   border-radius: 12px;
   padding: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   text-align: left;
+  z-index: 100;
+  border: 1px solid #eee;
+  margin-top: 10px; /* Small gap */
 }
 
-.station-panel input {
+.station-dropdown input {
   width: 100%;
   padding: 10px;
-  border-radius: 20px;
-  border: 1px solid #1a5cff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
   margin-bottom: 10px;
+  outline: none;
 }
 
-.station-panel h4 {
-  margin: 10px 0 5px;
+.station-dropdown input:focus {
+  border-color: #1a5cff;
 }
 
-/* CALENDAR */
-.calendar-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.station-dropdown h4 {
+  margin: 5px 0 10px;
+  font-size: 12px;
+  color: #888;
+  text-transform: uppercase;
 }
 
-.calendar {
-  background: white;
-  padding: 25px;
-  border-radius: 18px;
+.station-dropdown .list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.station-dropdown p {
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.station-dropdown p:hover {
+  background: #f0f5ff;
+  color: #1a5cff;
+}
+
+.no-result {
+  color: #999;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* --- DATE DROPDOWN SPECIFIC --- */
+.date-dropdown {
   width: 320px;
+  right: 0;
+  left: auto; /* Align to right for date */
 }
 
-.dates {
+.date-dropdown h3 {
+  margin: 0 0 15px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.dates-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
-  margin: 15px 0;
+  gap: 5px;
 }
 
-.dates span {
+.dates-grid span {
   text-align: center;
   padding: 8px;
   cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
 }
 
-.dates .active {
-  background: #00b140;
+.dates-grid span:hover {
+  background: #eee;
+}
+
+.dates-grid .active {
+  background: #1a5cff;
   color: white;
-  border-radius: 8px;
 }
-.search-btn:hover {
-  background: #003ecb;   /* darker blue */
-}
+
+/* --- BUTTON & OTHERS --- */
+
+
 
 .swap-btn {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-
+  left: 50%;          /* Move to the middle of the wrapper */
+  top: 50%;           /* Move to the vertical middle */
+  transform: translate(-50%, -50%); /* Pull it back by half its size to center perfectly */
+  
+  /* Visual Styles */
   width: 36px;
   height: 36px;
-
   background: #fff;
   border: 1px solid #dcdcdc;
   border-radius: 50%;
-
+  
   display: flex;
   align-items: center;
   justify-content: center;
-
-  z-index: 10;
+  
+  z-index: 10;        /* Ensure it floats on top of the border */
   cursor: pointer;
-}
-
-
-.swap-btn i {
-  font-size: 16px;
-  color: #6b6b6b;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .from-to-wrapper {
-  display: flex;                /* takes space of From + To */
-  position: relative;    
-   flex: 2;   /* 🔑 anchor for swap */
+  display: flex;
+  flex: 2;
+  position: relative;
+}
+.search-bar {
+  display: flex;       /* Aligns items in a row */
+  align-items: stretch; /* Forces all children (including the button) to be full height */
+  position: relative;
+  background: #fff;
+  width: 85%;
+  margin: 30px auto;
+  border-radius: 14px; /* Rounded corners for the whole bar */
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  height: 90px;        /* Force a specific height for the bar */
+  padding: 0;          /* Remove padding so children touch the edges */
+}
+
+.search-btn {
+  background: #1a5cff;
+  color: white;
+  
+  /* POSITIONING: Takes up remaining space */
+  flex: 1.2;           /* Makes it slightly wider than the other boxes */
+  height: 100%;        /* Fills full height */
+  
+  /* TEXT STYLING */
+  border: none;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  
+  /* BORDERS: Round only the right side to match the container */
+  border-radius: 0 14px 14px 0;
+  
+  /* RESET: Remove old positioning */
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+.search-btn:hover {
+  background: #003ecb;
 }

@@ -5,19 +5,17 @@ import "./ReservationCharts.scss";
 import Navbartte from "./Navbartte";
 
 const WaitlistAllotment = () => {
-  // 1. Selection State
+  
   const [selectedTrain, setSelectedTrain] = useState("");
   const [journeyDate, setJourneyDate] = useState("");
   const [showData, setShowData] = useState(false);
 
-  // 2. Mock Database of Waitlisted Passengers
   const [allWaitlistData, setAllWaitlistData] = useState([
      { id: 1, pnr: "8899001122", name: "Rahul Verma", age: 28, gender: "M", wl_status: "WL-1", trainId: "12951", trainName: "12951 - Rajdhani", date: "2026-01-27" },
      { id: 2, pnr: "7766554433", name: "Priya Sharma", age: 34, gender: "F", wl_status: "WL-2", trainId: "12951", trainName: "12951 - Rajdhani", date: "2026-01-27" },
      { id: 3, pnr: "9988223344", name: "Amit Kumar", age: 45, gender: "M", wl_status: "WL-5", trainId: "12260", trainName: "12260 - Duronto", date: "2026-01-28" },
   ]);
 
-  // 3. Filtered Data State
   const [filteredList, setFilteredList] = useState([]);
 
   const trains = [
@@ -27,7 +25,7 @@ const WaitlistAllotment = () => {
     { id: "12260", name: "12260 - Duronto" }
   ];
 
-  // 4. Handle "Show Waitlist" Button
+  
   const handleShowList = (e) => {
       e.preventDefault();
       
@@ -36,7 +34,6 @@ const WaitlistAllotment = () => {
           return;
       }
 
-      // Filter the mock database
       const results = allWaitlistData.filter(item => 
           item.trainId === selectedTrain && item.date === journeyDate
       );
@@ -48,7 +45,7 @@ const WaitlistAllotment = () => {
   const handleAllot = (id) => {
       const confirmed = window.confirm("Confirm seat allotment for this passenger?");
       if(confirmed) {
-          // Remove from both lists (Visual + Database)
+          
           setAllWaitlistData(allWaitlistData.filter(p => p.id !== id));
           setFilteredList(filteredList.filter(p => p.id !== id));
           alert("Seat successfully allotted.");
@@ -59,11 +56,10 @@ const WaitlistAllotment = () => {
     <div className="chart-page-wrapper">
       <Navbartte />
       
-      {/* UPDATED: Removed inline maxWidth style to allow full width from SCSS */}
-      <div className="chart-container-full">
+        <div className="chart-container-full">
         <h2 className="page-title">Waitlist Allotment</h2>
 
-        {/* --- SELECTION CARD (Top) --- */}
+        
         <div className="chart-card" style={{ marginBottom: '25px', padding: '30px' }}>
             <h3 className="section-title" style={{display:'flex', alignItems:'center', gap:'10px'}}>
                 <FaFilter size={18} /> Select Train & Date
@@ -71,7 +67,6 @@ const WaitlistAllotment = () => {
             
             <form onSubmit={handleShowList} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr auto', gap: '20px', alignItems: 'end' }}>
                 
-                {/* Train Selector */}
                 <div className="input-box">
                     <label>Select Train</label>
                     <select 
@@ -86,7 +81,7 @@ const WaitlistAllotment = () => {
                     </select>
                 </div>
 
-                {/* Date Picker */}
+            
                 <div className="input-box">
                     <label>Journey Date</label>
                     <input 
@@ -97,7 +92,7 @@ const WaitlistAllotment = () => {
                     />
                 </div>
 
-                {/* Submit Button */}
+               
                 <button type="submit" className="generate-btn" style={{ height: '48px', marginBottom: '2px' }}>
                     <FaSearch /> Show Waitlist
                 </button>
@@ -105,7 +100,7 @@ const WaitlistAllotment = () => {
         </div>
 
 
-        {/* --- RESULTS TABLE (Only shows after clicking button) --- */}
+        
         {showData && (
             <div className="chart-card fade-in">
             <div className="result-top-bar" style={{ paddingBottom: '15px', borderBottom: '1px solid #eee' }}>

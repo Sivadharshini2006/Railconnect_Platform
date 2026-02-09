@@ -1,13 +1,8 @@
-// ==========================================
-// 1. VARIABLES
-// ==========================================
 
-// Colors - Primary & Actions
 $quota-color-primary:       #2563eb;
 $quota-color-primary-hover: #1d4ed8;
 $quota-color-focus:         #3b82f6;
 
-// Colors - Status (Success/Danger)
 $quota-color-success:       #16a34a;
 $quota-color-success-bg:    #dcfce7;
 $quota-color-success-dark:  #065f46;
@@ -16,14 +11,13 @@ $quota-color-success-light: #d1fae5;
 $quota-color-danger:        #dc2626;
 $quota-color-danger-bg:     #fee2e2;
 
-// Colors - Text
 $quota-text-main:           #333;
 $quota-text-dark:           #111;
 $quota-text-medium:         #555;
 $quota-text-light:          #666;
 $quota-text-white:          #ffffff;
 
-// Colors - Backgrounds & Borders
+
 $quota-bg-white:            #ffffff;
 $quota-bg-light:            #f9fafb;
 $quota-bg-gray:             #f0f0f0;
@@ -33,24 +27,20 @@ $quota-border-medium:       #d1d5db;
 $quota-shadow-sm:           0 1px 3px rgba(0,0,0,0.05);
 $quota-shadow-md:           0 2px 4px rgba(0,0,0,0.05);
 
-// Dimensions
 $quota-radius-sm:           4px;
 $quota-radius-md:           6px;
 $quota-radius-lg:           8px;
 $quota-radius-full:         20px;
 
-// ==========================================
-// 2. MIXINS
-// ==========================================
 
-// Flexbox centering
+
 @mixin quota-flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-// Common Card Style
+
 @mixin quota-card-style($padding: 20px, $shadow: $quota-shadow-md) {
   background: $quota-bg-white;
   padding: $padding;
@@ -59,7 +49,7 @@ $quota-radius-full:         20px;
   box-shadow: $shadow;
 }
 
-// Button Base Style
+
 @mixin quota-btn-base {
   border: none;
   cursor: pointer;
@@ -67,9 +57,7 @@ $quota-radius-full:         20px;
   transition: all 0.2s ease;
 }
 
-// ==========================================
-// 3. STYLES
-// ==========================================
+
 
 .quota-container {
   display: flex;
@@ -78,7 +66,7 @@ $quota-radius-full:         20px;
   padding: 10px;
 }
 
-// Header Section
+
 .quota-header-row {
   display: flex;
   justify-content: space-between;
@@ -102,7 +90,7 @@ $quota-radius-full:         20px;
   font-size: 14px;
 }
 
-// Cards
+
 .section-card {
   @include quota-card-style;
 }
@@ -113,7 +101,7 @@ $quota-radius-full:         20px;
   color: $quota-text-main;
 }
 
-// Progress Bar
+
 .quota-progress-bar {
   display: flex;
   height: 35px;
@@ -136,7 +124,7 @@ $quota-radius-full:         20px;
   }
 }
 
-// Table Styles
+
 .quota-table {
   width: 100%;
   border-collapse: collapse;
@@ -187,7 +175,7 @@ $quota-radius-full:         20px;
   color: $quota-text-main;
 }
 
-// Buttons
+
 .q-edit-btn {
   @include quota-btn-base;
   background-color: $quota-color-primary;
@@ -231,7 +219,7 @@ $quota-radius-full:         20px;
   }
 }
 
-// Inputs
+
 .edit-input-quota {
   width: 100%;
   padding: 8px 10px;
@@ -253,7 +241,7 @@ $quota-radius-full:         20px;
   }
 }
 
-// Rules Section
+
 .rules-section {
   margin-top: 10px;
 }

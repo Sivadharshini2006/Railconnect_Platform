@@ -19,14 +19,11 @@ $booking-text-medium:         #555;
 $booking-text-light:          #666;
 $booking-text-muted:          #999;
 
-// Dimensions
+
 $booking-radius:              8px;
 $booking-radius-sm:           6px;
 $booking-radius-lg:           12px;
 
-// ==========================================
-// 2. MIXINS
-// ==========================================
 
 @mixin booking-flex-between {
   display: flex;
@@ -43,9 +40,7 @@ $booking-radius-lg:           12px;
   border: 1px solid $booking-border-light;
 }
 
-// ==========================================
-// 3. PAGE LAYOUT
-// ==========================================
+
 
 .page-wrapper {
   min-height: 100vh;
@@ -67,7 +62,7 @@ $booking-radius-lg:           12px;
   padding: 20px 15px;
   flex: 1;
 
-  // Left Column
+  
   .left-section {
     flex: 2;
     display: flex;
@@ -75,11 +70,11 @@ $booking-radius-lg:           12px;
     height: 100%;
 
     .card {
-      width: 100%; /* 🔥 key line */
+      width: 100%; 
     }
   }
 
-  // Right Column
+  
   .right-section {
     flex: 1;
     display: flex;
@@ -88,15 +83,12 @@ $booking-radius-lg:           12px;
   }
 }
 
-// ==========================================
-// 4. CARDS & SECTIONS
-// ==========================================
+
 
 .card {
   @include booking-card-style;
 }
 
-// Specific Card Flex Rules
 .train-summary,
 .passenger-section {
   flex: 1;
@@ -104,13 +96,13 @@ $booking-radius-lg:           12px;
 
 .fare-card {
   width: 100%;
-  flex-grow: 1; /* 🔥 fills vertical space */
+  flex-grow: 1; 
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-// --- Train Info Styles ---
+
 .ts-header {
   @include booking-flex-between;
   margin-bottom: 15px;
@@ -138,7 +130,7 @@ $booking-radius-lg:           12px;
   font-size: 12px;
 }
 
-// --- Passenger Section Styles ---
+
 .sec-head {
   @include booking-flex-between;
   margin-bottom: 15px;
@@ -181,7 +173,7 @@ $booking-radius-lg:           12px;
   }
 }
 
-// --- Fare Card Styles ---
+
 .fare-row {
   display: flex;
   justify-content: space-between;
@@ -213,9 +205,6 @@ $booking-radius-lg:           12px;
   cursor: pointer;
 }
 
-// ==========================================
-// 5. MODALS
-// ==========================================
 
 .modal-overlay {
   position: fixed;

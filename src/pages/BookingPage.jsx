@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FaTrain, FaPlus, FaTrash, FaUser, FaTimes, FaPhoneAlt, FaEnvelope, FaCheckCircle } from 'react-icons/fa'; // Added Icons
+import { FaTrain, FaPlus, FaTrash, FaUser, FaTimes, FaPhoneAlt, FaEnvelope, FaCheckCircle } from 'react-icons/fa'; 
 import './BookingPage.scss';
+import BackButton from "../components/BackButton";
 
 const BookingPage = () => {
   const navigate = useNavigate();
@@ -18,8 +19,17 @@ const BookingPage = () => {
 
   const [isAgreed, setIsAgreed] = useState(false);
 
-  const train = location.state?.train || { 
-    name: "Mumbai Rajdhani (12952)", from: "NDLS", to: "MMCT", date: "26 Jan", price: 2050 
+  const trainDetails = location.state?.trainDetails;
+
+  useEffect(() => {
+    if (!trainDetails) {
+      alert('Please select a train from search results.');
+      navigate('/search');
+    }
+  }, [trainDetails, navigate]);
+
+  const train = trainDetails || { 
+    name: "Mumbai Rajdhani (12952)", from: "NDLS", to: "MMCT", date: "02 Feb", price: 2050, depTime: '04:00', arrTime: '23:55'
   };
 
   const handleAddPassenger = (newPassenger) => {
@@ -33,15 +43,15 @@ const BookingPage = () => {
     setPassengers(newDocs);
   };
 
-  // --- NEW: Validation and Proceed Logic ---
+  
   const handleProceedToPay = () => {
-    // 1. Check Passengers
+    
     if (passengers.length === 0) {
       alert("Please add at least one passenger to proceed!");
       return;
     }
 
-    // 2. Check Contact Details
+   
     if (!contactInfo.mobile || contactInfo.mobile.length < 10) {
       alert("Please enter a valid 10-digit mobile number.");
       return;
@@ -51,19 +61,17 @@ const BookingPage = () => {
       return;
     }
 
-    // 3. Check Agreement
     if (!isAgreed) {
       alert("Please accept the terms and conditions.");
       return;
     }
 
-    // 4. Navigate
     navigate('/payment', { 
       state: { 
-        train: train, 
+        train: trainDetails || train, 
         passengers: passengers, 
-        contactInfo: contactInfo, // Passing contact info to payment
-        totalAmount: train.price * passengers.length 
+        contactInfo: contactInfo, 
+        totalAmount: (trainDetails ? trainDetails.price : train.price) * passengers.length 
       } 
     });
   };
@@ -71,32 +79,39 @@ const BookingPage = () => {
   return (
     <div className="page-wrapper" >
        <div className="navbar-wrapper">
+        
          <Navbar />
+         <div style={{ alignSelf: 'flex-start', width: '100%', marginBottom: '10px' }}>
+            <BackButton />
+          </div>
       </div>
+      
       <div className="booking-container">
+        
         <div className="left-section">
           {/* Train Details Card */}
           <div className="card train-summary">
             <div className="ts-header">
+              
               <h3>{train.name}</h3>
               <span className="badge-ac">3A</span>
             </div>
             <div className="ts-route">
-              <div><strong>04:00</strong> <span>{train.from}</span></div>
-              <div className="line-sep">---------- 15h 40m ----------</div>
-              <div><strong>23:55</strong> <span>{train.to}</span></div>
+              <div><strong>{train.depTime}</strong> <span>{train.from}</span></div>
+              <div className="line-sep">---------- {train.duration || '—'} ----------</div>
+              <div><strong>{train.arrTime}</strong> <span>{train.to}</span></div>
             </div>
             <div className="ts-date">📅 {train.date} • {passengers.length} Traveller(s)</div>
           </div>
 
-          {/* Passenger List */}
+          
           <div className="card passenger-section">
             <div className="sec-head">
                <h3>Passenger Details</h3>
                <span style={{fontSize:'12px', color:'#666'}}>{passengers.length} Added</span>
             </div>
 
-            {/* List of added passengers */}
+            
             {passengers.length === 0 && (
                 <div className="empty-state">No passengers added yet.</div>
             )}
@@ -111,13 +126,13 @@ const BookingPage = () => {
               </div>
             ))}
 
-            {/* Add Button */}
+            
             <button className="add-pax-btn" onClick={() => setIsModalOpen(true)}>
               <FaPlus /> Add New Passenger
             </button>
           </div>
 
-          {/* --- NEW SECTION: Contact Details --- */}
+          
           <div className="card contact-section">
             <div className="sec-head">
                <h3>Contact Details</h3>
@@ -146,7 +161,7 @@ const BookingPage = () => {
           </div>
         </div>
 
-        {/* Fare Summary (Right Side) */}
+        
         <div className="right-section">
           <div className="card fare-card">
             <h3>Fare Summary</h3>
@@ -158,7 +173,7 @@ const BookingPage = () => {
               <span>₹{train.price * (passengers.length || 0)}</span>
             </div>
 
-            {/* --- NEW: Terms Checkbox --- */}
+          
             <div className="terms-box">
                 <input 
                     type="checkbox" 
@@ -169,7 +184,7 @@ const BookingPage = () => {
                 <label htmlFor="agree">I agree to the Cancellation Policy & Terms of Service.</label>
             </div>
 
-            {/* Updated Pay Button Logic */}
+        
             <button 
               className={`pay-btn-main ${!isAgreed ? 'disabled' : ''}`} 
               onClick={handleProceedToPay}
@@ -191,7 +206,7 @@ const BookingPage = () => {
   );
 };
 
-// --- SUB-COMPONENT: The Modal Form ---
+
 const PassengerModal = ({ onClose, onSave }) => {
   const [formData, setFormData] = useState({
     name: '', age: '', gender: 'Male', berth: 'No Preference', nationality: 'India'
@@ -206,6 +221,7 @@ const PassengerModal = ({ onClose, onSave }) => {
     <div className="modal-overlay">
       <div className="modal-content">
         <div className="modal-header">
+          
           <h3>Add New Passenger</h3>
           <button onClick={onClose} className="close-icon"><FaTimes /></button>
         </div>

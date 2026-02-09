@@ -11,13 +11,10 @@ const Navbartte = () => {
   };
 
   const handleLogout = () => {
-    // Add your logout logic here
     const confirmLogout = window.confirm("Are you sure you want to logout?");
     if (confirmLogout) {
-      // Clear any auth tokens or session data
-      localStorage.removeItem("tteAuth"); // Example
-      // Redirect to login page
-      window.location.href = "/login"; // Adjust based on your routing
+     localStorage.removeItem("tteAuth"); 
+      window.location.href = "/login"; 
     }
   };
 
@@ -57,8 +54,6 @@ const Navbartte = () => {
           <span>Waitlist Allotment</span>
         </Link>
       </div>
-
-        {/* Right Section - Logout */}
         <button             style={{ 
               background: '#dc3545', 
               color: 'white', 
@@ -73,9 +68,6 @@ const Navbartte = () => {
           Logout
         </button>
       </div>
-
-      {/* Navigation Links */}
-
     </nav>
   );
 };

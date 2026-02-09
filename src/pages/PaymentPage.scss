@@ -1,8 +1,4 @@
-/* ===============================
-   payment.scss
-   =============================== */
 
-/* ---------- VARIABLES ---------- */
 $payment-text-dark: #333;
 $payment-text-muted: #555;
 $payment-text-light: #777;
@@ -29,7 +25,7 @@ $payment-radius-lg: 12px;
 
 $payment-shadow-card: 0 4px 15px rgba(0, 0, 0, 0.05);
 
-/* ---------- MIXINS ---------- */
+
 @mixin flex-center($gap: 0) {
   display: flex;
   align-items: center;
@@ -71,7 +67,7 @@ $payment-shadow-card: 0 4px 15px rgba(0, 0, 0, 0.05);
   color: $payment-text-dark;
 }
 
-/* ---------- HEADER ---------- */
+
 .payment-header {
   @include flex-center(15px);
   margin-bottom: 30px;
@@ -96,7 +92,7 @@ $payment-shadow-card: 0 4px 15px rgba(0, 0, 0, 0.05);
   color: $payment-text-muted;
 }
 
-/* ---------- GRID LAYOUT ---------- */
+
 .payment-grid {
   display: flex;
   gap: 30px;
@@ -112,7 +108,7 @@ $payment-shadow-card: 0 4px 15px rgba(0, 0, 0, 0.05);
   flex: 1;
 }
 
-/* ---------- METHOD TABS ---------- */
+
 .method-tabs {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -145,7 +141,7 @@ $payment-shadow-card: 0 4px 15px rgba(0, 0, 0, 0.05);
   margin-bottom: 8px;
 }
 
-/* ---------- FORM ---------- */
+
 .payment-form {
   @include card-base($payment-bg-light, $payment-radius-md, 20px);
   border: 1px solid $payment-border-light;
@@ -177,7 +173,7 @@ $payment-shadow-card: 0 4px 15px rgba(0, 0, 0, 0.05);
   }
 }
 
-/* ---------- SUMMARY PANEL ---------- */
+
 .summary-card {
   @include card-base($payment-bg-white, $payment-radius-lg, 25px);
   box-shadow: $payment-shadow-card;
@@ -215,7 +211,7 @@ $payment-shadow-card: 0 4px 15px rgba(0, 0, 0, 0.05);
   color: $payment-primary;
 }
 
-/* ---------- SECURE BADGE ---------- */
+
 .secure-badge {
   background: $payment-success-bg;
   border: 1px solid $payment-success-border;

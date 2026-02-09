@@ -1,8 +1,4 @@
-/* ===============================
-   admin.scss
-   =============================== */
 
-/* ---------- VARIABLES ---------- */
 $admin-primary-color: #0d6efd;
 $admin-danger-color: #dc3545;
 $admin-success-color: #198754;
@@ -24,7 +20,7 @@ $admin-radius-lg: 8px;
 $admin-shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
 $admin-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
 
-/* ---------- MIXINS ---------- */
+
 @mixin flex-align-center($gap: 0) {
   display: flex;
   align-items: center;
@@ -57,14 +53,12 @@ $admin-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 }
 
-/* ---------- PAGE CONTAINER ---------- */
+
 .admin-page-container {
   padding: 20px 40px;
   background-color: $admin-bg-light;
   min-height: calc(100vh - 64px);
 }
-
-/* ---------- SECONDARY NAV ---------- */
 .admin-secondary-nav {
   display: flex;
   gap: 30px;
@@ -96,7 +90,7 @@ $admin-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
   background-color: $admin-primary-color;
 }
 
-/* ---------- HEADER ROW ---------- */
+
 .admin-header-row {
   display: flex;
   justify-content: space-between;
@@ -115,7 +109,7 @@ $admin-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 10px 20px;
 }
 
-/* ---------- TABLE ---------- */
+
 .admin-table-container {
   background: $admin-bg-white;
   border-radius: $admin-radius-lg;
@@ -148,7 +142,7 @@ $admin-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
   vertical-align: middle;
 }
 
-/* ---------- ACTION BUTTONS ---------- */
+
 .action-btn {
   background: none;
   border: none;
@@ -179,7 +173,6 @@ $admin-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
   transform: scale(1.2);
 }
 
-/* ---------- ACTION CELL ---------- */
 .action-cell {
   display: flex !important;
   justify-content: center;
@@ -199,7 +192,7 @@ $admin-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
 }
 
-/* ---------- FORM HEADER ---------- */
+
 .form-header-row {
   display: flex;
   justify-content: space-between;
@@ -213,7 +206,7 @@ $admin-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
   gap: 5px;
 }
 
-/* ---------- FORM GRID ---------- */
+
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -225,7 +218,7 @@ $admin-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
   grid-column: span 2;
 }
 
-/* ---------- FORM GROUP ---------- */
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -238,7 +231,7 @@ $admin-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
   font-size: 14px;
 }
 
-/* ---------- INPUT ---------- */
+
 .admin-input {
   @include input-base(12px 15px, 15px);
   transition: border-color 0.2s;
@@ -248,7 +241,7 @@ $admin-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-color: $admin-primary-color;
 }
 
-/* ---------- FORM ACTIONS ---------- */
+
 .form-actions-bottom {
   display: flex;
   justify-content: space-between;
@@ -275,7 +268,7 @@ $admin-shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-left: 20px;
 }
 
-/* ---------- EDIT MODE ---------- */
+
 .edit-row {
   background-color: #f9fbfd;
 }

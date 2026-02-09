@@ -22,11 +22,11 @@ const generateSchedule = (depTime) => {
 
 const generateNextDates = (basePrice) => {
   return [
-    { date: "22 Jan, Thu", status: "Train Departed", price: basePrice, color: "red", canBook: false },
-    { date: "23 Jan, Fri", status: "Not Available", price: basePrice, color: "red", canBook: true },
-    { date: "24 Jan, Sat", status: "WL 58", price: basePrice, color: "orange", canBook: true, prob: "82%" },
-    { date: "25 Jan, Sun", status: "WL 77", price: basePrice, color: "orange", canBook: true, prob: "76%" },
-    { date: "26 Jan, Mon", status: "AVAILABLE-104", price: basePrice, color: "green", canBook: true },
+    { date: "31 Jan, Thu", status: "Train Departed", price: basePrice, color: "red", canBook: false },
+    { date: "1 Feb, Fri", status: "Not Available", price: basePrice, color: "red", canBook: true },
+    { date: "2 Feb, Sat", status: "WL 58", price: basePrice, color: "orange", canBook: true, prob: "82%" },
+    { date: "3 Feb, Sun", status: "WL 77", price: basePrice, color: "orange", canBook: true, prob: "76%" },
+    { date: "4 Feb, Mon", status: "AVAILABLE-104", price: basePrice, color: "green", canBook: true },
   ];
 };
 
@@ -97,12 +97,13 @@ const formatDateDisplay = (dateObj) => {
 };
 
 
-const TrainCard = ({ train, activeFilter, isTatkalAllowed }) => {
+const TrainCard = ({ train, activeFilter, isTatkalAllowed, journeyDate }) => {
   const [selectedClass, setSelectedClass] = useState(null);
   const [showSchedule, setShowSchedule] = useState(false);
   const [activeTab, setActiveTab] = useState("General");
   
   const navigate = useNavigate();
+  const location = useLocation();
   
   const { user } = useAuth(); 
 
@@ -133,16 +134,19 @@ const TrainCard = ({ train, activeFilter, isTatkalAllowed }) => {
 }
 
 
-    navigate('/booking', { 
-      state: { 
-        train: {
-          name: `${train.name} (${train.number})`,
+    navigate('/booking', {
+      state: {
+        trainDetails: {
+          name: train.name,
+          number: train.number,
           from: train.from,
           to: train.to,
-          date: "26 Jan", 
+          depTime: train.depTime,
+          arrTime: train.arrTime,
+          date: journeyDate || "",
           price: currentClassData ? currentClassData.price : 0
-        } 
-      } 
+        }
+      }
     });
   };
  return (
@@ -542,6 +546,7 @@ return (
               train={train}
               activeFilter={activeFilter}
               isTatkalAllowed={isTatkalAllowed}
+              journeyDate={journeyDate || selectedDate.toLocaleDateString()}
             />
           ))
         ) : (
