@@ -11,36 +11,56 @@ const AddTrain = () => {
  
   const [formData, setFormData] = useState({
     number: '', name: '', from: '', to: '',
-    depTime: '', arrTime: '', duration: '', frequency: 'Daily', routeStns: ''
+    depTime: '', arrTime: '', duration: '', frequency: 'Daily', routeStns: '',seats: '', price: ''
   });
 
   const handleChange = (e) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // 1. Get token for authorization
+   const token = localStorage.getItem('token'); 
+console.log("Token being sent:", token);
 
-  const handleSubmit = (e) => {
-      e.preventDefault();
-      
-      
-      const newTrain = {
-          id: Date.now(), 
-          number: formData.number,
-          name: formData.name,
-          route: `${formData.from} → ${formData.to}`,
-          timing: `${formData.depTime} - ${formData.arrTime}`,
-          frequency: formData.frequency
-         
-      };
+    // 2. Prepare data to match your Java Model (Train.java)
+    const trainData = {
+        trainNumber: formData.number,
+        trainName: formData.name,
+        source: formData.from,        // Ensure these match Java fields exactly
+        destination: formData.to,
+        departureTime: formData.depTime,
+        arrivalTime: formData.arrTime,
+        duration: formData.duration,
+        frequency: formData.frequency,
+        totalSeats: parseInt(formData.totalSeats) ||0 ,
+    ticketPrice: parseFloat(formData.ticketPrice) ||0,
+        routeStations: formData.routeStns ? formData.routeStns.split(',').map(s => s.trim()) : []
+        
+    };
 
-      
-      const existingTrains = JSON.parse(localStorage.getItem('adminTrains') || "[]");
-      const updatedTrains = [...existingTrains, newTrain];
-      localStorage.setItem('adminTrains', JSON.stringify(updatedTrains));
+    try {
+        const response = await fetch("http://localhost:8082/api/trains/add", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}` // ✅ Required for your JwtFilter
+            },
+            body: JSON.stringify(trainData)
+        });
 
-      
-      navigate('/admin/dashboard');
-  };
-
+        if (response.ok) {  
+            navigate('/admin/dashboard');
+        } else {
+            const error = await response.json();
+            alert("Error: " + error.message);
+        }
+    } catch (err) {
+        console.error("Connection Failed:", err);
+        alert("Could not connect to the Train Service. Is it running on port 8082?");
+    }
+};
   return (
     <div className="page-wrapper">
       <Navbar />
@@ -96,6 +116,28 @@ const AddTrain = () => {
                         <label>Route Stations (comma-separated)</label>
                         <input type="text" name="routeStns" className="admin-input" placeholder="Station1, Station2, Station3" value={formData.routeStns} onChange={handleChange} />
                     </div>
+                    <div className="form-group">
+    <label>Total Seats</label>
+    <input 
+      type="number" 
+      name="totalSeats" 
+      required 
+      className="admin-input" 
+      value={formData.totalSeats} 
+      onChange={handleChange} 
+    />
+</div>
+<div className="form-group">
+    <label>Ticket Price</label>
+    <input 
+      type="number" 
+      name="ticketPrice" 
+      required 
+      className="admin-input" 
+      value={formData.ticketPrice} 
+      onChange={handleChange} 
+    />
+</div>
                 </div>
 
                 <div className="form-actions-bottom">

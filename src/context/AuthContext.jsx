@@ -1,40 +1,35 @@
-import React, { createContext, useContext, useState } from 'react';
+/* eslint-disable react-refresh/only-export-components */
+import React, { createContext, useState, useContext } from 'react';
 
-// eslint-disable-next-line react-refresh/only-export-components
+// 1. Create the Context
 export const AuthContext = createContext();
 
+// 2. Create the Provider Component
 export const AuthProvider = ({ children }) => {
-  
-  // 1. Check Session Storage (Persists on Refresh, Clears on Close)
   const [user, setUser] = useState(() => {
+    // Check sessionStorage to keep the user logged in after page refresh
     const savedUser = sessionStorage.getItem('currentUser');
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
-  const login = (username, password) => {
-    let role = 'passenger';
-
-    
-    if (username === 'admin' && password === 'admin123') {
-      role = 'admin';
-    } else if (username === 'tte' && password === 'tte123') {
-      role = 'tte';
-    } else {
-      role = 'passenger';
-    }
-
-    const userData = { username, role };
+  // ✅ Login function: Handles both UI state and JWT storage
+  const login = (userData) => {
     setUser(userData);
     
-    // 2. Save to Session Storage instead of Local Storage
+    // Save user profile for UI (Role, Username)
     sessionStorage.setItem('currentUser', JSON.stringify(userData));
-    return true;
+
+    // Save JWT Token for Backend API calls (used by your JwtFilter)
+    if (userData.token) {
+      localStorage.setItem('token', userData.token);
+    }
   };
 
+  // ✅ Logout function: Cleans up all storage
   const logout = () => {
     setUser(null);
-    // 3. Remove from Session Storage
     sessionStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
   };
 
   return (
@@ -42,7 +37,14 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-  
 };
-// eslint-disable-next-line react-refresh/only-export-components
-export const useAuth = () => useContext(AuthContext);
+
+// 3. ✅ Custom Hook for easy access in Navbar, Dashboard, etc.
+// This resolves the error in image_60bdd6.png
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};

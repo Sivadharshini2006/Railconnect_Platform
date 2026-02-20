@@ -1,25 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 import './FareManagement.scss';
 
-const initialFares = [
-  { id: 1, className: "1A (First AC)", baseRate: 500, perKm: 6.5, tatkal: 400, reservation: 50 },
-  { id: 2, className: "2A (Second AC)", baseRate: 350, perKm: 4.5, tatkal: 300, reservation: 50 },
-  { id: 3, className: "3A (Third AC)", baseRate: 250, perKm: 3, tatkal: 200, reservation: 40 },
-  { id: 4, className: "SL (Sleeper)", baseRate: 150, perKm: 1.5, tatkal: 100, reservation: 30 },
-  { id: 5, className: "2S (Second Sitting)", baseRate: 80, perKm: 0.8, tatkal: 50, reservation: 20 },
-];
-
 const FareManagement = () => {
-  const [fares, setFares] = useState(initialFares);
+  const [fares, setFares] = useState([]);
   const [editId, setEditId] = useState(null);
   const [editFormData, setEditFormData] = useState({});
 
-  
-  const handleEditClick = (fare) => {
-    setEditId(fare.id);
-    setEditFormData(fare);
+  const fetchFares = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch("http://localhost:8082/api/fares/all", {
+        headers: { 
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setFares(data);
+      }
+    } catch (err) {
+      console.error("Error fetching fares:", err);
+    }
   };
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchFares();
+  }, []);
+
+ const handleEditClick = (fare) => {
+  // CHANGE: Use fare.id because that is what your Java model provides
+  setEditId(fare.id); 
+  setEditFormData(fare);
+};
 
   const handleCancelClick = () => {
     setEditId(null);
@@ -29,30 +44,45 @@ const FareManagement = () => {
     setEditFormData({ ...editFormData, [e.target.name]: e.target.value });
   };
 
-  const handleSaveClick = () => {
-    const updatedFares = fares.map((fare) => 
-      fare.id === editId ? { ...editFormData, 
-          
-          baseRate: Number(editFormData.baseRate),
-          perKm: Number(editFormData.perKm),
-          tatkal: Number(editFormData.tatkal),
-          reservation: Number(editFormData.reservation)
-      } : fare
-    );
-    setFares(updatedFares);
-    setEditId(null);
-  };
+ const handleSaveClick = async () => {
+  if (!editId) return; // Prevent sending 'undefined'
+
+  try {
+    const token = localStorage.getItem('token');
+    // The URL will now correctly be /api/fares/update/{id}
+    const response = await fetch(`http://localhost:8082/api/fares/update/${editId}`, {
+      method: 'PUT',
+      headers: { 
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json" 
+      },
+      body: JSON.stringify({
+        baseRate: Number(editFormData.baseRate),
+        perKm: Number(editFormData.perKm),
+        tatkal: Number(editFormData.tatkal),
+        reservation: Number(editFormData.reservation)
+      })
+    });
+
+    if (response.ok) {
+      alert("Fare updated successfully!");
+      fetchFares(); 
+      setEditId(null);
+    } else {
+      console.error("Failed to save. Status:", response.status);
+    }
+  } catch (err) {
+    console.error("Update failed:", err);
+  }
+};
 
   return (
     <div className="fare-page-container">
-      
-     
       <div className="fare-header-section">
         <h3>Fare Management</h3>
         <p className="fare-subtitle">Configure base rates, per-kilometer charges, and additional fees for different classes.</p>
       </div>
 
-     
       <div className="fare-table-card">
         <table className="fare-table">
           <thead>
@@ -66,46 +96,41 @@ const FareManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {fares.map((fare) => (
-              <tr key={fare.id} className={editId === fare.id ? "fare-edit-row" : ""}>
-                
-                
-                <td className="class-name">{fare.className}</td>
+    {fares.map((fare) => (
+      // CHANGE: Use fare.id for unique keys and row comparisons
+      <tr key={fare.id} className={editId === fare.id ? "fare-edit-row" : ""}>
+        <td className="class-name">{fare.className}</td>
 
-                {editId === fare.id ? (
-                 
-                  <>
-                    <td><input type="number" name="baseRate" value={editFormData.baseRate} onChange={handleChange} className="fare-input" /></td>
-                    <td><input type="number" name="perKm" value={editFormData.perKm} onChange={handleChange} className="fare-input" step="0.1" /></td>
-                    <td><input type="number" name="tatkal" value={editFormData.tatkal} onChange={handleChange} className="fare-input" /></td>
-                    <td><input type="number" name="reservation" value={editFormData.reservation} onChange={handleChange} className="fare-input" /></td>
-                    <td>
-                      <button className="fare-action-btn save" onClick={handleSaveClick}><FaSave /></button>
-                      <button className="fare-action-btn cancel" onClick={handleCancelClick}><FaTimes /></button>
-                    </td>
-                  </>
-                ) : (
-                 
-                  <>
-                    <td>₹{fare.baseRate}</td>
-                    <td>₹{fare.perKm}</td>
-                    <td>₹{fare.tatkal}</td>
-                    <td>₹{fare.reservation}</td>
-                    <td>
-                      <button className="fare-btn-primary" onClick={() => handleEditClick(fare)}>Edit</button>
-                    </td>
-                  </>
-                )}
-              </tr>
-            ))}
-          </tbody>
+        {/* CHANGE: Check against fare.id */}
+        {editId === fare.id ? (
+          <>
+            <td><input type="number" name="baseRate" value={editFormData.baseRate} onChange={handleChange} className="edit-input" /></td>
+            <td><input type="number" name="perKm" value={editFormData.perKm} onChange={handleChange} className="edit-input" step="0.1" /></td>
+            <td><input type="number" name="tatkal" value={editFormData.tatkal} onChange={handleChange} className="edit-input" /></td>
+            <td><input type="number" name="reservation" value={editFormData.reservation} onChange={handleChange} className="edit-input" /></td>
+            <td>
+              <button className="fare-action-btn save" onClick={handleSaveClick}><FaSave /></button>
+              <button className="fare-action-btn cancel" onClick={handleCancelClick}><FaTimes /></button>
+            </td>
+          </>
+        ) : (
+          <>
+            <td>₹{fare.baseRate}</td>
+            <td>₹{fare.perKm}</td>
+            <td>₹{fare.tatkal}</td>
+            <td>₹{fare.reservation}</td>
+            <td>
+              <button className="fare-btn-primary" onClick={() => handleEditClick(fare)}>Edit</button>
+            </td>
+          </>
+        )}
+      </tr>
+    ))}
+  </tbody>
         </table>
       </div>
 
-      
       <div className="fare-info-container">
-        
-      
         <div className="fare-info-card">
           <h4>Fare Calculator (Example)</h4>
           <div className="formula-box">
@@ -120,7 +145,6 @@ const FareManagement = () => {
           </div>
         </div>
 
-        
         <div className="fare-info-card">
           <h4>Dynamic Pricing Rules</h4>
           <ul className="rules-list">
@@ -146,9 +170,7 @@ const FareManagement = () => {
             </li>
           </ul>
         </div>
-
       </div>
-
     </div>
   );
 };

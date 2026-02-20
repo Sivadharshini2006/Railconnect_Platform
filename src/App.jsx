@@ -31,30 +31,49 @@ function App() {
         <Route path="/" element={<Home />} />
         
         {/* Other Routes */}
+        
+        <Route path="/login" element={<LoginPage/>}/>
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/pnr-status" element={<PnrStatus />} />
+
+
+
         <Route path="/search" element={<SearchResults />} />
         <Route path="/booking" element={<BookingPage />} />
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/my-bookings" element={<MyBookings />} />
-        <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/pnr-status" element={<PnrStatus />} />
-        <Route path="/tte/charts" element={<ReservationCharts />} />
-        {/* Add these routes for the TTE Header Links */}
-<Route path="/tte/charts" element={<ReservationCharts />} />
-<Route path="/tte/verification" element={<TicketVerification />} /> 
-           <Route path="/tte/waitlist" element={<WaitlistAllotment />} />
+    
 
-<Route path="/" element={
-             <RoleAccess roleType="user">
-                <SearchResults />
-             </RoleAccess>
-           } />
+{/* --- TTE ROUTES (Protected) --- */}
+          <Route path="/tte/charts" element={
+            <RoleAccess roleType="TTE">
+              <ReservationCharts />
+            </RoleAccess>
+          } />
+          <Route path="/tte/verification" element={
+            <RoleAccess roleType="TTE">
+              <TicketVerification />
+            </RoleAccess>
+          } />
+          <Route path="/tte/waitlist" element={
+            <RoleAccess roleType="TTE">
+              <WaitlistAllotment />
+            </RoleAccess>
+          } />
 
-<Route path="/admin/dashboard" element={<AdminDashboard />} />
-<Route path="/admin/add-train" element={<AddTrain />} />
-
-      </Routes>
-    </BrowserRouter>
+          {/* --- ADMIN ROUTES (Protected) --- */}
+          <Route path="/admin/dashboard" element={
+            <RoleAccess roleType="ADMIN">
+              <AdminDashboard />
+            </RoleAccess>
+          } />
+          <Route path="/admin/add-train" element={
+            <RoleAccess roleType="ADMIN">
+              <AddTrain />
+            </RoleAccess>
+          } />
+        </Routes>
+      </BrowserRouter>
     </AuthProvider>
   );
 }

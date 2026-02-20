@@ -283,7 +283,7 @@ const TrainCard = ({ train, activeFilter, isTatkalAllowed, journeyDate }) => {
                     {row.prob} Chance
                   </span>
                 )}
-
+{user?.role?.toUpperCase() !== 'ADMIN' && user?.role?.toUpperCase() !== 'TTE' ? (
                 <button
                   disabled={!row.canBook}
                   onClick={handleBook}
@@ -295,7 +295,11 @@ const TrainCard = ({ train, activeFilter, isTatkalAllowed, journeyDate }) => {
                     }`}
                 >
                   {row.canBook ? `Book ₹${row.price}` : "Closed"}
-                </button>
+                </button>) : (
+  <span className="text-[10px] bg-gray-100 text-gray-500 px-3 py-1 rounded border">
+    View Only Mode
+  </span>
+)}
               </div>
             </div>
           ))}
@@ -360,6 +364,7 @@ const navigate = useNavigate();
     journeyDate,
     quota
   } = location.state || {};
+
 useEffect(() => {
   if (!location.state) {
     navigate("/");

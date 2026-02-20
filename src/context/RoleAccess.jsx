@@ -1,28 +1,19 @@
-
-import React from 'react';
+import React, { useContext } from 'react'; // Added useContext import
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { AuthContext } from './AuthContext'; // Ensure this path is correct
 
 const RoleAccess = ({ children, roleType }) => {
-  const { user } = useAuth();
+  const { user } = useContext(AuthContext);
 
- 
-  if (!user && roleType === 'tte') {
+  if (!user) {
     return <Navigate to="/login" />;
   }
 
- 
-  if (roleType === 'user' && user?.role === 'tte') {
-    
-    return <Navigate to="/tte/charts" />;
-  }
-
-  
-  if (roleType === 'tte' && user?.role !== 'tte') {
-    
+  // ✅ Convert both to Uppercase to avoid "admin" vs "ADMIN" errors
+  if (user.role.toUpperCase() !== roleType.toUpperCase()) {
+    console.log(`Access Denied: User role ${user.role} does not match ${roleType}`);
     return <Navigate to="/" />;
   }
-
 
   return children;
 };

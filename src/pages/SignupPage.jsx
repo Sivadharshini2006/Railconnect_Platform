@@ -3,27 +3,45 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "./SignupPage.scss"; 
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
-import { useAuth } from "../context/AuthContext";
+//import { useAuth } from "../context/AuthContext";
 
 export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth(); 
+  //const { login } = useAuth(); 
 
-  const handleSignup = (e) => {
-    e.preventDefault();
-    
-    
-    const newUser = { name, email, role: "user" };
-    
-    
-    login(newUser);
-    
-    
+ const handleSignup = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("http://localhost:8081/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        role: "USER"   // default role
+      })
+    });
+
+    if (!response.ok) {
+      alert("Registration Failed");
+      return;
+    }
+
+    alert("Registration Successful!");
     navigate("/");
-  };
+
+  } catch (error) {
+    console.error("Signup Error:", error);
+    alert("Server Error");
+  }
+};
 
   return (
     <div className="signup-page-wrapper">

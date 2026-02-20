@@ -13,37 +13,68 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { login } = useAuth(); 
+const handleLogin = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await fetch("http://localhost:8081/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const cleanEmail = email.trim();
-    const cleanPass = password.trim();
-
-    console.log("Attempting login with:", cleanEmail, cleanPass);
-
-    if (cleanEmail === "tte@railconnect.com" && cleanPass === "tte123") {
-      const tteUser = { name: "TTE Admin", email: cleanEmail, role: "tte" };
-      login(tteUser);
-      navigate("/tte/charts"); 
-      return; 
-    }
-
-    if (cleanEmail === "admin@railconnect.com" && cleanPass === "admin123") {
-      const adminUser = { name: "System Admin", email: cleanEmail, role: "admin" };
-      login(adminUser);
-      navigate("/admin/dashboard");
+    if (!response.ok) {
+      alert("Invalid credentials");
       return;
     }
 
-    const userData = {
-      name: cleanEmail.split("@")[0],
-      email: cleanEmail,
-      role: "user"
-    };
+    const data = await response.json();
+    localStorage.setItem("token", data.token);
 
-    login(userData);
-    navigate("/"); 
-  };
+    // ✅ Normalize the role to stay consistent
+    const rawRole = data.role || "";
+    const cleanRole = rawRole.replace("ROLE_", "").toUpperCase();
+
+    console.log("Redirecting user with role:", cleanRole);
+
+    login({ email, role: cleanRole });
+
+    // ✅ Use cleanRole for the checks
+    if (cleanRole === "ADMIN") {
+      navigate("/admin/dashboard");
+    } else if (cleanRole === "TTE") {
+      navigate("/tte/charts");
+    } else {
+      navigate("/");
+    }
+  } catch (error) {
+    console.error("Login Error:", error);
+    alert("Server Error");
+  }
+};
+
+const handleLoginSubmit = async (credentials) => {
+    try {
+        const response = await fetch("http://localhost:8081/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(credentials)
+        });
+
+        const data = await response.json(); // This contains { token, username, role }
+
+        if (response.ok && data.token) {
+            // ✅ This triggers the logic in AuthContext to save token & user
+            login(data); 
+            
+            // Redirect based on role
+            if (data.role === 'ADMIN') navigate('/admin/dashboard');
+            else navigate('/');
+        }
+    } catch (error) {
+        console.error("Login failed", error);
+    }
+};
+
 
   return (
     <div className="login-page-wrapper">
@@ -58,6 +89,12 @@ export default function LoginPage() {
 
           <h2>Welcome Back</h2>
           <p className="sub-text">Please sign in to continue</p>
+  <form onSubmit={(e) => {
+    e.preventDefault();
+    // Gather your form data into a 'credentials' object
+    const credentials = { email, password }; 
+    handleLoginSubmit(credentials); // 👈 Call the function here to fix the error
+}}></form>
 
           <form onSubmit={handleLogin}>
             <div className="input-group">

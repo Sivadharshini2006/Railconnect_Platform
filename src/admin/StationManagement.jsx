@@ -2,33 +2,52 @@ import React, { useState, useEffect } from 'react';
 import { FaMapMarkerAlt, FaPlus, FaPen, FaTrash, FaTimes } from 'react-icons/fa';
 import './StationManagement.scss';
 
-const initialStations = [
+/*const initialStations = [
   { id: 1, code: "NDLS", name: "New Delhi", city: "Delhi", state: "Delhi", zone: "Northern Railway" },
   { id: 2, code: "BCT", name: "Mumbai Central", city: "Mumbai", state: "Maharashtra", zone: "Western Railway" },
   { id: 3, code: "HWH", name: "Howrah Junction", city: "Kolkata", state: "West Bengal", zone: "Eastern Railway" },
   { id: 4, code: "MAS", name: "Chennai Central", city: "Chennai", state: "Tamil Nadu", zone: "Southern Railway" }
-];
+];*/
 
 const StationManagement = () => {
-
-  const [stations, setStations] = useState(() => {
-    const saved = localStorage.getItem('adminStations');
-    return saved ? JSON.parse(saved) : initialStations;
-  });
-
- 
+  // 1. Initialize stations as an empty array
+  const [stations, setStations] = useState([]);
   const [view, setView] = useState('list');
-  
-  
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({ id: '', code: '', name: '', city: '', state: '', zone: '' });
 
- 
-  useEffect(() => {
-    localStorage.setItem('adminStations', JSON.stringify(stations));
-  }, [stations]);
+const fetchStations = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.error("No token found. Please login again.");
+            return;
+        }
 
+        const response = await fetch("http://localhost:8082/api/stations/all", {
+            headers: { 
+                "Authorization": `Bearer ${token}`, // Added Bearer prefix
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            setStations(data);
+        } else if (response.status === 403) {
+            console.error("403 Forbidden: Check your role or if the token is expired.");
+        }
+    } catch (err) {
+        console.error("Fetch error:", err);
+    }
+  };
+ 
+useEffect(() => {
+    fetchStations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []); // Empty array means it runs exactly once on load
   
+
 
   const handleAddNew = () => {
     setFormData({ id: '', code: '', name: '', city: '', state: '', zone: '' });
@@ -42,31 +61,74 @@ const StationManagement = () => {
     setView('form');
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this station?")) {
-      setStations(stations.filter(s => s.id !== id));
+  const handleDelete = async (id) => {
+  if (window.confirm("Are you sure you want to delete this station?")) {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`http://localhost:8082/api/stations/delete/${id}`, {
+        method: 'DELETE',
+        headers: { 
+          "Authorization": `Bearer ${token}` 
+        }
+      });
+
+      if (response.ok) {
+        alert("Station deleted successfully");
+        // Refresh the list from the database without reloading the whole page
+        fetchStations(); 
+      } else {
+        const errorData = await response.text();
+        console.error("Delete failed:", errorData);
+      }
+    } catch (err) {
+      console.error("Network error during delete:", err);
     }
-  };
+  }
+};
 
   const handleCancel = () => {
     setView('list');
     setFormData({ id: '', code: '', name: '', city: '', state: '', zone: '' });
   };
 
-  const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
     
-    if (isEditing) {
-      
-      setStations(stations.map(s => (s.id === formData.id ? formData : s)));
-    } else {
-      
-      const newStation = { ...formData, id: Date.now() };
-      setStations([...stations, newStation]);
+    try {
+        let response;
+        if (isEditing) {
+            response = await fetch(`http://localhost:8082/api/stations/update/${formData.id}`, {
+                method: 'PUT',
+                headers: { 
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json" 
+                },
+                body: JSON.stringify(formData)
+            });
+        } else {
+            const stationToSave = { ...formData };
+            delete stationToSave.id;
+            response = await fetch("http://localhost:8082/api/stations/add", {
+                method: 'POST',
+                headers: { 
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json" 
+                },
+                body: JSON.stringify(stationToSave)
+            });
+        }
+
+        if (response.ok) {
+            alert(isEditing ? "Station Updated!" : "Station Added!");
+            // INSTEAD OF RELOAD: Refresh data and switch view
+            await fetchStations(); 
+            setView('list'); 
+        }
+    } catch (err) {
+        console.error("Operation failed:", err);
     }
-    
-    setView('list');
-  };
+};
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -77,17 +139,13 @@ const StationManagement = () => {
       
     
       <div className="station-header">
-        <h3>Station Management</h3>
+       
         {view === 'list' && (
           <button className="add-station-btn" onClick={handleAddNew}>
             <FaPlus /> Add Station
           </button>
         )}
-        {view === 'form' && (
-           <button className="cancel-top-btn" onClick={handleCancel}>
-             <FaTimes /> Cancel
-           </button>
-        )}
+        
       </div>
 
       
